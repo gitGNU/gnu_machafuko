@@ -1,0 +1,40 @@
+<!--
+ Utamaduni (suajili language meaning 'culture') is a book management.
+ Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="container_12">
+    <div id="left" class="grid_12">
+      <h2>
+	{title}
+      </h2>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="right" class="grid_6">
+      <div id="right" class="normal-box"><img id="{imgid}" src="{cover}" /></div>
+      {{authors<div class="normal-box"><p>{author}</p><img id="{imgauthorid}" src="{photo}" /></div>}}
+    </div>
+
+    <div id="left" class="grid_6">
+      <div id="normal-box"><b>{isbn_tag}:</b><p>{isbn}</p></div>
+      <div id="normal-box"><b>{publisher_tag}:</b><p>{publisher}</p></div>
+      <div id="normal-box"><b>{format_tag}:</b><p>{format}</p></div>
+      <div id="normal-box"><b>{subject_tag}:</b><p>{subject}</p></div>
+      <div id="normal-box"><b>{description_tag}:</b><p>{description}</p></div>
+    </div>
+</div>

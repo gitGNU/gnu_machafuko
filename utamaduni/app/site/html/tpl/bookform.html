@@ -1,0 +1,185 @@
+<!--
+ Utamaduni (suajili language meaning 'culture') is a book management.
+ Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<form id='newbook-form' method='post' action='private/book/update.html' enctype='multipart/form-data' target='my-iframe'>
+
+<div class="container_12">
+    <!-- FIRST ROW -->
+    <div id="left" class="grid_12">
+      <h2>
+	<input class='my-input-a2' type='text' name='title' id='title' value='{title}' maxlength='{title_len}' onfocus="javascript: this.value=''" />
+      </h2>
+    </div>
+
+    <div class="clear"></div>
+
+    <!-- SECOND ROW -->
+    <!-- First column -->
+    <div id="right" class="grid_3">
+	<div id="right" class="normal-box">
+	  <b>{cover_label}:</b><br />
+	  <input class='my-input-large' type='file' name='cover' id='cover' />
+	</div>
+	<div class="normal-box">
+	  <b>{author_label}:</b><br />
+	  <select type='text' id='author' name='author[]' multiple size='4'>
+	    {{authors<option value='{author_value}'>{author_name}</option>}}
+	  </select>
+	</div>
+	<div class="normal-box">
+	  <b>{bookshop_label}:</b><br />
+	  <select type='text' id='bookshop' name='bookshop'>
+	    {{bookshops<option>{bookshop_opt}</option>}}
+	  </select>
+	</div>
+    </div>
+
+    <!-- Second column -->
+    <div id="left" class="grid_3">
+	<div id="normal-box">
+	  <b>{isbn_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='isbn' id='isbn' value='{isbn}' maxlength='{isbn_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{publisher_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='publisher' id='publisher' value='{publisher}' maxlength='{publisher_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{format_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='format' id='format' value='{format}' maxlength='{format_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{subject_label}</b>
+	  <p>
+	  <input class='my-input-large' type='text' name='subject' id='subject' value='{subject}' maxlength='{subject_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{description_label}</b>
+	  <p>
+	    <textarea name='description' id='description' maxlength='{description_len}' rows='{description_rows}' cols='{description_cols}'>{description}</textarea>
+	  </p>
+        </div>
+      </div>
+
+      <!-- Third column -->
+      <div id="left" class="grid_3">
+	<div id="normal-box">
+	  <b>{pages_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='pages' id='pages' value='{pages}' maxlength='{pages_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{start_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='start' id='start' value='{start}' maxlength='{start_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{finish_label}</b>
+	  <p>
+	  <input class='my-input-large' type='text' name='finish' id='finish' value='{finish}' maxlength='{finish_len}' />
+	  </p>
+	</div>
+
+	<div id="normal-box">
+	  <b>{valoration_label}</b>
+	  <p>
+	    <select type='text' id='valoration' name='valoration'>
+	      <option>({valoration_select})</option>
+	      <option>0</option>
+	      <option>1</option>
+	      <option>2</option>
+	      <option>3</option>
+	      <option>4</option>
+	      <option>5</option>
+	      <option>6</option>
+	      <option>7</option>
+	      <option>8</option>
+	      <option>9</option>
+	      <option>10</option>
+	  </select>
+	  </p>
+	</div>
+    </div>
+
+    <!-- Fourth column -->
+    <div id="left" class="grid_3">
+	<div id="grid-gray">
+	  <p id='small'>{price_msg}</p>
+	  <b>{price_label}:</b>
+	  <p>
+	    <input class='my-input-medium' type='text' name='price' id='price' value='{price}' maxlength='{price_len}' />
+	  </p>
+	</div>
+	<div id="grid-gray">
+            <p id='small'>{contact_msg}</p>
+	    <b>{contact_label}:</b>
+	    <p>
+	    <select type='text' id='contact' name='contact'>
+	      {{contacts<option>{contact_opt}</option>}}
+	    </select>
+	    </p>
+	</div>
+    </div>
+
+    <div class="clear"></div>
+
+    <!-- THIRD ROW -->
+    <div id="left" class="grid_9 prefix_3">
+	<div id="normal-box">
+	  <b>{opinion_label}</b>
+	  <p>
+	    <textarea name='opinion' id='opinion' maxlength='{opinion_len}' rows='{opinion_rows}' cols='{opinion_cols}'>{opinion}</textarea>
+	  </p>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <!-- FOURTH ROW -->
+   <div id="right" class="grid_6">
+	<input type="button" id="cancel" name="cancel" value="{cancel_btn}" class="my-btn"
+	  onclick="javascript: bookloader.loadXMLContent ();" />
+   </div>
+   <div id="left" class="grid_6">
+	<input type="submit" id="submit" name="submit" value="{ok_btn}" class="my-btn" />
+   </div>
+
+   <div class="clear"></div>
+
+   <!-- FIVETH ROW -->
+   <div class="grid_12">
+      <iframe name='my-iframe' frameborder='0' width='100%'></iframe>
+   </div>
+</div>
+
+</form>

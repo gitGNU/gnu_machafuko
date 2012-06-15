@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-20 17:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../index.php:119
+msgid "Requested module is not a valid module."
+msgstr "El módulo solicitado no es un módulo válido."
+
+#: ../index.php:139
+msgid "You do not have access to the requested page."
+msgstr "No tienes acceso a la página solicitada."
+
+#: ../index.php:149
+msgid "An valid module for your request was not found."
+msgstr "El módulo solicitado no funciona."
+
+#: ../index.php:154
+msgid "Could not find"
+msgstr "No puede encontrar"
+
+#: ../index.php:159
+msgid "A valid module was not specified."
+msgstr "No se ha especificado un módulo válido."
+
+#: ../modules/private/home.php:84
+msgid "Welcome to your personal site"
+msgstr "Bienvenid@ a tu sitio personal"
+
+#: ../modules/private/newbook.php:70 ../modules/private/newauthor.php:70
+#, fuzzy
+msgid "Required field."
+msgstr "Campo obligatorio: inserta el ISBN"
+
+#: ../modules/private/newbook.php:71
+msgid "Invalid date. Valid format: dd/mm/aaaa."
+msgstr "Fecha incorrecta. Formato válido: dd/mm/aaaa."
+
+#: ../modules/private/newbook.php:75
+msgid "Author"
+msgstr "Autor"
+
+#: ../modules/private/newbook.php:79
+msgid "New author"
+msgstr "Nuevo autor"
+
+#: ../modules/private/newbook.php:92
+msgid "Required field: put the ISBN."
+msgstr "Campo obligatorio: inserta el ISBN"
+
+#: ../modules/private/newbook.php:97
+msgid "Title"
+msgstr "Título"
+
+#: ../modules/private/newbook.php:104
+msgid "Required field: put the title."
+msgstr "Campo obligatorio: inserta el título"
+
+#: ../modules/private/newbook.php:109
+msgid "Subject (tags)"
+msgstr "Género (etiquetas)"
+
+#: ../modules/private/newbook.php:116
+msgid "Description"
+msgstr "Descripción"
+
+#: ../modules/private/newbook.php:126
+msgid "Publisher"
+msgstr "Editorial"
+
+#: ../modules/private/newbook.php:133
+msgid "Format"
+msgstr "Formato"
+
+#: ../modules/private/newbook.php:140
+msgid "Pages"
+msgstr "Páginas"
+
+#: ../modules/private/newbook.php:147
+msgid "Cover"
+msgstr "Portada"
+
+#: ../modules/private/newbook.php:154
+msgid "Start read date"
+msgstr "Fecha inicio lectura"
+
+#: ../modules/private/newbook.php:164
+msgid "End read date"
+msgstr "Fecha fin lectura"
+
+#: ../modules/private/newbook.php:174
+msgid "Opinion"
+msgstr "Opinión"
+
+#: ../modules/private/newbook.php:184
+msgid "Rating"
+msgstr "Valoración"
+
+#: ../modules/private/newbook.php:191 ../modules/private/newauthor.php:104
+#, fuzzy
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../modules/private/newbook.php:196 ../modules/private/newauthor.php:109
+msgid "Ok"
+msgstr "Aceptar"
+
+#: ../modules/private/newbook.php:226
+msgid "The ISBN must consist of numbers and dashes only"
+msgstr "El ISBN debe estar formado por números y guiones"
+
+#: ../modules/private/newbook.php:229
+msgid "The title must consist of letter and numbers only"
+msgstr "El título debe estar formado por letras y números"
+
+#: ../modules/private/newbook.php:232
+msgid "The description must consist of letter and numbers only"
+msgstr "La descripción debe estar formado por letras y números"
+
+#: ../modules/private/newbook.php:235
+#, fuzzy
+msgid "The publisher must consist of letter and numbers only"
+msgstr "El título debe estar formado por letras y números"
+
+#: ../modules/private/newbook.php:238
+#, fuzzy
+msgid "The format must consist of letter and numbers only"
+msgstr "El título debe estar formado por letras y números"
+
+#: ../modules/private/newbook.php:241
+#, fuzzy
+msgid "The pages must consist of numbers only"
+msgstr "La contraseña debe estar formada por letras y números"
+
+#: ../modules/private/newbook.php:244
+msgid "The start date must consist of letter and numbers only"
+msgstr "La fecha de inicio debe estar formada por letras y números"
+
+#: ../modules/private/newbook.php:247
+msgid "The finish date must consist of letter and numbers only"
+msgstr "La fecha final debe estar formada por letras y números"
+
+#: ../modules/private/newbook.php:250
+msgid "The opinion must consist of letter and numbers only"
+msgstr "La opinión debe estar formada por letras y números"
+
+#: ../modules/private/newbook.php:253
+msgid "The valoration must consist of digits"
+msgstr "La valoración debe estar formada por dígitos"
+
+#: ../modules/private/newbook.php:257
+#, fuzzy
+msgid "The subjects must consist of letter and numbers only"
+msgstr "El título debe estar formado por letras y números"
+
+#: ../modules/private/newbook.php:354 ../modules/private/newauthor.php:185
+msgid "It can not upload the file"
+msgstr "No se ha podido subir el fichero"
+
+#: ../modules/private/newbook.php:359 ../modules/private/newauthor.php:190
+msgid "The book"
+msgstr "El libro"
+
+#: ../modules/private/newbook.php:361 ../modules/private/newauthor.php:192
+msgid "has inserted"
+msgstr "ha sido insertado"
+
+#: ../modules/private/newbook.php:363 ../modules/private/newauthor.php:194
+msgid "Continue"
+msgstr "Continuar"
+
+#: ../modules/private/newbook.php:376 ../modules/private/newbook.php:388
+#: ../modules/private/newauthor.php:207 ../modules/private/newauthor.php:219
+msgid "Leave"
+msgstr "Abandonar"
+
+#: ../modules/private/allbooks.php:103
+msgid "Create a new book:"
+msgstr "Crear un nuevo libro:"
+
+#: ../modules/private/allbooks.php:104
+#, fuzzy
+msgid "New book..."
+msgstr "El libro"
+
+#: ../modules/private/allbooks.php:106
+#, fuzzy
+msgid "All your books:"
+msgstr "Todos los libros leídos:"
+
+#: ../modules/private/allbooks.php:108
+#, fuzzy
+msgid "You do not have any book."
+msgstr "No existen libros."
+
+#: ../modules/private/booksreading.php:104
+msgid "Books you are reading:"
+msgstr "Libros que estás leyendo:"
+
+#: ../modules/private/booksreading.php:106
+msgid "You are not reading any book."
+msgstr "No estás leyendo ningún libro."
+
+#: ../modules/private/author.php:108
+#, fuzzy
+msgid "Create a new author:"
+msgstr "Crear un nuevo libro:"
+
+#: ../modules/private/author.php:109
+#, fuzzy
+msgid "New author..."
+msgstr "Nuevo autor"
+
+#: ../modules/private/author.php:111
+#, fuzzy
+msgid "All authors:"
+msgstr "Autores"
+
+#: ../modules/private/author.php:113
+msgid "There are not authors."
+msgstr "No existen autores."
+
+#: ../modules/private/newauthor.php:73
+msgid "Name"
+msgstr "Nombre"
+
+#: ../modules/private/newauthor.php:80
+#, fuzzy
+msgid "Required field: put the name."
+msgstr "Campo obligatorio: inserta el título"
+
+#: ../modules/private/newauthor.php:85
+#, fuzzy
+msgid "Surname"
+msgstr "Usuario"
+
+#: ../modules/private/newauthor.php:92
+#, fuzzy
+msgid "Required field: put the surname."
+msgstr "Campo obligatorio: inserta el título"
+
+#: ../modules/private/newauthor.php:97
+msgid "Photo"
+msgstr "Foto"
+
+#: ../modules/private/newauthor.php:138
+#, fuzzy
+msgid "The name must consist of letters only"
+msgstr "La contraseña debe estar formada por letras y números"
+
+#: ../modules/private/newauthor.php:141
+#, fuzzy
+msgid "The surname must consist of letters only"
+msgstr "La contraseña debe estar formada por letras y números"
+
+#: ../modules/user/login.php:67
+msgid "Username"
+msgstr "Usuario"
+
+#: ../modules/user/login.php:73
+msgid "Password"
+msgstr "Contraseña"
+
+#: ../modules/user/login.php:79 ../modules/user/login.php:159
+#: ../modules/helper/menu.php:64
+msgid "Log in"
+msgstr "Acceso"
+
+#: ../modules/user/login.php:108
+msgid "The username must be an e-mail"
+msgstr "El nombre de usuario debe ser un e-mail"
+
+#: ../modules/user/login.php:111
+msgid "The password must consist of letter and numbers only"
+msgstr "La contraseña debe estar formada por letras y números"
+
+#: ../modules/user/login.php:145
+msgid "Username or password invalid"
+msgstr "Usuario o contraseña incorrecta"
+
+#: ../modules/welcome/welcome.php:83
+msgid "The book is the best friend of the people"
+msgstr "El libro es el mejor amigo del hombre"
+
+#: ../modules/welcome/welcome.php:85
+msgid "Welcome to Utamaduni"
+msgstr "Bienvenid@ a Utamaduni"
+
+#: ../modules/welcome/welcome.php:86
+msgid "Here you can find a lot of information about books I have read"
+msgstr "Aquí puedes econtrar toda la información sobre los libros que he leído"
+
+#: ../modules/helper/menu.php:55 ../modules/helper/privatemenu.php:55
+msgid "Home"
+msgstr "Home"
+
+#: ../modules/helper/menu.php:58
+msgid "About"
+msgstr "Sobre"
+
+#: ../modules/helper/menu.php:61
+msgid "Contact"
+msgstr "Contacto"
+
+#: ../modules/helper/menu.php:103
+msgid "Your space"
+msgstr "Tu sitio"
+
+#: ../modules/helper/menu.php:105
+msgid "Log out"
+msgstr "Salir"
+
+#: ../modules/helper/privatemenu.php:58
+msgid "Read"
+msgstr "Leídos"
+
+#: ../modules/helper/privatemenu.php:61
+msgid "Wish"
+msgstr "Deseados"
+
+#: ../modules/helper/privatemenu.php:64
+msgid "Loaned"
+msgstr "Prestados"
+
+#: ../modules/helper/privatemenu.php:67
+msgid "Purchased"
+msgstr "Editoriales"
+
+#: ../modules/helper/privatemenu.php:70
+msgid "Quotes"
+msgstr "Citas"
+
+#: ../modules/helper/privatemenu.php:73
+#, fuzzy
+msgid "Authors"
+msgstr "Autores"
+
+#~ msgid "Aceptar"
+#~ msgstr "Aceptar"

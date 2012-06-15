@@ -1,0 +1,215 @@
+% Utamaduni (suajili language meaning 'culture') is a book management.
+% Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+%
+% This is the project documentatio that is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\documentclass[12pt,twoside,a4paper]{article}
+
+\usepackage[spanish,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr} % Para modificar y gestionar los encabezado y pie de página.
+\usepackage[top=3cm, bottom=3cm, left=2cm, right=2cm]{geometry} % De esta forma se indican los margenes del papel.
+
+\pagestyle{fancy} % Usamos el estilo ``fancy'' para encabezado y pie de página.
+\fancyhead{} % Reseteamos encabezado.
+\fancyfoot{} % Reseteamos pie de página.
+
+% Configuramos los encabezado y pie de página. Significados de las letras:
+% L: izquierda.
+% R: derecha.
+% C: centro.
+% O: par.
+% E: impar.
+\fancyhead[LO,LE]{\slshape \rightmark}
+\fancyhead[RO,RE]{\slshape \leftmark}
+\fancyfoot[CO,CE] {\thepage}
+
+% Define la línea de debajo y encima del encabezado y pie de página: 0pt = invisible.
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{Proyecto \texttt{Machafuko}}
+\author{Román Ginés Martínez Ferrández \\ \texttt{romangines@riseup.net}}
+
+% BEGIN DOCUMENT
+\begin{document}
+\maketitle
+\thispagestyle{fancy} % Con esto en la portada también aparecer encabezado y pie de página. Si no deseas en la portada encabezado y pie de página elimina esta línea.
+\tableofcontents
+
+% Empieza aquí
+\section{Arquitectura}
+Este proyecto es, en realidad, un conjunto de proyectos que pretenden gestionar una serie de necesidades surgidas. De ahí el nombre de \emph{machafuko}, que en \emph{suajili} significa ``caos''. Los proyectos de que constan son:
+\begin{itemize}
+\item \textbf{utamaduni}, que significa ``cultura'' en \emph{suajili}.
+\item \textbf{ajenda}, que significa ``agenda'' en \emph{suajili}.
+\item \textbf{tarajali}, que significa ``apendriz'' en \emph{suajili}.
+\end{itemize}
+Para todos estos subproyectos se va a emplear el patrón de diseño MVC (Model View Controller).
+
+\subsection{Criterios de codificación}
+A continuación se especifican los criterios que se deben seguir para codificar este programa. Dado que no hay unanimidad en PHP para la codificación del código, se emplearán unos criterios parecidos a los seguidos en la programación C/C++.
+\begin{itemize}
+\item Los nombres de los identificadores deben ser claros, cortos e informativos.
+\item Se separarán palabras con el carácter ``\_'' para todo tipo de identificadores (variables, constantes, nombres de función, nombres de clase, etc).
+\item Se usarán minúsculas en los nombres de variables, funciones, métodos y clases.
+\item Las variables globales comenzarán por el prefijo ``g\_'' (aunque se debe evitar su uso).
+\item Las constantes comenzarán con el carácter ``k'' (minúscula) seguido por el identificador en mayúsculas.
+\item El nombre de las clases que pertenezcan al controlador acabarán con el sufijo ``\_controller''.
+\item El nombre de las clases que pertenezcan al modelo acabarán con el sufijo ``\_model''.
+\end{itemize}
+
+\subsection{Estructura de directorios}
+El proyecto consta de un fichero ``index.html'' que nos llevará a cada uno de los subproyectos mencionados y que tendrán, todos ellos, la siguiente estructura de directorios:
+\begin{itemize}
+\item \textbf{doc}: en este directorio se almacenará toda la documentación del proyecto.
+\item \textbf{po}: los archivos de localización e internacionalización.
+\item \textbf{db}: todos los archivos relacionados con la base de datos (backups, sql, etc).
+\item \textbf{log}: los logs que genere la aplicación (sobre todo para la depuración).
+\item \textbf{tmp}: para que la aplicación pueda almacenar archivos temporales.
+\item \textbf{app}: aquí está la aplicación como tal.
+  \begin{itemize}
+  \item \textbf{include}: aquí dentro está el ``framework'', ``helpers'', ``utils'', ``decorator'', etc. Es decir, todo aquello considerado el ``núcleo'' del sistema.
+  \item \textbf{site}: directorio exclusivo para los diseñadore, es decir, la parte estática del sistema.
+    \begin{itemize}
+    \item \textbf{css}: los estilos.
+    \item \textbf{img}: las imágenes.
+    \item \textbf{js}: el JavaScript.
+    \item \textbf{html}: ficheros HTML generales.
+      \begin{itemize}
+      \item \textbf{tpl}: plantillas HTML generales.
+      \end{itemize}
+    \end{itemize}
+  \item \textbf{modules}: los módulos de la aplicación (el modelo). Cada modelo tiene su directorio \textbf{tpl} con la/s página/s o template/s.
+  \end{itemize}
+\end{itemize}
+
+\section{Proyectos}
+Las diferentes partes de que consta la aplicación y su descripción se detallan en los siguientes apartados.
+
+\subsection{Utamaduni}
+\subsubsection{Libros}
+Esta parte de la aplicación permitirá gestionar la información de los libros que se leen y se requieren:
+\begin{itemize}
+\item ISBN.
+\item Título.
+\item Autor (o autores).
+\item Género (o géneros) en forma de etiquetas.
+\item Fechas de compra, inicio de lectura y fin de lectura.
+\item Descripción.
+\item Valoración numérica.
+\item Comentario tras haber leído el libro.
+\item Formato (ebook o papel).
+\end{itemize}
+Además, interesa saber si el libro lo tengo yo en posesión (que me costó en este caso), si me lo han dejado (quién me lo ha dejado) o si lo he sacado de una biblioteca (qué biblioteca).
+
+\subsubsection{Frases célebres}
+Interesa almacenar frases célebres que pueden haber sido obtenidas de películas, libros, Internet o me las han pasado de alguna forma. En cualquier caso se almacenará de dichas frases célebres:
+\begin{itemize}
+\item Autor (puede ser anónimo).
+\item Frase en sí.
+\end{itemize}
+Si ha sido sacada de alguno de los libros leídos se deberá indicar el libro y la página donde está esa frase o parte del libro.
+
+\subsection{Ajenda}
+\subsubsection{Contactos}
+En esta aplicación también se pueden almacenar contactos de los que se requiere:
+\begin{itemize}
+\item Nombre y apellidos.
+\item Apodo o nickname.
+\item E-mail (o e-mails).
+\item Fecha de nacimiento.
+\item Dirección postal.
+\item Grupo/s (o etiqueta/s) - amistad, familiar, compañero, conocido...
+\end{itemize}
+Los contactos pueden ser importados/exportados en formato CSV (al menos) indicando carácter separador.
+
+\subsubsection{Calendario}
+Se pueden tener varios calendarios (laboral y personal, por ejemplo). En el calendario se pueden anotar todo tipo de tareas a hacer:
+\begin{itemize}
+\item Trabajo.
+\item Citas (de todo tipo).
+\item Proyectos.
+\item Libros por leer.
+\item Películas por ver.
+\item Retos que conseguir.
+\item Recordatorios.
+\item Etc.
+\end{itemize}
+Las tareas se podrán ver de muchas maneras, por ejemplo: por grupos, tareas realizadas o acabadas, tareas para hoy, tareas para mañana, tareas para pasado mañana, tareas para esta semana, tareas para este mes y tareas para este año.
+Se pueden programar recordatorios que serán enviados por e-mail a una o varias cuentas indicadas.
+Los calendarios pueden ser importados/exportados en formato CSV, indicando carácter separador.
+De esta forma por cada entrada en el calendario se almacenará:
+\begin{itemize}
+\item Fecha y horas de inicio y de fin.
+\item Descripción de la tarea, recordatorio, etc.
+\item Etiqueta (trabajo, libro, película, reto, recordatorio...).
+\item Fecha y hora de recordatorio.
+\item E-mail o e-mails para enviar el recordatorio por e-mail.
+\end{itemize}
+
+\subsection{Tarajali}
+\subsubsection{Trabajo}
+En el apartado de trabajo existen tres perfiles bien diferenciados que se pasan a describir en los siguientes apartados.
+
+\begin{itemize}
+\item \textbf{Administrador}.\\
+Puede crear/eliminar profesores/alumnado. Además será siempre un profesor. Es decir, el administrador será un profesor con permisos de administración y será configurado al inicio (al instalar la aplicación).
+
+\item \textbf{Profesor}.\\
+De los profesores se guardará:
+\begin{itemize}
+\item Nombre y apellidos.
+\item E-mail.
+\item Usuario para el acceso al sistema.
+\item Contraseña para el acceso al sistema.
+\item Si es o no el administrador.
+\end{itemize}
+Cada profesor puede:
+\begin{itemize}
+\item Gestionar cursos y asignaturas. ¡OJO!, si se elimina un curso se eliminará también todo el alumnado de dicho curso, con todas sus notas, etc.
+\item Gestionar el alumnado.
+\item Gestionar notas (conceptos, procedimientos y actitudes).
+\item Gestionar exámenes, ejercicios, ejercicios online y prácticas.
+\item Comunicarse con uno, varios o todo el alumnado de un curso.
+\item Compartir material con uno, varios o todo el alumnado de un curso.
+\item Corregir ejercicios/exámenes online dejando anotaciones por cada pregunta.
+\item Dejar una nota sobre las prácticas corregidas.
+\end{itemize}
+
+\item \textbf{Alumnado}.\\
+De los estudiantes se almacenará:
+\begin{itemize}
+\item Nombre y apellidos.
+\item E-mail.
+\item Usuario para el acceso al sistema.
+\item Contraseña para el acceso al sistema.
+\item Asignatura o asignaturas a las que está matriculado con dicho profesor.
+\item Sitio en que se sienta.
+\end{itemize}
+El estudiante puede realizar las siguientes acciones:
+\begin{itemize}
+\item Ver su información personal y cambiarla.
+\item Ver sus notas (ejercicios, exámenes y observaciones).
+\item Publicar entradas en su blog que podrá ver el profesor y sus compañeros.
+\item Comunicarse con el profesor a través de notas.
+\item Realizar ejercicios, exámenes y prácticas online.
+\item Descargarse los enunciados de los ejercicios, exámenes y prácticas.
+\item Ver los ejercicios/exámenes online corregidos con sus anotaciones.
+\item Ver la nota de las prácticas corregidas por el profesor.
+\item Ver las entregas que ha realizado en cada práctica.
+\end{itemize}
+\end{itemize}
+
+\end{document}

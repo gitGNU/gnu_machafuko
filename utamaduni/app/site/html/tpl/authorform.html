@@ -1,0 +1,74 @@
+<!--
+ Utamaduni (suajili language meaning 'culture') is a book management.
+ Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<form id='newbook-form' method='post' action='private/author/update.html' enctype='multipart/form-data' target='my-iframe'>
+
+    <div class="container_12">
+      <!-- FIRST ROW -->
+      <div class="grid_12">
+	<h2>
+	  {author_header}
+	</h2>
+      </div>
+
+      <div class="clear"></div>
+      
+      <!-- SECOND ROW -->
+      <!-- First column -->
+      <div id="right" class="grid_6">
+	<div id="right" class="normal-box">
+	  <b>{photo_label}:</b><br />
+	    <input class='my-input-large' type='file' name='photo' id='photo' />
+	</div>
+      </div>
+      
+      <!-- Second column -->
+      <div id="left" class="grid_6">
+	<div id="normal-box">
+	  <b>{name_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='name' id='name' value='{name}' maxlength='{name_len}' />
+	  </p>
+	</div>
+	<div id="normal-box">
+	  <b>{surname_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='surname' id='surname' value='{surname}' maxlength='{surname_len}' />
+	  </p>
+	</div>
+      </div>
+
+      <div class="clear"></div>
+
+      <!-- THIRD ROW -->
+      <div id="right" class="grid_6">
+	<input type="button" id="cancel" name="cancel" value="{cancel_btn}" class="my-btn"
+	  onclick="javascript: authorloader.loadXMLContent ();" />
+      </div>
+      <div id="left" class="grid_6">
+	<input type="submit" id="submit" name="submit" value="{ok_btn}" class="my-btn" />
+      </div>
+
+      <div class="clear"></div>
+
+      <!-- FOURTH ROW -->
+      <div class="grid_12">
+	<iframe name='my-iframe' frameborder='0' width='100%'></iframe>
+      </div>
+    </div>
+</form>

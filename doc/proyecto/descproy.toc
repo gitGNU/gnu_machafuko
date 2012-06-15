@@ -1,0 +1,13 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Arquitectura}{1}
+\contentsline {subsection}{\numberline {1.1}Criterios de codificaci\IeC {\'o}n}{2}
+\contentsline {subsection}{\numberline {1.2}Estructura de directorios}{2}
+\contentsline {section}{\numberline {2}Proyectos}{3}
+\contentsline {subsection}{\numberline {2.1}Utamaduni}{3}
+\contentsline {subsubsection}{\numberline {2.1.1}Libros}{3}
+\contentsline {subsubsection}{\numberline {2.1.2}Frases c\IeC {\'e}lebres}{3}
+\contentsline {subsection}{\numberline {2.2}Ajenda}{4}
+\contentsline {subsubsection}{\numberline {2.2.1}Contactos}{4}
+\contentsline {subsubsection}{\numberline {2.2.2}Calendario}{4}
+\contentsline {subsection}{\numberline {2.3}Tarajali}{5}
+\contentsline {subsubsection}{\numberline {2.3.1}Trabajo}{5}

@@ -1,0 +1,15 @@
+RewriteEngine On
+
+RewriteRule ^$ index.php?module=welcome [L,QSA]
+
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]*)$ index.php?module=$1 [L,QSA]
+
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]*)/([^/]*)$ index.php?module=$1&class=$2 [L,QSA]
+
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]*)/([^/]*)/([^/]*).html$ index.php?module=$1&class=$2&event=$3 [L,QSA]

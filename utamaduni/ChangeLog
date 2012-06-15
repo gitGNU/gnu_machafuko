@@ -1,0 +1,145 @@
+2012-06-09 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/private/book.php
+	It has finished the book inserting.
+
+	* app/modules/private/author.php
+	It has finished the author inserting.
+
+2012-06-06 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/helper/bookshop.php
+	* app/modules/helper/contact.php
+	It has created these classes to fetch data to selects.
+
+	* app/modules/private/book.php
+	* app/site/html/tpl/bookform.html
+	It has completed the form to create and update books with all information.
+
+2012-05-27 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/site/html/tpl/book.html
+	* app/modules/private/book.php
+	* app/modules/private/tpl/book.tpl.html
+	It has created a information book page since which it can see and (in the short future) update and delete the book.
+
+2012-05-22 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/site/js/form.js
+	There are problems with parseInt ('08') and parseInt ('09') because JavaScript think that these numbers are octal. Because of that, it has changed to parseInt ('08', 10) to specify that theses numbers are decimal.
+
+2012-05-21 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/modules/private/allbooks.php
+	* app/include/modules/private/booksreading.php
+	* app/include/modules/private/author.php
+	It has added validation to the GET pagination.
+
+2012-05-20 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/file/phpfile.php
+	It has added a new function that remove a file.
+
+	* app/modules/private/newauthor.php
+	* app/modules/private/newbook.php
+	If the insert of a book (a author) fail, then it deletes the cover (photo) that have can be uploaded.
+
+2012-05-18 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/private/author.php
+	* app/modules/private/tpl/author.tpl.html
+	It has created the author module. At this momento you can see all authors but you can not create new authors.
+
+2012-05-17 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/helper/paginated/paginated.php
+	It has solved a bug in fetch_paged_row. It has added the "$idx >= count ($this -> get_rs ())" check.
+
+	* app/site/html/tpl/footer.html
+	It has added the license information.
+
+	* app/modules/private/allbooks.php
+	* app/modules/private/tpl/allbooks.tpl.html
+	* app/modules/private/home.php
+	* app/modules/private/tpl/home.tpl.html
+	It has separated the part wich get all books and it has introduced into new module called "allbooks".
+
+2012-05-16 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/index.php
+	* app/include/core/presenter/base.php
+	* app/include/core/presenter/html.php
+	It has changed the name of the function which show the html rendered. Now it calls "render" and return the string with rendered html.
+
+	* app/modules/helper/mcaller.php
+	It is a helper module which can calls a module from other module.
+
+	* app/modules/private/booksreading.php
+	* app/modules/private/tpl/booksreading.tpl.html
+	It has created a new module with pagination which show the books it is reading.
+
+2012-05-15 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/helper/paginated/paginated.php
+	* app/modules/helper/paginated/page_layout.php
+	* app/modules/helper/paginated/ajax_trailing_layout.php
+	I have added a helper module to do pagination.
+
+2012-04-29 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/private/newbook.php
+	It can saves books with authors, subjects, publisher, format and pages information.
+
+	* db/scheme.sql
+	The database scheme has been changed.
+
+	* app/include/db/
+	It adds several classes associated with new database tables.
+
+2012-04-23 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/db/mysql/ext/utam_subject_mysql_ext_dao.php
+	It has changed insert function.
+
+2012-04-22 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/helper/author.php
+	It has created a helper folder into modules. Here will be the helper modules.
+	The author helper modules helps us to manage the authors.
+
+	* app/modules/private/newbook.php
+	This class has been modified to insert author and subject book information.
+
+	* app/include/html/element/select.php
+	Now it can creates a button associated to the select.
+
+2012-04-16 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/core/presenter/html.php
+	Modifications has been made to work with two-dimensional arrays. Thus, it can create complex lists with links and so on.
+
+	* app/include/core/presenter/html.php
+	It has created a private function (get_loop_content).
+
+	* app/config.php
+	It has created the global constant UT_FILES_LOGICAL_PATH with logical path to files. It is used to save paths into database that later can be the src of the img tags.
+
+	* app/include/file/phpfiles.php
+	It has inserted logical_path property and get_logical_full_path function. In addition, the construct method has changed now get a third parameter to the logical_path.
+
+	* app/modules/private/newbook.php
+	It has modified because phpfiles changes. Now it saves the logical path into database.
+
+2012-04-14 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/date/util.php
+	It has created this class with dates util functions.
+
+	* app/include/validation/cleanrequest.php
+	It has moved to_mysql_date and to_php_date. functions to app/include/date/util.php.
+
+	* app/include/core/presenter/html.php
+	It has modified the display function inserting "str = '';" at the end of loop because it concated this string with the next loop.
+
+2012-04-13 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/validation/cleanrequest.php
+	It adds two functions to convert dates from php (dd/mm/yyyy) to mysql (yyyy-mm-dd) and viceversa. These are to_mysql_date and to_php_date.
+
+	* app/sites/js/form.js
+	It adds functions to validation entry with JavaScript.
+
+2012-04-01 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/include/db/mysql/core/connection_factory.php
+	It adds into get_connection method the line mysql_query ("SET CHARACTER SET 'utf8'", $conn); to resolve the encode problems with PHP and MySQL.
+
+	* app/include/validation/cleanrequest.php
+	It adds into get and set functions utf8_encode and utf8_decode to work with latin characters without problems.
+
+2012-03-31 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/private/newbook.php
+	It has finished the new book form.
