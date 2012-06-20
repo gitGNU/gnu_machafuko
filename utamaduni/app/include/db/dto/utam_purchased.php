@@ -19,6 +19,7 @@
  */
 
 include_once ('utam_read.php');
+include_once ('utam_bookshop.php');
 
 /**
  * Object represents table 'utam_purchased'
@@ -30,7 +31,7 @@ class utam_purchased extends utam_read
 	var $id;
 	var $isbn;
 	var $price;
-	var $utam_bookshop; // It is a object.
-	var $utam_read; // It is a object.
+	var $utam_bookshop; // It is an object.
+	var $utam_read; // It is an object.
 }
 ?>

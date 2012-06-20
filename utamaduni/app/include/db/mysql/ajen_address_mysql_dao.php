@@ -19,6 +19,7 @@
  */
 
 include_once (dirname (__FILE__) . '/../dao/ajen_address_dao.php');
+include_once (dirname (__FILE__) . '/../dto/ajen_address.php');
 include_once (dirname (__FILE__) . '/core/array_list.php');
 include_once (dirname (__FILE__) . '/core/sql_query.php');
 include_once (dirname (__FILE__) . '/core/query_executor.php');

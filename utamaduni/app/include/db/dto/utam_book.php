@@ -38,7 +38,7 @@ class utam_book
 	var $pages;
 	var $utam_subject = array (); // Array of objects.
 	var $utam_author = array (); // Array of objects.
-	var $utam_publisher; // It is a object.
-	var $utam_format; // It is a object.
+	var $utam_publisher; // It is an object.
+	var $utam_format; // It is an object.
 }
 ?>

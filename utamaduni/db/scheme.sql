@@ -103,12 +103,21 @@ create table if not exists utam_wishlist (
 ) engine=innodb, charset=utf8;
 
 
+create table if not exists ajen_street (
+       id int(7) auto_increment,
+       name varchar(100) not null,
+       num varchar(4),
+       extra varchar(100),
+       constraint pk_street primary key (id)
+) engine=innodb, charset=utf8;
+
 create table if not exists ajen_address (
        id int(7) auto_increment,
-       street varchar(200) not null,
+       street int(7) not null,
        city varchar(100) not null,
        country varchar(100) not null,
-       constraint pk_address primary key (id)
+       constraint pk_address primary key (id),
+       constraint fk_address_street foreign key (street) references ajen_street(id) on delete set null on update cascade
 ) engine=innodb, charset=utf8;
 
 

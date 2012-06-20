@@ -18,21 +18,16 @@
  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once ('utam_book.php');
-
 /**
- * Object represents table 'utam_read'
+ * Object represents table 'ajen_street'
  *
  * @author: Román Ginés Martínez Ferrández <romangines@riseup.net>
  */
-class utam_read
+class ajen_street
 {
 	var $id;
-	var $isbn;
-	var $start;
-	var $finish;
-	var $opinion;
-	var $valoration;
-	var $utam_book; // It is an object.
+	var $name;
+	var $num;
+	var $extra;
 }
 ?>

@@ -18,29 +18,28 @@
  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once (dirname (__FILE__) . '/../dao/utam_bookshop_dao.php');
-include_once (dirname (__FILE__) . '/../dto/utam_bookshop.php');
+include_once (dirname (__FILE__) . '/../dao/ajen_street_dao.php');
 include_once (dirname (__FILE__) . '/core/array_list.php');
 include_once (dirname (__FILE__) . '/core/sql_query.php');
 include_once (dirname (__FILE__) . '/core/query_executor.php');
 include_once (dirname (__FILE__) . '/core/transaction.php');
 
 /**
- * Class that operate on table 'utam_bookshop'. Database MySQL.
+ * Class that operate on table 'ajen_street'. Database MySQL.
  *
  * @author: Román Ginés Martínez Ferrández <romangines@riseup.net>
  */
-class utam_bookshop_mysql_dao implements utam_bookshop_dao
+class ajen_street_mysql_dao implements ajen_street_dao
 {
 	/**
 	 * Get domain object by primary key.
 	 *
 	 * @param String $id primary key.
-	 * @return utam_bookshop_mysql.
+	 * @return ajen_street_mysql.
 	 */
 	public function load ($id)
 	{
-		$sql = 'SELECT * FROM utam_bookshop a WHERE a.id = ? ';
+		$sql = 'SELECT * FROM ajen_street a WHERE a.id = ? ';
 		$query = new sql_query ($sql);
 		$query -> set_number ($id);
 		return $this -> get_row ($query);
@@ -51,7 +50,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	 */
 	public function query_all ()
 	{
-		$sql = 'SELECT * FROM utam_bookshop a WHERE 0 = 0 ';
+		$sql = 'SELECT * FROM ajen_street a WHERE 0 = 0 ';
 		$query = new sql_query ($sql);
 		return $this -> get_list ($query);
 	}
@@ -63,7 +62,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	 */
 	public function query_all_order_by ($order_col)
 	 {
-		$sql = 'SELECT * FROM utam_bookshop a WHERE 0 = 0  ORDER BY ' . $order_col;
+		$sql = 'SELECT * FROM ajen_street a WHERE 0 = 0  ORDER BY ' . $order_col;
 		$query = new sql_query ($sql);
 		return $this -> get_list ($query);
 	}
@@ -71,11 +70,11 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	/**
 	 * Delete record from table.
 	 *
-	 * @param String $id utam_bookshop primary key
+	 * @param String $id ajen_street primary key
 	 */
 	public function delete ($id)
 	{
-		$sql = 'DELETE FROM utam_bookshop WHERE id = ?';
+		$sql = 'DELETE FROM ajen_street WHERE id = ?';
 		$query = new sql_query ($sql);
 		$query -> set_number ($id);
 		return $this -> execute_update ($query);
@@ -86,7 +85,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	 */
 	public function query_by_id ($value)
 	{
-		$sql = 'SELECT * FROM utam_bookshop a WHERE id = ? ';
+		$sql = 'SELECT * FROM ajen_street a WHERE id = ? ';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
@@ -94,7 +93,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 
 	public function delete_by_id ($value)
 	{
-		$sql = 'DELETE FROM utam_bookshop WHERE id = ?';
+		$sql = 'DELETE FROM ajen_street WHERE id = ?';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> execute_update ($query);
@@ -102,7 +101,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 
 	public function query_by_name ($value)
 	{
-		$sql = 'SELECT * FROM utam_bookshop a WHERE name = ? ';
+		$sql = 'SELECT * FROM ajen_street a WHERE name = ? ';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
@@ -110,39 +109,39 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 
 	public function delete_by_name ($value)
 	{
-		$sql = 'DELETE FROM utam_bookshop WHERE name = ?';
+		$sql = 'DELETE FROM ajen_street WHERE name = ?';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> execute_update ($query);
 	}
 
-	public function query_by_address ($value)
+	public function query_by_num ($value)
 	{
-		$sql = 'SELECT * FROM utam_bookshop a WHERE address = ? ';
+		$sql = 'SELECT * FROM ajen_street a WHERE num = ? ';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
 	}
 
-	public function delete_by_address ($value)
+	public function delete_by_num ($value)
 	{
-		$sql = 'DELETE FROM utam_bookshop WHERE address = ?';
+		$sql = 'DELETE FROM ajen_street WHERE num = ?';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> execute_update ($query);
 	}
 
-	public function query_by_logo ($value)
+	public function query_by_extra ($value)
 	{
-		$sql = 'SELECT * FROM utam_bookshop WHERE logo = ?';
+		$sql = 'SELECT * FROM ajen_street WHERE extra = ?';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
 	}
 
-	public function delete_by_logo ($value)
+	public function delete_by_extra ($value)
 	{
-		$sql = 'DELETE FROM utam_bookshop WHERE logo = ?';
+		$sql = 'DELETE FROM ajen_street WHERE extra = ?';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> execute_update ($query);
@@ -151,39 +150,39 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	/**
 	 * Insert record to table.
 	 *
-	 * @param utam_bookshop_mysql utam_bookshop.
+	 * @param ajen_street_mysql ajen_street.
 	 */
-	public function insert ($utam_bookshop)
+	public function insert ($ajen_street)
 	{
-		$sql = 'INSERT INTO utam_bookshop (id, name, address, logo) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO ajen_street (id, name, num, extra) VALUES (?, ?, ?, ?)';
 		$query = new sql_query ($sql);
 
-		$query -> set ($utam_bookshop -> id);
-		$query -> set ($utam_bookshop -> name);
-		$query -> set ($utam_bookshop -> address);
-		$query -> set ($utam_bookshop -> logo);
+		$query -> set ($ajen_street -> id);
+		$query -> set ($ajen_street -> name);
+		$query -> set ($ajen_street -> num);
+		$query -> set ($ajen_street -> extra);
 
 		$id = $this -> execute_insert ($query);
-		$utam_bookshop -> id = $id;
+		$ajen_street -> id = $id;
 		return $id;
 	}
 
 	/**
 	 * Update record in table.
 	 *
-	 * @param utam_bookshop_mysql utam_bookshop
+	 * @param ajen_street_mysql ajen_street
 	 */
-	public function update ($utam_bookshop)
+	public function update ($ajen_street)
 	{
-		$sql = 'UPDATE utam_bookshop SET id = ?, name = ?, address = ?, logo = ? WHERE id = ?';
+		$sql = 'UPDATE ajen_street SET id = ?, name = ?, num = ?, extra = ? WHERE id = ?';
 		$query = new sql_query ($sql);
 
-		$query -> set ($utam_bookshop -> id);
-		$query -> set ($utam_bookshop -> name);
-		$query -> set ($utam_bookshop -> address);
-		$query -> set ($utam_bookshop -> logo);
+		$query -> set ($ajen_street -> id);
+		$query -> set ($ajen_street -> name);
+		$query -> set ($ajen_street -> num);
+		$query -> set ($ajen_street -> extra);
 
-		$query -> set_number ($utam_bookshop -> id);
+		$query -> set_number ($ajen_street -> id);
 		return $this -> execute_query ($query);
 	}
 
@@ -192,7 +191,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	 */
 	public function clean ()
 	{
-		$sql = 'DELETE FROM utam_bookshop';
+		$sql = 'DELETE FROM ajen_street';
 		$query = new sql_query ($sql);
 		return $this -> execute_update ($query);
 	}
@@ -200,18 +199,18 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	/**
 	 * Read row.
 	 *
-	 * @return utam_bookshop_mysql
+	 * @return ajen_street_mysql
 	 */
 	protected function read_row ($row)
 	{
-		$utam_bookshop = new utam_bookshop ();
+		$ajen_street = new ajen_street ();
 
-		$utam_bookshop -> id = $row['id'];
-		$utam_bookshop -> name = $row['name'];
-		$utam_bookshop -> address = $row['address'];
-		$utam_bookshop -> logo = $row['logo'];
+		$ajen_street -> id = $row['id'];
+		$ajen_street -> name = $row['name'];
+		$ajen_street -> num = $row['num'];
+		$ajen_street -> extra = $row['extra'];
 
-		return $utam_bookshop;
+		return $ajen_street;
 	}
 
 	protected function get_list ($query)
@@ -228,7 +227,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 	/**
 	 * Get row.
 	 *
-	 * @return utam_bookshop_mysql.
+	 * @return ajen_street_mysql.
 	 */
 	protected function get_row ($query)
 	{

@@ -92,17 +92,17 @@ var formupdatebookloader =
      "private-content");
 
 /*
- * Private read book loader.
+ * Private bookshop loader.
  */
-var readbookloader =
+var bookshoploader =
     new net.loadContents
-    ("private/readbook",
+    ("private/bookshop",
      insertContent,
      null,
      "POST",
      "",
      "application/x-www-form-urlencoded",
-     "content");
+     "private-content");
 
 /*
  * Private whislist book loader.
@@ -201,6 +201,19 @@ var showbookloader =
 var formupdateauthorloader =
     new net.loadContents
     ("private/author/formupdate.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
+ * Private form update bookshop.
+ */
+var formupdatebookshoploader =
+    new net.loadContents
+    ("private/bookshop/formupdate.html",
      insertContent,
      null,
      "POST",

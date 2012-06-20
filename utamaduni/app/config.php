@@ -117,7 +117,7 @@ define ('UT_FILES_LOGICAL_PATH', '/machafuko/utamaduni/uploads');
  * Global constant with folder path when covers are uploads.
  *
  * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
- * @global string UT_FILES_BASE_PATH JavaScript base path.
+ * @global string UT_FOLDER_COVERS
  */
 define ('UT_FOLDER_COVERS', '/covers');
 
@@ -125,8 +125,16 @@ define ('UT_FOLDER_COVERS', '/covers');
  * Global constant with folder path when photos are uploads.
  *
  * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
- * @global string UT_FILES_BASE_PATH JavaScript base path.
+ * @global string UT_FOLDER_PHOTOS
  */
 define ('UT_FOLDER_PHOTOS', '/photos');
+
+/**
+ * Global constant with folder path when bookshop logos are uploads.
+ *
+ * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+ * @global string UT_FOLDER_LOGOS
+ */
+define ('UT_FOLDER_LOGOS', '/logos');
 
 ?>

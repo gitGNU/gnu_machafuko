@@ -16,11 +16,21 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<div id="{home_id}" class="grid_2"><a href="{home_link}">{home_msg}</a></div>
-<div id="{book_id}" class="grid_2"><a href="{book_link}">{book_msg}</a></div>
-<div id="{bookshop_id}" class="grid_2"><a href="{bookshop_link}">{bookshop_msg}</a></div>
-<div id="{wish_id}" class="grid_2"><a href="{wish_link}">{wish_msg}</a></div>
-<div id="{loaned_id}" class="grid_2"><a href="{loaned_link}">{loaned_msg}</a></div>
-<div id="{purchased_id}" class="grid_2"><a href="{purchased_link}">{purchased_msg}</a></div>
-<div id="{quote_id}" class="grid_2"><a href="{quote_link}">{quote_msg}</a></div>
-<div id="{author_id}" class="grid_2"><a href="{author_link}">{author_msg}</a></div>
+<div class="container_12">
+    <div class="grid_8">
+      <h3>{all_bookshops_msg}</h3>
+    </div>
+    <div id="right" class="grid_4">
+      <a id="button" href="javascript: formupdatebookshoploader.loadXMLContent ();">{new_bookshop_msg}</a>
+    </div>
+    
+    <div class="clear"></div>
+    
+    {{all_bookshops<div id="center" class="grid_2"><div><a href="{href}"><img id="{imgid}" src="{imgsrc}" /></a></div><div id="center">{bookshop_title}</div></div>}}
+    
+    <div class="clear"></div>
+    
+    <div class="grid_12">
+      {page_navigation}
+    </div>
+</div>

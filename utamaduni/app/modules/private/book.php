@@ -18,10 +18,9 @@
  */
 
 /**
- * updatebook.php
+ * book.php
  *
- * This module show the update book form which offer the possibility of
- * modify a book.
+ * This module show, insert, update and delete books.
  *
  * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
  * @copyright Román Ginés Martínez Ferrández <rgmf@riseup.net>
@@ -105,6 +104,7 @@ class book extends core_auth_user
     $link = '';
     $formstr = '';
     $msg_file = '';
+    $file = '';
 
     // Get POST or GET data.
     // Prepare validation from POST or GET data (the validators objects
@@ -225,7 +225,7 @@ class book extends core_auth_user
 	    $utam_book -> utam_publisher = $publisher;
 	    $utam_book -> utam_format = $format;
 		
-	    // If it ok it gets the identifier of the inserted book.
+	    // If ok it gets the identifier of the inserted book.
 	    $idbook = $dao -> insert ($utam_book);
 	    
 	    // Now, it inserts the book into book reading table.
@@ -239,7 +239,26 @@ class book extends core_auth_user
 	    $utam_read -> opinion = $clean -> get ('opinion');
 	    $utam_read -> valoration = $clean -> get ('valoration');
 	    $idbook = $dao -> insert ($utam_read);
-	    
+
+	    // If is a purchased book it inserts the book into purchased table. Otherwise,
+	    // it inserts into loaned book table.
+	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_purchased_mysql_ext_dao.php');
+	    $dao = new utam_purchased_mysql_ext_dao ();
+	    $utam_pur = new utam_purchased ();
+	    $utam_pur -> id = $idbook;
+	    $utam_pur -> isbn = $clean -> get ('isbn');
+	    $utam_pur -> price = $clean -> get ('price');
+	    /*$utam_pur -> utam_read = new utam_read ();
+	    $utam_pur -> utam_read -> id = $idbook;
+	    $utam_pur -> utam_read -> isbn = $clean -> get ('isbn');
+	    $utam_pur -> utam_read -> start = $clean -> get ('start');
+	    $utam_pur -> utam_read -> finish = $clean -> get ('finish');
+	    $utam_pur -> utam_read -> opinion = $clean -> get ('opinion');
+	    $utam_pur -> utam_read -> valoration = $clean -> get ('valoration');*/
+	    $utam_pur -> utam_bookshop = new utam_bookshop ();
+	    $utam_pur -> utam_bookshop -> id = $clean -> get ('bookshop');
+	    $dao -> insert ($utam_pur);
+
 	    // Move the upload cover.
 	    if ($file -> move_uploaded_files ())
 	      throw new Exception (gettext ('It can not upload the file') . ': ' . 
@@ -265,7 +284,6 @@ class book extends core_auth_user
 	    $msg[] = array ('msg' => $e -> getMessage ());
 	    $href = "javascript: parent.bookloader.loadXMLContent ();";
 	    $link = gettext ('Leave');
-	    echo "Error 1";
 	  }
       }
     else // Validation error.
@@ -278,7 +296,6 @@ class book extends core_auth_user
 	$msg_id = 'error-box';
 	$href = "javascript: parent.bookloader.loadXMLContent ();";
 	$link = gettext ('Leave');
-	echo "Error 2";
       }
     
     $this -> set ('msg_file', $msg_file);

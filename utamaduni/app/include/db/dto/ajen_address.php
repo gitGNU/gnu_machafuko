@@ -18,6 +18,8 @@
  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+include_once ('ajen_street.php');
+
 /**
  * Object represents table 'ajen_address'
  *
@@ -29,5 +31,6 @@ class ajen_address
 	var $street;
 	var $city;
 	var $country;
+	var $ajen_street; // It is a object.
 }
 ?>
