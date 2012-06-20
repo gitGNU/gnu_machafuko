@@ -242,21 +242,13 @@ class book extends core_auth_user
 
 	    // If is a purchased book it inserts the book into purchased table. Otherwise,
 	    // it inserts into loaned book table.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_purchased_mysql_ext_dao.php');
-	    $dao = new utam_purchased_mysql_ext_dao ();
+	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_purchased_mysql_dao.php');
+	    $dao = new utam_purchased_mysql_dao ();
 	    $utam_pur = new utam_purchased ();
 	    $utam_pur -> id = $idbook;
 	    $utam_pur -> isbn = $clean -> get ('isbn');
 	    $utam_pur -> price = $clean -> get ('price');
-	    /*$utam_pur -> utam_read = new utam_read ();
-	    $utam_pur -> utam_read -> id = $idbook;
-	    $utam_pur -> utam_read -> isbn = $clean -> get ('isbn');
-	    $utam_pur -> utam_read -> start = $clean -> get ('start');
-	    $utam_pur -> utam_read -> finish = $clean -> get ('finish');
-	    $utam_pur -> utam_read -> opinion = $clean -> get ('opinion');
-	    $utam_pur -> utam_read -> valoration = $clean -> get ('valoration');*/
-	    $utam_pur -> utam_bookshop = new utam_bookshop ();
-	    $utam_pur -> utam_bookshop -> id = $clean -> get ('bookshop');
+	    $utam_pur -> bookshop = $clean -> get ('bookshop');
 	    $dao -> insert ($utam_pur);
 
 	    // Move the upload cover.
@@ -344,7 +336,12 @@ class book extends core_auth_user
     $this -> set ('authors', $select);
     $this -> set ('bookshop_label', gettext ('Bookshop'));
     include_once (UT_BASE_PATH . '/modules/helper/bookshop.php');
-    $this -> set ('bookshops', bookshop::get_all_bookshop ());
+    $bookshops = bookshop::get_all_bookshop ();
+    $select = array ();
+    foreach ($bookshops as $key => $val)
+      $select[] = array ('bookshop_value' => $key, 'bookshop_name' => $val);
+    $this -> set ('bookshops', $select);
+    $this -> set ('bookshop_select', gettext ('Select a bookshop'));
     $this -> set ('isbn_label', gettext ('ISBN'));
     $this -> set ('isbn', '');
     $this -> set ('isbn_len', '20');

@@ -1,1 +1,0 @@
-roman@portatil-roman.4752:1339999669

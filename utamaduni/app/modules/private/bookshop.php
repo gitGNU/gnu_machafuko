@@ -148,11 +148,6 @@ class bookshop extends core_auth_user
     // validates the required fields, minimun field length, and so on.
     if ($facade_val_res)
       {
-	echo "<br>";
-	echo "Name: " . $clean -> get ('streetname') . "<br>" .
-	  "Number: " . $clean -> get ('streetnum') . "<br>" .
-	  "Extra: " . $clean -> get ('streetextra') . "<br>";
-
 	try
 	  {
 	    // Open a transaction because they do several inserts. If one fail rollback.

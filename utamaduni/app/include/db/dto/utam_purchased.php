@@ -29,6 +29,7 @@ include_once ('utam_bookshop.php');
 class utam_purchased extends utam_read
 {
 	var $id;
+	var $bookshop;
 	var $isbn;
 	var $price;
 	var $utam_bookshop; // It is an object.
