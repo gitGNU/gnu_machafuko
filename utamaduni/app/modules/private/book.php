@@ -522,9 +522,9 @@ class book extends core_auth_user
     $this -> set ('all_books', $ab_paginated);
     $this -> set ('page_navigation', $page_navigation);
     if (count ($all_books))
-      $this -> set ('all_books_msg', gettext ("All your books:"));
+      $this -> set ('all_books_msg', gettext ("All your books") . ':');
     else
-      $this -> set ('all_books_msg', gettext ("You do not have any book."));
+      $this -> set ('all_books_msg', gettext ("You do not have any book") . '.');
   }
   // }}}
 }
