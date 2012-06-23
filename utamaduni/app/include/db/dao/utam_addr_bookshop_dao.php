@@ -23,13 +23,13 @@
  *
  * @author: Román Ginés Martínez Ferrández <romangines@riseup.net>
  */
-interface utam_bookshop_dao
+interface utam_addr_bookshop_dao
 {
 	/**
 	 * Get domain object by primary key.
 	 *
 	 * @param String $id primary key.
-	 * @return utam_bookshop.
+	 * @return utam_addr_bookshop.
 	 */
 	public function load ($id);
 
@@ -55,16 +55,16 @@ interface utam_bookshop_dao
 	/**
 	 * Insert record to table.
 	 *
-	 * @param utam_bookshop $utam_bookshop.
+	 * @param utam_addr_bookshop $utam_addr_bookshop.
 	 */
-	public function insert ($utam_bookshop);
+	public function insert ($utam_addr_bookshop);
 
 	/**
 	 * Update record in table.
 	 *
-	 * @param utam_bookshop $utam_bookshop.
+	 * @param utam_addr_bookshop $utam_addr_bookshop.
 	 */
-	public function update ($utam_bookshop);
+	public function update ($utam_addr_bookshop);
 
 	/**
 	 * Delete all rows.
@@ -77,11 +77,8 @@ interface utam_bookshop_dao
 	public function query_by_id ($value);
 	public function delete_by_id ($value);
 
-	public function query_by_name ($value);
-	public function delete_by_name ($value);
-
-	public function query_by_logo ($value);
-	public function delete_by_logo ($value);
+	public function query_by_address ($value);
+	public function delete_by_address ($value);
 
 }
 ?>

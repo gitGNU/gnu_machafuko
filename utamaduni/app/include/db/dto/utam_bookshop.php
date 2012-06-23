@@ -18,8 +18,6 @@
  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once ('ajen_address.php');
-
 /**
  * Object represents table 'utam_bookshop'
  *
@@ -29,8 +27,6 @@ class utam_bookshop
 {
 	var $id;
 	var $name;
-	var $address;
-	var $ajen_address; // It is a object.
 	var $logo;
 }
 ?>

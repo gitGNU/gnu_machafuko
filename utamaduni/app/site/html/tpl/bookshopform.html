@@ -39,30 +39,43 @@
       
       <!-- Second column -->
       <div id="left" class="grid_9">
-	<div id="normal-box">
-	  <b>{street_label}:</b>
-	  <p>
-	    {street_name_label}:
-	    <input class='my-input-large' type='text' name='streetname' id='streetname' value='{streetname}' maxlength='{streetname_len}' />,
-	      {street_number_label}: 
-	      <input class='my-input-mini' type='text' name='streetnum' id='streetnum' value='{streetnum}' maxlength='{streetnum_len}' />,
-		{street_extra_label}:
-		<input class='my-input-medium' type='text' name='streetextra' id='streetextra' value='{streetextra}' maxlength='{streetextra}' />
-	  </p>
-	</div>
+	<div id="grid-gray">
+	  <p id='small'>{address_msg}</p>
+	  <div id="normal-box">
+	    <b>{street_label}:</b>
+	    <p>
+	      {street_name_label}:
+	      <input class='my-input-large' type='text' name='streetname' id='streetname' value='{streetname}' maxlength='{streetname_len}' />,
+		{street_number_label}: 
+		<input class='my-input-mini' type='text' name='streetnum' id='streetnum' value='{streetnum}' maxlength='{streetnum_len}' />,
+		  {street_extra_label}:
+		  <input class='my-input-medium' type='text' name='streetextra' id='streetextra' value='{streetextra}' maxlength='{streetextra}' />
+	    </p>
+	  </div>
 	
-	<div id="normal-box">
-	  <b>{city_label}:</b>
-	  <p>
-	    <input class='my-input-large' type='text' name='city' id='city' value='{city}' maxlength='{city_len}' />
-	  </p>
+	  <div id="normal-box">
+	    <b>{city_label}:</b>
+	    <p>
+	      <input class='my-input-large' type='text' name='city' id='city' value='{city}' maxlength='{city_len}' />
+	    </p>
+	  </div>
+	  
+	  <div id="normal-box">
+	    <b>{country_label}:</b>
+	    <p>
+	      <input class='my-input-large' type='text' name='country' id='country' value='{country}' maxlength='{country_len}' />
+	    </p>
+	  </div>
 	</div>
-	
-	<div id="normal-box">
-	  <b>{country_label}:</b>
-	  <p>
-	    <input class='my-input-large' type='text' name='country' id='country' value='{country}' maxlength='{country_len}' />
-	  </p>
+
+	<div id="grid-gray">
+	  <p id='small'>{url_msg}</p>
+	  <div id="normal-box">
+	    <b>{url_label}:</b>
+	    <p>
+	      <input class='my-input-large' type='text' name='url' id='url' value='{url}' maxlength='{url_len}' />
+	    </p>
+	  </div>
 	</div>
       </div>
       

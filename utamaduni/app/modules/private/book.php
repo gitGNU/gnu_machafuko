@@ -245,11 +245,11 @@ class book extends core_auth_user
 	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
 	    $dao = new utam_purchased_mysql_ext_dao ();
 	    $utam_pur = new utam_purchased ();
-	    $utam_pur -> bookshop = new utam_bookshop ();
+	    $utam_pur -> utam_bookshop = new utam_bookshop ();
 	    $utam_pur -> id = $idbook;
 	    $utam_pur -> isbn = $clean -> get ('isbn');
 	    $utam_pur -> price = $clean -> get ('price');
-	    $utam_pur -> bookshop -> id = $clean -> get ('bookshop');
+	    $utam_pur -> utam_bookshop -> id = $clean -> get ('bookshop');
 	    $dao -> insert ($utam_pur);
 
 	    // Move the upload cover.

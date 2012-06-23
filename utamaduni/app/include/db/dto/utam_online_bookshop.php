@@ -18,13 +18,17 @@
  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+include_once ('utam_bookshop.php');
+
 /**
- * Class that operate on table 'utam_bookshop'. Database MySQL.
+ * Object represents table 'utam_online_bookshop'
  *
  * @author: Román Ginés Martínez Ferrández <romangines@riseup.net>
  */
-class utam_bookshop_mysql_ext_dao extends utam_bookshop_mysql_dao
+class utam_online_bookshop extends utam_bookshop
 {
-
+	var $id;
+	var $url;
+	var $utam_bookshop; // It is a object.
 }
 ?>

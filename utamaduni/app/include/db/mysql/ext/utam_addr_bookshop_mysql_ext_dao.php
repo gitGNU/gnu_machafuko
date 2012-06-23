@@ -19,11 +19,11 @@
  */
 
 /**
- * Class that operate on table 'utam_bookshop'. Database MySQL.
+ * Class that operate on table 'utam_addr_bookshop'. Database MySQL.
  *
  * @author: Román Ginés Martínez Ferrández <romangines@riseup.net>
  */
-class utam_bookshop_mysql_ext_dao extends utam_bookshop_mysql_dao
+class utam_addr_bookshop_mysql_ext_dao extends utam_addr_bookshop_mysql_dao
 {
 
 }

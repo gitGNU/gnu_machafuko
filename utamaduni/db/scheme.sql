@@ -117,17 +117,32 @@ create table if not exists ajen_address (
        city varchar(100) not null,
        country varchar(100) not null,
        constraint pk_address primary key (id),
-       constraint fk_address_street foreign key (street) references ajen_street(id) on delete set null on update cascade
+       constraint fk_address_street foreign key (street) references ajen_street(id) on delete cascade on update cascade
 ) engine=innodb, charset=utf8;
 
 
 create table if not exists utam_bookshop (
+	id int(6) auto_increment,
+	name varchar(100),
+	logo varchar(200),
+	constraint pk_bookshop primary key (id)
+) engine=innodb, charset=utf8;
+
+
+create table if not exists utam_addr_bookshop (
        id int(6) auto_increment,
-       name varchar(100),
        address int(7),
-       logo varchar(200),
-       constraint pk_bookshop primary key (id),
+       constraint pk_addr_bookshop primary key (id),
+       constraint fk_bookshop_bookshop foreign key (id) references utam_bookshop(id) on delete cascade on update cascade,
        constraint fk_bookshop_address foreign key (address) references ajen_address(id) on delete cascade on update cascade
+) engine=innodb, charset=utf8;
+
+
+create table if not exists utam_online_bookshop (
+       id int(6) auto_increment,
+       url varchar(200) not null,
+       constraint pk_online_bookshop primary key (id),
+       constraint fk_online_bookshop foreign key (id) references utam_bookshop(id) on delete cascade on update cascade
 ) engine=innodb, charset=utf8;
 
 

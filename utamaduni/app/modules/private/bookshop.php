@@ -126,6 +126,9 @@ class bookshop extends core_auth_user
     $country_validator =
       new validation_alnum_field ('country',
 				  gettext ('The country must consist of letter and numbers only'));
+    $url_validator =
+      new validation_url_field ('url',
+				gettext ('The web address must be an URL'));
 
 
     $val_facade = new validation_facade ();
@@ -135,6 +138,7 @@ class bookshop extends core_auth_user
     $val_facade -> add_validator ($streetextra_validator);
     $val_facade -> add_validator ($city_validator);
     $val_facade -> add_validator ($country_validator);
+    $val_facade -> add_validator ($url_validator);
     $file = new file_phpfiles ('logo', UT_FILES_BASE_PATH . UT_FOLDER_LOGOS,
 			       UT_FILES_LOGICAL_PATH . UT_FOLDER_LOGOS);
     
@@ -153,33 +157,13 @@ class bookshop extends core_auth_user
 	    // Open a transaction because they do several inserts. If one fail rollback.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/core/transaction.php');
 	    $transaction = new transaction ();
-		
-	    // Insert the street.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/ajen_street_mysql_ext_dao.php');
-	    $dao = new ajen_street_mysql_ext_dao ();
-	    $streetid = $dao -> insert_street ($clean -> get ('streetname'),
-					$clean -> get ('streetnum'),
-					$clean -> get ('streetextra'));
-
-	    // Insert the address.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/ajen_address_mysql_ext_dao.php');
-	    $dao = new ajen_address_mysql_ext_dao ();
-	    $ajen_address = new ajen_address ();
-	    $ajen_address -> street = $streetid;
-	    $ajen_address -> city = $clean -> get ('city');
-	    $ajen_address -> country = $clean -> get ('country');
-	    $addressid = $dao -> insert_address ($ajen_address);
 
 	    // Insert the bookshop into db.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_bookshop_mysql_dao.php');
 	    $dao = new utam_bookshop_mysql_dao ();
-	    //$file = new file_phpfiles ('logo', UT_FILES_BASE_PATH . UT_FOLDER_LOGOS,
-	    //			       UT_FILES_LOGICAL_PATH . UT_FOLDER_LOGOS);
 	    $utam_bs = new utam_bookshop ();
 	    $utam_bs -> name = $clean -> get ('name');
-	    $utam_bs -> address = $addressid;
-	    $utam_bs -> logo = $file -> get_logical_full_path ();
-		
+	    $utam_bs -> logo = $file -> get_logical_full_path ();		
 	    // If ok it gets the identifier of the inserted book.
 	    $idbookshop = $dao -> insert ($utam_bs);
 	    
@@ -187,6 +171,44 @@ class bookshop extends core_auth_user
 	    if ($file -> move_uploaded_files ())
 	      throw new Exception (gettext ('It can not upload the file') . ': ' . 
 				   $file -> get_error ());
+		
+	    // Insert the address, street and physical bookshop.
+	    $aux = $clean -> get ('streetname');
+	    if (!empty ($aux))
+	      {
+		include_once (UT_BASE_PATH . '/include/db/mysql/ext/ajen_street_mysql_ext_dao.php');
+		$dao = new ajen_street_mysql_ext_dao ();
+		$streetid = $dao -> insert_street ($clean -> get ('streetname'),
+						   $clean -> get ('streetnum'),
+						   $clean -> get ('streetextra'));
+
+		// Insert the address.
+		include_once (UT_BASE_PATH . '/include/db/mysql/ext/ajen_address_mysql_ext_dao.php');
+		$dao = new ajen_address_mysql_ext_dao ();
+		$ajen_address = new ajen_address ();
+		$ajen_address -> street = $streetid;
+		$ajen_address -> city = $clean -> get ('city');
+		$ajen_address -> country = $clean -> get ('country');
+		$addressid = $dao -> insert_address ($ajen_address);
+
+		// Insert the physical bookshop.
+		include_once (UT_BASE_PATH . '/include/db/mysql/utam_addr_bookshop_mysql_dao.php');
+		$dao = new utam_addr_bookshop_mysql_dao ();
+		$utam_abs -> id = $idbookshop;
+		$utam_abs -> address = $addressid;
+		$dao -> insert ($utam_abs);
+	      }
+
+	    // Insert the online bookshop.
+	    $aux = $clean -> get ('url');
+	    if (!empty ($aux))
+	      {
+		include_once (UT_BASE_PATH . '/include/db/mysql/utam_online_bookshop_mysql_dao.php');
+		$dao = new utam_online_bookshop_mysql_dao ();
+		$utam_obs -> id = $idbookshop;
+		$utam_obs -> url = $clean -> get ('url');
+		$dao -> insert ($utam_obs);
+	      }
 	    
 	    // It prepares the message.
 	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/ok.html');
@@ -258,6 +280,7 @@ class bookshop extends core_auth_user
     $this -> set ('name', gettext ('Name'));
     $this -> set ('name_len', '100');
     $this -> set ('logo_label', gettext ('Logo'));
+    $this -> set ('address_msg', gettext ('if is a physical bookshop type the post address'));
     $this -> set ('street_label', gettext ('Street'));
     $this -> set ('street_name_label', gettext ('name'));
     $this -> set ('streetname', '');
@@ -274,6 +297,10 @@ class bookshop extends core_auth_user
     $this -> set ('country_label', gettext ('Country'));
     $this -> set ('country', '');
     $this -> set ('country_len', '100');
+    $this -> set ('url_msg', gettext ('If this bookshop have web page or is an online bookshop type the URL'));
+    $this -> set ('url_label', gettext ('Web address'));
+    $this -> set ('url', '');
+    $this -> set ('url_len', '200');
     $this -> set ('cancel_btn', gettext ('Cancel'));
     $this -> set ('ok_btn', gettext ('Create'));
   }
