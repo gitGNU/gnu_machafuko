@@ -81,16 +81,26 @@ class validation_digit_field
   public function validation ($coordinator)
   {
     $field = $coordinator -> get ($this -> fieldname);
-
-    if (ctype_digit ($field))
+    
+    if ($field !== null)
       {
-	$coordinator -> set_clean ($this -> fieldname);
-	return TRUE;
-      }
-    elseif ($field === '')
-      {
-	$coordinator -> set_clean ($this -> fieldname);
-	return TRUE;
+	$valids = array ('.', ',');
+	
+	if (ctype_digit (str_replace ($valids, '', $field)))
+	  {
+	    $coordinator -> set_clean ($this -> fieldname);
+	    return TRUE;
+	  }
+	elseif ($field === '')
+	  {
+	    $coordinator -> set_clean ($this -> fieldname);
+	    return TRUE;
+	  }
+	else
+	  {
+	    $coordinator -> add_error ($this -> message);
+	    return FALSE;
+	  }
       }
     else
       {

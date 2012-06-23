@@ -148,7 +148,7 @@ class book extends core_auth_user
 				  gettext ('The subjects must consist of letter and numbers only'));
     $price_validator =
       new validation_digit_field ('price',
-				  gettext ('The valoration must consist of digits'));
+				  gettext ('The price must consist of digits'));
 
     $val_facade = new validation_facade ();
     $val_facade -> add_validator ($author_validator);
@@ -242,13 +242,14 @@ class book extends core_auth_user
 
 	    // If is a purchased book it inserts the book into purchased table. Otherwise,
 	    // it inserts into loaned book table.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_purchased_mysql_dao.php');
-	    $dao = new utam_purchased_mysql_dao ();
+	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
+	    $dao = new utam_purchased_mysql_ext_dao ();
 	    $utam_pur = new utam_purchased ();
+	    $utam_pur -> bookshop = new utam_bookshop ();
 	    $utam_pur -> id = $idbook;
 	    $utam_pur -> isbn = $clean -> get ('isbn');
 	    $utam_pur -> price = $clean -> get ('price');
-	    $utam_pur -> bookshop = $clean -> get ('bookshop');
+	    $utam_pur -> bookshop -> id = $clean -> get ('bookshop');
 	    $dao -> insert ($utam_pur);
 
 	    // Move the upload cover.

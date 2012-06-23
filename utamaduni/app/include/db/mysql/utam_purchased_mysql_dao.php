@@ -157,7 +157,6 @@ class utam_purchased_mysql_dao implements utam_purchased_dao
 	{
 		$sql = 'INSERT INTO utam_purchased (id, isbn, price, bookshop) VALUES (?, ?, ?, ?)';
 		$query = new sql_query ($sql);
-
 		$query -> set ($utam_purchased -> id);
 		$query -> set ($utam_purchased -> isbn);
 		$query -> set ($utam_purchased -> price);

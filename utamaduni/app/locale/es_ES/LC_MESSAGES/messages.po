@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-21 10:42+0200\n"
+"POT-Creation-Date: 2012-06-23 12:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,13 +153,18 @@ msgstr "La fecha final debe estar formada por letras y números"
 msgid "The opinion must consist of letter and numbers only"
 msgstr "La opinión debe estar formada por letras y números"
 
-#: ../modules/private/book.php:144 ../modules/private/book.php:151
+#: ../modules/private/book.php:144
 msgid "The valoration must consist of digits"
 msgstr "La valoración debe estar formada por dígitos"
 
 #: ../modules/private/book.php:148
 msgid "The subjects must consist of letter and numbers only"
 msgstr "El título debe estar formado por letras y números"
+
+#: ../modules/private/book.php:151
+#, fuzzy
+msgid "The price must consist of digits"
+msgstr "El precio debe estar formado por dígitos"
 
 #: ../modules/private/book.php:261
 msgid "The book"

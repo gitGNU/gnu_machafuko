@@ -127,7 +127,7 @@ create table if not exists utam_bookshop (
        address int(7),
        logo varchar(200),
        constraint pk_bookshop primary key (id),
-       constraint fk_bookshop_address foreign key (address) references ajen_address(id) on delete set null on update cascade
+       constraint fk_bookshop_address foreign key (address) references ajen_address(id) on delete cascade on update cascade
 ) engine=innodb, charset=utf8;
 
 

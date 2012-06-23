@@ -33,13 +33,17 @@ class utam_purchased_mysql_ext_dao extends utam_purchased_mysql_dao
    */
   public function insert ($utam_purchased)
   {
-    $sql = 'INSERT INTO utam_purchased (id, isbn, price, bookshop) VALUES (?, ?, ?, ?)';
+    if (!empty ($utam_purchased -> utam_bookshop -> id))
+      $sql = 'INSERT INTO utam_purchased (id, isbn, price, bookshop) VALUES (?, ?, ?, ?)';
+    else
+      $sql = 'INSERT INTO utam_purchased (id, isbn, price) VALUES (?, ?, ?)';
     $query = new sql_query ($sql);
 
     $query -> set ($utam_purchased -> id);
     $query -> set ($utam_purchased -> isbn);
     $query -> set ($utam_purchased -> price);
-    $query -> set ($utam_purchased -> utam_bookshop -> id);
+    if (!empty ($utam_purchased -> utam_bookshop -> id))
+      $query -> set ($utam_purchased -> utam_bookshop -> id);
 
     $id = $this -> execute_insert ($query);
     $utam_purchased -> id = $id;
