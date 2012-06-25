@@ -17,6 +17,7 @@
 -->
 
 <div class="container_12">
+    <!-- FIRST ROW -->
     <div id="left" class="grid_12">
       <h2>
 	{title}
@@ -25,16 +26,37 @@
 
     <div class="clear"></div>
 
-    <div id="right" class="grid_6">
-      <div id="right" class="normal-box"><img id="{imgid}" src="{cover}" /></div>
+    <!-- SECOND ROW -->
+    <!-- First column -->
+    <div id="right" class="grid_3">
+      <div id="right" class="normal-box">
+	<img id="{imgid}" src="{cover}" />
+      </div>
+
       {{authors<div class="normal-box"><p>{author}</p><img id="{imgauthorid}" src="{photo}" /></div>}}
+
+      <div class="normal-box">
+	<p>{bookshop}</p>
+	<img id="{imgbookshopid}" src="{logo}" />
+      </div>
     </div>
 
-    <div id="left" class="grid_6">
+    <!-- Second column -->
+    <div id="left" class="grid_5">
       <div id="normal-box"><b>{isbn_tag}:</b><p>{isbn}</p></div>
       <div id="normal-box"><b>{publisher_tag}:</b><p>{publisher}</p></div>
       <div id="normal-box"><b>{format_tag}:</b><p>{format}</p></div>
       <div id="normal-box"><b>{subject_tag}:</b><p>{subject}</p></div>
       <div id="normal-box"><b>{description_tag}:</b><p>{description}</p></div>
+      <div id="normal-box"><b>{opinion_tag}:</b><p>{opinion}</p></div>
+    </div>
+
+    <!-- Third column -->
+    <div id="left" class="grid_4">
+      <div id="normal-box"><b>{pages_tag}:</b><p>{pages}</p></div>
+      <div id="normal-box"><b>{start_tag}:</b><p>{start}</p></div>
+      <div id="normal-box"><b>{finish_tag}:</b><p>{finish}</p></div>
+      <div id="normal-box"><b>{valoration_tag}:</b><p>{valoration}</p></div>
+      <div id="normal-box"><b>{price_tag}:</b><p>{price}</p></div>
     </div>
 </div>

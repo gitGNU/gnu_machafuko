@@ -109,10 +109,12 @@ class author extends core_auth_user
     // get the POST or GET automatically).
     $name_validator =
       new validation_alpha_field ('name',
-				  gettext ('The name must consist of letters only'));
+				  gettext ('The name must consist of letters only'),
+				  true);
     $surname_validator =
       new validation_alpha_field ('surname',
-				  gettext ('The surname must consist of letters only'));
+				  gettext ('The surname must consist of letters only'),
+				  true);
     
     $val_facade = new validation_facade ();
     $val_facade -> add_validator ($name_validator);

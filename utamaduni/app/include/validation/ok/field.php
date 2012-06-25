@@ -26,52 +26,8 @@
  * @copyright Román Ginés Martínez Ferrández <rgmf@riseup.net>
  * @license http://www.gnu.org/licenses/gpl.html
  */
-class validation_ok_field
+class validation_ok_field extends validation_field
 {
-  // {{{ properties
-  /**
-   * $fieldname
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $fieldname
-   */
-  private $fieldname;
-
-  /**
-   * $message
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $message Error message.
-   */
-  private $message;
-  // }}}
-
-  // {{{ __construct ()
-  /**
-   * __construct
-   *
-   * The validator needs the fieldname and the message.
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __construct ($fieldname, $message = '')
-  {
-    $this -> fieldname = $fieldname;
-    $this -> message = $message;
-  }
-  // }}}
-
-  // {{{ __desctruct ()
-  /**
-   * __destruct
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __destruct ()
-  {
-  }
-  // }}}
-
   // {{{ validation ($coordinator)
   /**
    * validation
@@ -80,8 +36,16 @@ class validation_ok_field
    */
   public function validation ($coordinator)
   {
-      $coordinator -> set_clean ($this -> fieldname);
-      return TRUE;
+    if ($this -> check_required ($coordinator -> get ($this -> fieldname)))
+      {
+	$coordinator -> set_clean ($this -> fieldname);
+	return TRUE;
+      }
+    else
+      {
+	$coordinator -> add_error ($this -> message);
+	return FALSE;
+      }
   }
   // }}}
 }

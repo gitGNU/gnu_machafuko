@@ -38,7 +38,7 @@ class utam_book_mysql_ext_dao extends utam_book_mysql_dao
   public function load ($id)
   {
     $sql = 
-      'SELECT b.id id, b.isbn isbn, b.title title, b.description description, b.cover cover, b.pages pages, p.id publisherid, p.name publishername, f.id formatid, f.name formatname FROM utam_book b, utam_publisher p, utam_format f WHERE b.id = ? and b.publisher = p.id and b.format = f.id';
+      'SELECT b.id id, b.isbn isbn, b.title title, b.description description, b.cover cover, b.pages pages, p.id publisherid, p.name publishername, f.id formatid, f.name formatname FROM utam_book b, utam_publisher p, utam_format f, utam_bookshop bs, utam_purchased pu WHERE b.id = ? and b.publisher = p.id and b.format = f.id';
     $query = new sql_query ($sql);
     $query -> set_number ($id);
     return $this -> get_row ($query);

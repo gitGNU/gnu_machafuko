@@ -86,6 +86,40 @@ class book extends core_auth_user
   }
   // }}}
 
+  // {{{ __get_purchased ()
+  /**
+   * __get_purchased
+   *
+   * Get book information and returns it or null if there is any error or
+   * not exist that purchased book.
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  private function __get_purchased ()
+  {
+    $utam_purchased = null;
+
+    // Get POST or GET data.
+    // Prepare validation from POST or GET data (the validators objects
+    // get the POST or GET automatically).
+    $id_validator = new validation_digit_field ('id',
+						gettext ('Invalid identifier'));
+    $val_facade = new validation_facade ();
+    $val_facade -> add_validator ($id_validator);
+    if ($val_facade -> validation ())
+      {
+	$clean = $val_facade -> get_clean_request ();
+
+	include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
+	$dao = new utam_purchased_mysql_ext_dao ();
+	$utam_purchased = new utam_purchased ();
+	$utam_purchased = $dao -> load ($clean -> get ('id'));
+      }
+
+    return $utam_purchased;
+  }
+  // }}}
+
   // {{{ update ()
   /**
    * update
@@ -109,15 +143,17 @@ class book extends core_auth_user
     // Get POST or GET data.
     // Prepare validation from POST or GET data (the validators objects
     // get the POST or GET automatically).
-    $author_validator = new validation_ok_field ('author');
-    $bookshop_validator = new validation_ok_field ('bookshop');
-    $contact_validator = new validation_ok_field ('contact');
+    $author_validator = new validation_ok_field ('author', '');
+    $bookshop_validator = new validation_ok_field ('bookshop', '');
+    $contact_validator = new validation_ok_field ('contact', '');
     $isbn_validator =
       new validation_isbn_field ('isbn',
-				 gettext ('The ISBN must consist of numbers and dashes only'));
+				 gettext ('The ISBN is a required field and must consist of numbers and dashes only'),
+				 true);
     $title_validator =
       new validation_alnum_field ('title',
-				  gettext ('The title must consist of letter and numbers only'));
+				  gettext ('The title is a required field and must consist of letter and numbers only'),
+				  true);
     $desc_validator =
       new validation_lalnum_field ('description',
 				   gettext ('The description must consist of letter and numbers only'));
@@ -325,7 +361,8 @@ class book extends core_auth_user
     // Get the book information (maybe null).
     $utam_book = $this -> __get_book ();
     
-    $this -> set ('title', gettext ('Title'));
+    $this -> set ('title_label', gettext ('Title'));
+    $this -> set ('title', '');
     $this -> set ('title_len', '50');
     $this -> set ('cover_label', gettext ('Cover'));
     $this -> set ('author_label', gettext ('Author'));
@@ -402,9 +439,15 @@ class book extends core_auth_user
   {
     include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
     $private_menu = new privatemenu ();
-    
-    if ($utam_book = $this -> __get_book ())
+
+    if ($utam_pur = $this -> __get_purchased ())
       {
+	$utam_read = $utam_pur -> utam_read;
+	$utam_bookshop = $utam_pur -> utam_bookshop;
+	$utam_book = $utam_read -> utam_book;
+	$utam_format = $utam_book -> utam_format;
+	$utam_publisher = $utam_book -> utam_publisher;
+
 	// Create author array to set.
 	$authors[0] = array ('imgauthorid' => '', 'photo' => '', 'author' => '');
 	if (count ($utam_book -> utam_author))
@@ -438,16 +481,31 @@ class book extends core_auth_user
 	$this -> set ('imgid', 'small');
 	$this -> set ('cover', $utam_book -> cover);
 	$this -> set ('authors', $authors);
+	$this -> set ('bookshop', $utam_bookshop -> name);
+	$this -> set ('imgbookshopid', 'mini');
+	$this -> set ('logo', $utam_bookshop -> logo);
 	$this -> set ('isbn', $utam_book -> isbn);
 	$this -> set ('isbn_tag', gettext ('ISBN'));
-	$this -> set ('publisher', $utam_book -> utam_publisher -> name);
+	$this -> set ('publisher', $utam_publisher -> name);
 	$this -> set ('publisher_tag', gettext ('Publisher'));
-	$this -> set ('format', $utam_book -> utam_format -> name);
+	$this -> set ('format', $utam_format -> name);
 	$this -> set ('format_tag', gettext ('Format'));
 	$this -> set ('subject', $subjects);
 	$this -> set ('subject_tag', gettext ('Subject'));
 	$this -> set ('description', $utam_book -> description);
 	$this -> set ('description_tag', gettext ('Description'));
+	$this -> set ('pages', $utam_book -> pages);
+	$this -> set ('pages_tag', gettext ('Pages'));
+	$this -> set ('start', $utam_read -> start);
+	$this -> set ('start_tag', gettext ('Start read date'));
+	$this -> set ('finish', $utam_read -> finish);
+	$this -> set ('finish_tag', gettext ('Finish read date'));
+	$this -> set ('valoration', $utam_read -> valoration);
+	$this -> set ('valoration_tag', gettext ('Valoration'));
+	$this -> set ('price', $utam_pur -> price);
+	$this -> set ('price_tag', gettext ('Price'));
+	$this -> set ('opinion', $utam_read -> opinion);
+	$this -> set ('opinion_tag', gettext ('Opinion'));
       }
     else // Validation error.
       {

@@ -26,52 +26,8 @@
  * @copyright Román Ginés Martínez Ferrández <rgmf@riseup.net>
  * @license http://www.gnu.org/licenses/gpl.html
  */
-class validation_isbn_field
+class validation_isbn_field extends validation_field
 {
-  // {{{ properties
-  /**
-   * $fieldname
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $fieldname
-   */
-  private $fieldname;
-
-  /**
-   * $message
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $message Error message.
-   */
-  private $message;
-  // }}}
-
-  // {{{ __construct ()
-  /**
-   * __construct
-   *
-   * The validator needs the fieldname and the message.
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __construct ($fieldname, $message)
-  {
-    $this -> fieldname = $fieldname;
-    $this -> message = $message;
-  }
-  // }}}
-
-  // {{{ __desctruct ()
-  /**
-   * __destruct
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __destruct ()
-  {
-  }
-  // }}}
-
   // {{{ validation ($coordinator)
   /**
    * validation
@@ -81,34 +37,42 @@ class validation_isbn_field
   public function validation ($coordinator)
   {
     $field = $coordinator -> get ($this -> fieldname);
-    
-    if (empty ($field))
+
+    if ($this -> check_required ($field))
       {
-	$coordinator -> set_clean ($this -> fieldname);
-	return TRUE;
-      }
-    else
-      {
-	$subfields = explode ('-', $field);
-	$all = true;
-	foreach ($subfields as $f)
-	  {
-	    if (!ctype_digit ($f))
-	      {
-		$all = false;
-		break;
-	      }
-	  }
-	if ($all)
+	if (empty ($field))
 	  {
 	    $coordinator -> set_clean ($this -> fieldname);
 	    return TRUE;
 	  }
 	else
 	  {
-	    $coordinator -> add_error ($this -> message);
-	    return FALSE;
+	    $subfields = explode ('-', $field);
+	    $all = true;
+	    foreach ($subfields as $f)
+	      {
+		if (!ctype_digit ($f))
+		  {
+		    $all = false;
+		    break;
+		  }
+	      }
+	    if ($all)
+	      {
+		$coordinator -> set_clean ($this -> fieldname);
+		return TRUE;
+	      }
+	    else
+	      {
+		$coordinator -> add_error ($this -> message);
+		return FALSE;
+	      }
 	  }
+      }
+    else
+      {
+	$coordinator -> add_error ($this -> message);
+	return FALSE;
       }
   }
   // }}}

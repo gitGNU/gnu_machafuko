@@ -110,7 +110,8 @@ class bookshop extends core_auth_user
     // get the POST or GET automatically).
     $name_validator =
       new validation_alnum_field ('name',
-				  gettext ('The name must consist of letter and numbers only'));
+				  gettext ('The name is a required field and must consist of letter and numbers only'),
+				  true);
     $streetname_validator =
       new validation_lalnum_field ('streetname',
 				   gettext ('The street name must consist of letter and numbers only'));
@@ -277,7 +278,8 @@ class bookshop extends core_auth_user
 
     // Get the bookshop information (maybe null).
     $utam_bs = $this -> __get_bookshop ();
-    $this -> set ('name', gettext ('Name'));
+    $this -> set ('name_label', gettext ('Name'));
+    $this -> set ('name', '');
     $this -> set ('name_len', '100');
     $this -> set ('logo_label', gettext ('Logo'));
     $this -> set ('address_msg', gettext ('if is a physical bookshop type the post address'));

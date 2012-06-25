@@ -26,52 +26,8 @@
  * @copyright Román Ginés Martínez Ferrández <rgmf@riseup.net>
  * @license http://www.gnu.org/licenses/gpl.html
  */
-class validation_mail_field
+class validation_mail_field extends validation_field
 {
-  // {{{ properties
-  /**
-   * $fieldname
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $fieldname
-   */
-  private $fieldname;
-
-  /**
-   * $message
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $message Error message.
-   */
-  private $message;
-  // }}}
-
-  // {{{ __construct ()
-  /**
-   * __construct
-   *
-   * The validator needs the fieldname and the message.
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __construct ($fieldname, $message)
-  {
-    $this -> fieldname = $fieldname;
-    $this -> message = $message;
-  }
-  // }}}
-
-  // {{{ __desctruct ()
-  /**
-   * __destruct
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __destruct ()
-  {
-  }
-  // }}}
-
   // {{{ validation ($coordinator)
   /**
    * validation
@@ -84,15 +40,23 @@ class validation_mail_field
 
     if ($field !== null)
       {
-	if (filter_var ($field, FILTER_VALIDATE_EMAIL))
+	if ($this -> check_required ($field))
 	  {
-	    $coordinator -> set_clean ($this -> fieldname);
-	    return TRUE;
-	  }
-	elseif ($field === '')
-	  {
-	    $coordinator -> set_clean ($this -> fieldname);
-	    return TRUE;
+	    if (filter_var ($field, FILTER_VALIDATE_EMAIL))
+	      {
+		$coordinator -> set_clean ($this -> fieldname);
+		return TRUE;
+	      }
+	    elseif ($field === '')
+	      {
+		$coordinator -> set_clean ($this -> fieldname);
+		return TRUE;
+	      }
+	    else
+	      {
+		$coordinator -> add_error ($this -> message);
+		return FALSE;
+	      }
 	  }
 	else
 	  {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-23 12:30+0200\n"
+"POT-Creation-Date: 2012-06-24 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../index.php:119 ../modules/helper/mcaller.php:38
 msgid "Requested module is not a valid module."
-msgstr "El módulo solicitado no es un módulo válido."
+msgstr "El módulo solicitado no está disponible."
 
 #: ../index.php:139 ../modules/helper/mcaller.php:59
 msgid "You do not have access to the requested page."
@@ -30,11 +30,11 @@ msgstr "El módulo solicitado no funciona."
 
 #: ../index.php:154 ../modules/helper/mcaller.php:74
 msgid "Could not find"
-msgstr "No puede encontrar"
+msgstr "No lo encuentra"
 
 #: ../index.php:159
 msgid "A valid module was not specified."
-msgstr "No se ha especificado un módulo válido."
+msgstr "No se ha especificado un móduo válido."
 
 #: ../modules/private/author.php:72 ../modules/private/book.php:72
 #: ../modules/private/bookshop.php:72
@@ -43,290 +43,308 @@ msgstr "Identificador no válido"
 
 #: ../modules/private/author.php:112
 msgid "The name must consist of letters only"
-msgstr "La contraseña debe estar formada por letras y números"
+msgstr "El nombre debe estar formado por letras"
 
-#: ../modules/private/author.php:115
+#: ../modules/private/author.php:116
 msgid "The surname must consist of letters only"
-msgstr "La contraseña debe estar formada por letras y números"
+msgstr "El apellido debe estar formado por letras"
 
-#: ../modules/private/author.php:148 ../modules/private/book.php:256
-#: ../modules/private/bookshop.php:188
+#: ../modules/private/author.php:150 ../modules/private/book.php:259
+#: ../modules/private/bookshop.php:173
 msgid "It can not upload the file"
-msgstr "No se ha podido subir el fichero"
+msgstr "No se ha podido subir el archivo"
 
-#: ../modules/private/author.php:153
+#: ../modules/private/author.php:155
 msgid "The author"
-msgstr "Nuevo autor"
+msgstr "El autor"
 
-#: ../modules/private/author.php:155 ../modules/private/book.php:263
-#: ../modules/private/bookshop.php:195
+#: ../modules/private/author.php:157 ../modules/private/book.php:266
+#: ../modules/private/bookshop.php:218
 msgid "has inserted"
-msgstr "ha sido insertado"
+msgstr "Ha insertado"
 
-#: ../modules/private/author.php:157 ../modules/private/book.php:265
-#: ../modules/private/bookshop.php:197
+#: ../modules/private/author.php:159 ../modules/private/book.php:268
+#: ../modules/private/bookshop.php:220
 msgid "Continue"
 msgstr "Continuar"
 
-#: ../modules/private/author.php:170 ../modules/private/author.php:182
-#: ../modules/private/book.php:278 ../modules/private/book.php:290
-#: ../modules/private/bookshop.php:210 ../modules/private/bookshop.php:222
+#: ../modules/private/author.php:172 ../modules/private/author.php:184
+#: ../modules/private/book.php:281 ../modules/private/book.php:293
+#: ../modules/private/bookshop.php:233 ../modules/private/bookshop.php:245
 msgid "Leave"
-msgstr "Abandonar"
+msgstr "Atrás"
 
-#: ../modules/private/author.php:218 ../modules/private/book.php:330
+#: ../modules/private/author.php:220 ../modules/private/book.php:334
 msgid "Author"
 msgstr "Autor"
 
-#: ../modules/private/author.php:219
+#: ../modules/private/author.php:221
 msgid "Photo"
 msgstr "Foto"
 
-#: ../modules/private/author.php:220 ../modules/private/bookshop.php:258
+#: ../modules/private/author.php:222 ../modules/private/bookshop.php:281
 msgid "Name"
 msgstr "Nombre"
 
-#: ../modules/private/author.php:223
+#: ../modules/private/author.php:225
 msgid "Surname"
 msgstr "Apellidos"
 
-#: ../modules/private/author.php:226 ../modules/private/book.php:387
-#: ../modules/private/bookshop.php:277
+#: ../modules/private/author.php:228 ../modules/private/book.php:391
+#: ../modules/private/bookshop.php:306
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../modules/private/author.php:227 ../modules/private/book.php:388
-#: ../modules/private/bookshop.php:278
+#: ../modules/private/author.php:229 ../modules/private/book.php:392
+#: ../modules/private/bookshop.php:307
 msgid "Create"
 msgstr "Crear"
 
-#: ../modules/private/author.php:271 ../modules/private/book.php:497
-#: ../modules/private/bookshop.php:321 ../modules/private/booksreading.php:92
+#: ../modules/private/author.php:273 ../modules/private/book.php:515
+#: ../modules/private/bookshop.php:350 ../modules/private/booksreading.php:92
 msgid "The page must consist of numbers only"
-msgstr "La contraseña debe estar formada por letras y números"
+msgstr "La página debe ser un número"
 
-#: ../modules/private/author.php:295
+#: ../modules/private/author.php:297
 msgid "New author"
 msgstr "Nuevo autor"
 
-#: ../modules/private/author.php:299
-msgid "All authors:"
-msgstr "Autores"
-
 #: ../modules/private/author.php:301
+msgid "All authors:"
+msgstr "Todos los autores:"
+
+#: ../modules/private/author.php:303
 msgid "There are not authors."
-msgstr "No existen autores."
+msgstr "No existen autores"
 
 #: ../modules/private/book.php:117
-msgid "The ISBN must consist of numbers and dashes only"
-msgstr "El ISBN debe estar formado por números y guiones"
+msgid ""
+"The ISBN is a required field and must consist of numbers and dashes only"
+msgstr "El ISBN es obligatorio y debe estar formado por números y guiones"
 
-#: ../modules/private/book.php:120
-msgid "The title must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+#: ../modules/private/book.php:121
+msgid ""
+"The title is a required field and must consist of letter and numbers only"
+msgstr "El título es obligatorio y debe estar formado por letras y números"
 
-#: ../modules/private/book.php:123
+#: ../modules/private/book.php:125
 msgid "The description must consist of letter and numbers only"
-msgstr "La descripción debe estar formado por letras y números"
+msgstr "La descripción debe estar formada por letras y números"
 
-#: ../modules/private/book.php:126
+#: ../modules/private/book.php:128
 msgid "The publisher must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr "La editorial debe estar formada por letras y números"
 
-#: ../modules/private/book.php:129
+#: ../modules/private/book.php:131
 msgid "The format must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr "El formato debe estar formado por letras y números"
 
-#: ../modules/private/book.php:132
+#: ../modules/private/book.php:134
 msgid "The pages must consist of numbers only"
-msgstr "La contraseña debe estar formada por letras y números"
+msgstr "El número de páginas debe ser un número"
 
-#: ../modules/private/book.php:135
+#: ../modules/private/book.php:137
 msgid "The start date must consist of letter and numbers only"
-msgstr "La fecha de inicio debe estar formada por letras y números"
+msgstr "La fecha de inicio es incorrecta"
 
-#: ../modules/private/book.php:138
+#: ../modules/private/book.php:140
 msgid "The finish date must consist of letter and numbers only"
-msgstr "La fecha final debe estar formada por letras y números"
+msgstr "La fecha final es incorrecta"
 
-#: ../modules/private/book.php:141
+#: ../modules/private/book.php:143
 msgid "The opinion must consist of letter and numbers only"
 msgstr "La opinión debe estar formada por letras y números"
 
-#: ../modules/private/book.php:144
+#: ../modules/private/book.php:146
 msgid "The valoration must consist of digits"
-msgstr "La valoración debe estar formada por dígitos"
+msgstr "La valoración debe ser un número"
 
-#: ../modules/private/book.php:148
+#: ../modules/private/book.php:150
 msgid "The subjects must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr "El género o géneros deben estar formadas por letras y números"
 
-#: ../modules/private/book.php:151
-#, fuzzy
+#: ../modules/private/book.php:153
 msgid "The price must consist of digits"
-msgstr "El precio debe estar formado por dígitos"
+msgstr "El precio es incorrecto"
 
-#: ../modules/private/book.php:261
+#: ../modules/private/book.php:264
 msgid "The book"
 msgstr "El libro"
 
-#: ../modules/private/book.php:327
+#: ../modules/private/book.php:330
 msgid "Title"
 msgstr "Título"
 
-#: ../modules/private/book.php:329
+#: ../modules/private/book.php:333
 msgid "Cover"
 msgstr "Portada"
 
-#: ../modules/private/book.php:337
+#: ../modules/private/book.php:341
 msgid "Bookshop"
 msgstr "Librería"
 
-#: ../modules/private/book.php:344
+#: ../modules/private/book.php:348
 msgid "Select a bookshop"
 msgstr "Selecciona una librería"
 
-#: ../modules/private/book.php:345 ../modules/private/book.php:441
+#: ../modules/private/book.php:349 ../modules/private/book.php:447
 msgid "ISBN"
 msgstr "ISBN"
 
-#: ../modules/private/book.php:348 ../modules/private/book.php:443
+#: ../modules/private/book.php:352 ../modules/private/book.php:449
 msgid "Publisher"
 msgstr "Editorial"
 
-#: ../modules/private/book.php:351 ../modules/private/book.php:362
-#: ../modules/private/book.php:445
+#: ../modules/private/book.php:355 ../modules/private/book.php:366
+#: ../modules/private/book.php:451
 msgid "Format"
 msgstr "Formato"
 
-#: ../modules/private/book.php:354 ../modules/private/book.php:447
+#: ../modules/private/book.php:358 ../modules/private/book.php:453
 msgid "Subject"
-msgstr "Género (etiquetas)"
+msgstr "Género"
 
-#: ../modules/private/book.php:357 ../modules/private/book.php:449
+#: ../modules/private/book.php:361 ../modules/private/book.php:455
 msgid "Description"
 msgstr "Descripción"
 
-#: ../modules/private/book.php:365
+#: ../modules/private/book.php:369 ../modules/private/book.php:457
 msgid "Pages"
 msgstr "Páginas"
 
-#: ../modules/private/book.php:368
+#: ../modules/private/book.php:372 ../modules/private/book.php:459
 msgid "Start read date"
 msgstr "Fecha inicio lectura"
 
-#: ../modules/private/book.php:370
+#: ../modules/private/book.php:374 ../modules/private/book.php:461
 msgid "Finish read date"
-msgstr "Fecha fin lectura"
+msgstr "Fecha final lectura"
 
-#: ../modules/private/book.php:372
+#: ../modules/private/book.php:376 ../modules/private/book.php:463
 msgid "Valoration"
 msgstr "Valoración"
 
-#: ../modules/private/book.php:373
+#: ../modules/private/book.php:377
 msgid "Select a valoration"
 msgstr "Selecciona una valoración"
 
-#: ../modules/private/book.php:374
+#: ../modules/private/book.php:378
 msgid "Complete this field only if this book has been purchased"
-msgstr "Completa este campo solo si el libro ha sido comprado"
+msgstr "Completa este campo solo si este libro ha sido comprado"
 
-#: ../modules/private/book.php:375
+#: ../modules/private/book.php:379 ../modules/private/book.php:465
 msgid "Price"
 msgstr "Precio"
 
-#: ../modules/private/book.php:378
-msgid "Complete this field only if this book has been loaned"
-msgstr "Completa este campo solo si este libro ha sido prestado"
-
-#: ../modules/private/book.php:379
-msgid "Loaned contact"
-msgstr "Prestados"
-
 #: ../modules/private/book.php:382
+msgid "Complete this field only if this book has been loaned"
+msgstr "Completa este campo solo si el libro ha sido prestado o dado"
+
+#: ../modules/private/book.php:383
+msgid "Loaned contact"
+msgstr "Contacto préstamo"
+
+#: ../modules/private/book.php:386 ../modules/private/book.php:467
 msgid "Opinion"
 msgstr "Opinión"
 
-#: ../modules/private/book.php:521
+#: ../modules/private/book.php:539
 msgid "New book"
 msgstr "Nuevo libro"
 
-#: ../modules/private/book.php:525
+#: ../modules/private/book.php:543
 msgid "All your books"
-msgstr "Todos los libros leídos"
+msgstr "Todos tus libros"
 
-#: ../modules/private/book.php:527
-#, fuzzy
+#: ../modules/private/book.php:545
 msgid "You do not have any book"
-msgstr "No existen libros."
+msgstr "No tienes ningún libro"
 
 #: ../modules/private/bookshop.php:113
-msgid "The name must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgid ""
+"The name is a required field and must consist of letter and numbers only"
+msgstr "El nombre es obligatorio y debe estar formado por letras y números"
 
-#: ../modules/private/bookshop.php:116
+#: ../modules/private/bookshop.php:117
 msgid "The street name must consist of letter and numbers only"
-msgstr "La fecha de inicio debe estar formada por letras y números"
+msgstr "El nombre de la calle debe estar formado por letras y números"
 
-#: ../modules/private/bookshop.php:119
+#: ../modules/private/bookshop.php:120
 msgid "The street number must consist of letter and numbers only"
-msgstr "La fecha de inicio debe estar formada por letras y números"
+msgstr "El número de la calle es incorrecto"
 
-#: ../modules/private/bookshop.php:122
+#: ../modules/private/bookshop.php:123
 msgid "The extra information street must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr ""
+"La información extra de la calle debe estar formada por letras y números"
 
-#: ../modules/private/bookshop.php:125
+#: ../modules/private/bookshop.php:126
 msgid "The city must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr "La ciudad debe estar formada por letras"
 
-#: ../modules/private/bookshop.php:128
+#: ../modules/private/bookshop.php:129
 msgid "The country must consist of letter and numbers only"
-msgstr "El título debe estar formado por letras y números"
+msgstr "El país debe estar formada por letras"
 
-#: ../modules/private/bookshop.php:193
+#: ../modules/private/bookshop.php:132
+msgid "The web address must be an URL"
+msgstr "La dirección web debe ser una URL"
+
+#: ../modules/private/bookshop.php:216
 msgid "The bookshop"
 msgstr "La librería"
 
-#: ../modules/private/bookshop.php:260
+#: ../modules/private/bookshop.php:284
 msgid "Logo"
 msgstr "Logo"
 
-#: ../modules/private/bookshop.php:261
+#: ../modules/private/bookshop.php:285
+msgid "if is a physical bookshop type the post address"
+msgstr "si es una tienda física introduce la dirección postal"
+
+#: ../modules/private/bookshop.php:286
 msgid "Street"
 msgstr "Calle"
 
-#: ../modules/private/bookshop.php:262
+#: ../modules/private/bookshop.php:287
 msgid "name"
 msgstr "nombre"
 
-#: ../modules/private/bookshop.php:265
+#: ../modules/private/bookshop.php:290
 msgid "number"
 msgstr "número"
 
-#: ../modules/private/bookshop.php:268
+#: ../modules/private/bookshop.php:293
 msgid "more"
 msgstr "más"
 
-#: ../modules/private/bookshop.php:271
+#: ../modules/private/bookshop.php:296
 msgid "City"
 msgstr "Ciudad"
 
-#: ../modules/private/bookshop.php:274
+#: ../modules/private/bookshop.php:299
 msgid "Country"
 msgstr "País"
 
-#: ../modules/private/bookshop.php:345
+#: ../modules/private/bookshop.php:302
+msgid "If this bookshop have web page or is an online bookshop type the URL"
+msgstr "Si este libro tiene página web o es una tienda online indica la URL"
+
+#: ../modules/private/bookshop.php:303
+msgid "Web address"
+msgstr "Dirección web"
+
+#: ../modules/private/bookshop.php:374
 msgid "New bookshop"
 msgstr "Nueva librería"
 
-#: ../modules/private/bookshop.php:349
+#: ../modules/private/bookshop.php:378
 msgid "All bookshops:"
 msgstr "Todas las librerías:"
 
-#: ../modules/private/bookshop.php:351
+#: ../modules/private/bookshop.php:380
 msgid "There are not any bookshop."
-msgstr "No existen autores."
+msgstr "No hay librerías"
 
 #: ../modules/private/booksreading.php:113
 msgid "Books you are reading:"
@@ -338,7 +356,7 @@ msgstr "No estás leyendo ningún libro."
 
 #: ../modules/private/home.php:81
 msgid "Welcome to your personal site"
-msgstr "Bienvenid@ a tu sitio personal"
+msgstr "Bienvenido a tu sitio personal"
 
 #: ../modules/user/login.php:67
 msgid "Username"
@@ -351,11 +369,11 @@ msgstr "Contraseña"
 #: ../modules/user/login.php:79 ../modules/user/login.php:159
 #: ../modules/helper/menu.php:64
 msgid "Log in"
-msgstr "Acceso"
+msgstr "Entrar"
 
 #: ../modules/user/login.php:108
 msgid "The username must be an e-mail"
-msgstr "El nombre de usuario debe ser un e-mail"
+msgstr "El usuario debe ser un e-mail"
 
 #: ../modules/user/login.php:111
 msgid "The password must consist of letter and numbers only"
@@ -363,7 +381,7 @@ msgstr "La contraseña debe estar formada por letras y números"
 
 #: ../modules/user/login.php:145
 msgid "Username or password invalid"
-msgstr "Usuario o contraseña incorrecta"
+msgstr "Usuario o contraseña inválida"
 
 #: ../modules/welcome/welcome.php:83
 msgid "The book is the best friend of the people"
@@ -371,11 +389,11 @@ msgstr "El libro es el mejor amigo del hombre"
 
 #: ../modules/welcome/welcome.php:85
 msgid "Welcome to Utamaduni"
-msgstr "Bienvenid@ a Utamaduni"
+msgstr "Bienvenido a Utamaduni"
 
 #: ../modules/welcome/welcome.php:86
 msgid "Here you can find a lot of information about books I have read"
-msgstr "Aquí puedes econtrar toda la información sobre los libros que he leído"
+msgstr "Aquí puedes encontrar información sobre los libros que he leído"
 
 #: ../modules/helper/menu.php:55 ../modules/helper/privatemenu.php:55
 msgid "Home"
@@ -391,11 +409,11 @@ msgstr "Contacto"
 
 #: ../modules/helper/menu.php:103
 msgid "Your space"
-msgstr "Tu sitio"
+msgstr "Tu espacio"
 
 #: ../modules/helper/menu.php:105
 msgid "Log out"
-msgstr "Salir"
+msgstr "Cerrar sesión"
 
 #: ../modules/helper/privatemenu.php:58
 msgid "Books"
@@ -415,7 +433,7 @@ msgstr "Prestados"
 
 #: ../modules/helper/privatemenu.php:70
 msgid "Purchased"
-msgstr "Editoriales"
+msgstr "Comprados"
 
 #: ../modules/helper/privatemenu.php:73
 msgid "Quotes"
@@ -424,47 +442,3 @@ msgstr "Citas"
 #: ../modules/helper/privatemenu.php:76
 msgid "Authors"
 msgstr "Autores"
-
-#, fuzzy
-#~ msgid "Required field."
-#~ msgstr "Campo obligatorio: inserta el ISBN"
-
-#~ msgid "Invalid date. Valid format: dd/mm/aaaa."
-#~ msgstr "Fecha incorrecta. Formato válido: dd/mm/aaaa."
-
-#~ msgid "Required field: put the ISBN."
-#~ msgstr "Campo obligatorio: inserta el ISBN"
-
-#~ msgid "Required field: put the title."
-#~ msgstr "Campo obligatorio: inserta el título"
-
-#~ msgid "Rating"
-#~ msgstr "Valoración"
-
-#~ msgid "Ok"
-#~ msgstr "Aceptar"
-
-#~ msgid "Create a new book:"
-#~ msgstr "Crear un nuevo libro:"
-
-#, fuzzy
-#~ msgid "Create a new author:"
-#~ msgstr "Crear un nuevo libro:"
-
-#, fuzzy
-#~ msgid "New author..."
-#~ msgstr "Nuevo autor"
-
-#, fuzzy
-#~ msgid "Required field: put the name."
-#~ msgstr "Campo obligatorio: inserta el título"
-
-#, fuzzy
-#~ msgid "Required field: put the surname."
-#~ msgstr "Campo obligatorio: inserta el título"
-
-#~ msgid "Read"
-#~ msgstr "Leídos"
-
-#~ msgid "Aceptar"
-#~ msgstr "Aceptar"

@@ -26,52 +26,8 @@
  * @copyright Román Ginés Martínez Ferrández <rgmf@riseup.net>
  * @license http://www.gnu.org/licenses/gpl.html
  */
-class validation_alnum_field
+class validation_alnum_field extends validation_field
 {
-  // {{{ properties
-  /**
-   * $fieldname
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $fieldname
-   */
-  private $fieldname;
-
-  /**
-   * $message
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   * @var string $message Error message.
-   */
-  private $message;
-  // }}}
-
-  // {{{ __construct ()
-  /**
-   * __construct
-   *
-   * The validator needs the fieldname and the message.
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __construct ($fieldname, $message)
-  {
-    $this -> fieldname = $fieldname;
-    $this -> message = $message;
-  }
-  // }}}
-
-  // {{{ __desctruct ()
-  /**
-   * __destruct
-   *
-   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
-   */
-  public function __destruct ()
-  {
-  }
-  // }}}
-
   // {{{ validation ($coordinator)
   /**
    * validation
@@ -84,23 +40,31 @@ class validation_alnum_field
     
     if ($field !== null)
       {
-	$valids = array ('-', '_', 'á', 'é', 'í', 'ó', 'ú', 
-			 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è',
-			 'ì', 'ò', 'ù', 'ñ', 'Ñ', ' ', '.',
-			 ',', ':', ';', '¿', '?', '¡', '!',
-			 'ç', 'Ç', '"', '\'', '@', 'º', 'ª',
-			 '&', '(', ')', '/', '$', '€', 'ä',
-			 'ë', 'ï', 'ö', 'ü');
-	
-	if (ctype_alnum (str_replace ($valids, '', $field)))
+	if ($this -> check_required ($field))
 	  {
-	    $coordinator -> set_clean ($this -> fieldname);
-	    return TRUE;
-	  }
-	elseif ($field === '')
-	  {
-	    $coordinator -> set_clean ($this -> fieldname);
-	    return TRUE;
+	    $valids = array ('-', '_', 'á', 'é', 'í', 'ó', 'ú', 
+			     'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è',
+			     'ì', 'ò', 'ù', 'ñ', 'Ñ', ' ', '.',
+			     ',', ':', ';', '¿', '?', '¡', '!',
+			     'ç', 'Ç', '"', '\'', '@', 'º', 'ª',
+			     '&', '(', ')', '/', '$', '€', 'ä',
+			     'ë', 'ï', 'ö', 'ü');
+	    
+	    if (ctype_alnum (str_replace ($valids, '', $field)))
+	      {
+		$coordinator -> set_clean ($this -> fieldname);
+		return TRUE;
+	      }
+	    elseif ($field === '')
+	      {
+		$coordinator -> set_clean ($this -> fieldname);
+		return TRUE;
+	      }
+	    else
+	      {
+		$coordinator -> add_error ($this -> message);
+		return FALSE;
+	      }
 	  }
 	else
 	  {
