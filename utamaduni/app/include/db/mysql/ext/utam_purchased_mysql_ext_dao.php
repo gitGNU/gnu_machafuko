@@ -21,6 +21,7 @@
 include_once (dirname (__FILE__) . '/../utam_purchased_mysql_dao.php');
 include_once (dirname (__FILE__) . '/utam_subject_mysql_ext_dao.php');
 include_once (dirname (__FILE__) . '/utam_author_mysql_ext_dao.php');
+include_once (dirname (__FILE__) . '/../utam_publisher_mysql_dao.php');
 
 /**
  * Class that operate on table 'utam_purchased'. Database MySQL.
@@ -34,19 +35,6 @@ class utam_purchased_mysql_ext_dao extends utam_purchased_mysql_dao
    */
   public function load ($id)
   {
-    /*
-    $sql = 'SELECT ' .
-      'p.id id, p.isbn isbn, p.price price, ' .
-      'r.start start, r.finish finish, r.opinion opinion, r.valoration valoration, ' .
-      'b.title title, b.description description, b.cover cover, b.pages pages, ' .
-      'f.id formatid, f.name formatname, ' .
-      'pu.id publisherid, pu.name publishername, ' .
-      'bs.id bsid, bs.name bsname, bs.logo bslogo ' .
-      'FROM ' .
-      'utam_purchased p, utam_read r, utam_book b, utam_format f, utam_publisher pu, utam_bookshop bs ' .
-      'WHERE ' .
-      'p.id=? and p.id=r.id and r.id=b.id and b.format=f.id and b.publisher=pu.id and p.bookshop=bs.id';
-    */
     $sql = 'SELECT ' .
       'p.id id, p.isbn isbn, p.price price, ' .
       'r.start start, r.finish finish, r.opinion opinion, r.valoration valoration, ' .

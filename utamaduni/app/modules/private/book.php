@@ -52,6 +52,85 @@ class book extends core_auth_user
   }
   // }}}
 
+  // {{{ __get_request ()
+  /**
+   * __get_request
+   *
+   * Get the request.
+   * @author Román Ginś Martínez Ferrández <rgmf@riseup.net>
+   */
+  private function __get_request ()
+  {
+    // Prepare validation from POST or GET data (the validators objects
+    // get the POST or GET automatically).
+    $id_validator = new validation_digit_field ('id', 'The id must be a digit');
+    $update_validator = new validation_digit_field ('update', 'The update must be a digit');
+    $author_validator = new validation_ok_field ('author', '');
+    $bookshop_validator = new validation_ok_field ('bookshop', '');
+    $contact_validator = new validation_ok_field ('contact', '');
+    $isbn_validator =
+      new validation_isbn_field ('isbn',
+				 gettext ('The ISBN is a required field and must consist of numbers and dashes only'),
+				 true);
+    $title_validator =
+      new validation_alnum_field ('title',
+				  gettext ('The title is a required field and must consist of letter and numbers only'),
+				  true);
+    $desc_validator =
+      new validation_lalnum_field ('description',
+				   gettext ('The description must consist of letter and numbers only'));
+    $publisher_validator = 
+      new validation_alnum_field ('publisher',
+				  gettext ('The publisher must consist of letter and numbers only'));
+    $format_validator =
+      new validation_alnum_field ('format',
+				  gettext ('The format must consist of letter and numbers only'));
+    $pages_validator =
+      new validation_digit_field ('pages',
+				  gettext ('The pages must consist of numbers only'));
+    $start_validator =
+      new validation_alnum_field ('start',
+				  gettext ('The start date must consist of letter and numbers only'));
+    $finish_validator =
+      new validation_alnum_field ('finish',
+				  gettext ('The finish date must consist of letter and numbers only'));
+    $opinion_validator =
+      new validation_lalnum_field ('opinion',
+				   gettext ('The opinion must consist of letter and numbers only'));
+    $valoration_validator =
+      new validation_digit_field ('valoration',
+				  gettext ('The valoration must consist of digits'));
+    
+    $subject_validator =
+      new validation_alnum_field ('subject',
+				  gettext ('The subjects must consist of letter and numbers only'));
+    $price_validator =
+      new validation_digit_field ('price',
+				  gettext ('The price must consist of digits'));
+
+    $val_facade = new validation_facade ();
+    $val_facade -> add_validator ($id_validator);
+    $val_facade -> add_validator ($update_validator);
+    $val_facade -> add_validator ($author_validator);
+    $val_facade -> add_validator ($bookshop_validator);
+    $val_facade -> add_validator ($contact_validator);
+    $val_facade -> add_validator ($isbn_validator);
+    $val_facade -> add_validator ($title_validator);
+    $val_facade -> add_validator ($desc_validator);
+    $val_facade -> add_validator ($start_validator);
+    $val_facade -> add_validator ($finish_validator);
+    $val_facade -> add_validator ($opinion_validator);
+    $val_facade -> add_validator ($publisher_validator);
+    $val_facade -> add_validator ($format_validator);
+    $val_facade -> add_validator ($pages_validator);
+    $val_facade -> add_validator ($valoration_validator);
+    $val_facade -> add_validator ($subject_validator);
+    $val_facade -> add_validator ($price_validator);
+    
+    return $val_facade;
+  }
+  // }}}
+
   // {{{ __get_book ()
   /**
    * __get_book
@@ -97,6 +176,7 @@ class book extends core_auth_user
    */
   private function __get_purchased ()
   {
+    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
     $utam_purchased = null;
 
     // Get POST or GET data.
@@ -109,8 +189,6 @@ class book extends core_auth_user
     if ($val_facade -> validation ())
       {
 	$clean = $val_facade -> get_clean_request ();
-
-	include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
 	$dao = new utam_purchased_mysql_ext_dao ();
 	$utam_purchased = new utam_purchased ();
 	$utam_purchased = $dao -> load ($clean -> get ('id'));
@@ -141,68 +219,8 @@ class book extends core_auth_user
     $file = '';
 
     // Get POST or GET data.
-    // Prepare validation from POST or GET data (the validators objects
-    // get the POST or GET automatically).
-    $author_validator = new validation_ok_field ('author', '');
-    $bookshop_validator = new validation_ok_field ('bookshop', '');
-    $contact_validator = new validation_ok_field ('contact', '');
-    $isbn_validator =
-      new validation_isbn_field ('isbn',
-				 gettext ('The ISBN is a required field and must consist of numbers and dashes only'),
-				 true);
-    $title_validator =
-      new validation_alnum_field ('title',
-				  gettext ('The title is a required field and must consist of letter and numbers only'),
-				  true);
-    $desc_validator =
-      new validation_lalnum_field ('description',
-				   gettext ('The description must consist of letter and numbers only'));
-    $publisher_validator = 
-      new validation_alnum_field ('publisher',
-				  gettext ('The publisher must consist of letter and numbers only'));
-    $format_validator =
-      new validation_alnum_field ('format',
-				  gettext ('The format must consist of letter and numbers only'));
-    $pages_validator =
-      new validation_digit_field ('pages',
-				  gettext ('The pages must consist of numbers only'));
-    $start_validator =
-      new validation_alnum_field ('start',
-				  gettext ('The start date must consist of letter and numbers only'));
-    $finish_validator =
-      new validation_alnum_field ('finish',
-				  gettext ('The finish date must consist of letter and numbers only'));
-    $opinion_validator =
-      new validation_lalnum_field ('opinion',
-				   gettext ('The opinion must consist of letter and numbers only'));
-    $valoration_validator =
-      new validation_digit_field ('valoration',
-				  gettext ('The valoration must consist of digits'));
-    
-    $subject_validator =
-      new validation_alnum_field ('subject',
-				  gettext ('The subjects must consist of letter and numbers only'));
-    $price_validator =
-      new validation_digit_field ('price',
-				  gettext ('The price must consist of digits'));
+    $val_facade = $this -> __get_request ();
 
-    $val_facade = new validation_facade ();
-    $val_facade -> add_validator ($author_validator);
-    $val_facade -> add_validator ($bookshop_validator);
-    $val_facade -> add_validator ($contact_validator);
-    $val_facade -> add_validator ($isbn_validator);
-    $val_facade -> add_validator ($title_validator);
-    $val_facade -> add_validator ($desc_validator);
-    $val_facade -> add_validator ($start_validator);
-    $val_facade -> add_validator ($finish_validator);
-    $val_facade -> add_validator ($opinion_validator);
-    $val_facade -> add_validator ($publisher_validator);
-    $val_facade -> add_validator ($format_validator);
-    $val_facade -> add_validator ($pages_validator);
-    $val_facade -> add_validator ($valoration_validator);
-    $val_facade -> add_validator ($subject_validator);
-    $val_facade -> add_validator ($price_validator);
-    
     // Check data in (validation).
     $facade_val_res = $val_facade -> validation ();
     
@@ -222,7 +240,7 @@ class book extends core_auth_user
 	    // Insert the subjects.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_subject_mysql_ext_dao.php');
 	    $dao = new utam_subject_mysql_ext_dao ();
-	    $subjects = $dao -> insert ($clean -> get ('tag'));
+	    $subjects = $dao -> insert ($clean -> get ('subject'));
 		
 	    // Get all authors (it only needs the pk).
 	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_author_mysql_dao.php');
@@ -359,66 +377,115 @@ class book extends core_auth_user
     $this -> set ('private_menu', $private_menu -> get_menu ('book'));
 
     // Get the book information (maybe null).
-    $utam_book = $this -> __get_book ();
+    $utam_pur = $this -> __get_purchased ();
+    if ($utam_pur)
+      {
+	$utam_read = $utam_pur -> utam_read;
+	$utam_book = $utam_read -> utam_book;
+	$utam_format = $utam_book -> utam_format;
+	$utam_publisher = $utam_book -> utam_publisher;
+	$utam_bookshop = $utam_pur -> utam_bookshop;
+      }
+    else
+      {
+	$utam_pur = new utam_purchased ();
+	$utam_read = new utam_read ();
+	$utam_book = new utam_book ();
+	$utam_format = new utam_format ();
+	$utam_publisher = new utam_publisher ();
+	$utam_bookshop = new utam_bookshop ();
+      }
     
     $this -> set ('title_label', gettext ('Title'));
-    $this -> set ('title', '');
+    $this -> set ('title', $utam_book -> title);
     $this -> set ('title_len', '50');
     $this -> set ('cover_label', gettext ('Cover'));
+    $this -> set ('cover', $utam_book -> cover);
     $this -> set ('author_label', gettext ('Author'));
     include_once (UT_BASE_PATH . '/modules/helper/author.php');
     $authors = author::get_all_author ();
     $select = array ();
+    $selauthors = array ();
+    foreach ($utam_book -> utam_author as $auth)
+      $selauthors[$auth -> id] = $auth -> name . ' ' . $auth -> surname;
     foreach ($authors as $key => $val)
-      $select[] = array ('author_value' => $key, 'author_name' => $val);
+      {
+	if (array_key_exists ($key, $selauthors))
+	  $sel = 'selected';
+	else
+	  $sel = '';
+	$select[] = array ('selected' => $sel, 'author_value' => $key, 'author_name' => $val);
+      }
     $this -> set ('authors', $select);
     $this -> set ('bookshop_label', gettext ('Bookshop'));
     include_once (UT_BASE_PATH . '/modules/helper/bookshop.php');
     $bookshops = bookshop::get_all_bookshop ();
     $select = array ();
     foreach ($bookshops as $key => $val)
-      $select[] = array ('bookshop_value' => $key, 'bookshop_name' => $val);
+      {
+	if ($utam_bookshop -> id == $key)
+	  $sel = 'selected';
+	else
+	  $sel = '';
+	$select[] = array ('selected' => $sel, 'bookshop_value' => $key, 'bookshop_name' => $val);
+      }
     $this -> set ('bookshops', $select);
     $this -> set ('bookshop_select', gettext ('Select a bookshop'));
     $this -> set ('isbn_label', gettext ('ISBN'));
-    $this -> set ('isbn', '');
+    $this -> set ('isbn', $utam_book -> isbn);
     $this -> set ('isbn_len', '20');
     $this -> set ('publisher_label', gettext ('Publisher'));
-    $this -> set ('publisher', '');
+    $this -> set ('publisher', $utam_publisher -> name);
     $this -> set ('publisher_len', '50');
     $this -> set ('format_label', gettext ('Format'));
-    $this -> set ('format', '');
+    $this -> set ('format', $utam_format -> name);
     $this -> set ('format_len', '50');
     $this -> set ('subject_label', gettext ('Subject'));
-    $this -> set ('subject', '');
+    $subject_str = '';
+    if ($num = count ($utam_book -> utam_subject))
+      {
+	$subject_str = $utam_book -> utam_subject[0] -> name;
+	for ($i = 1; $i < $num; $i++)
+	  $subject_str .= ', ' . $utam_book -> utam_subject[$i] -> name;
+      }
+    $this -> set ('subject', $subject_str);
     $this -> set ('subject_len', '100');
     $this -> set ('description_label', gettext ('Description'));
-    $this -> set ('description', '');
+    $this -> set ('description', $utam_book -> description);
     $this -> set ('description_len', '500');
     $this -> set ('description_rows', '4');
     $this -> set ('description_cols', '50');
     $this -> set ('format_label', gettext ('Format'));
-    $this -> set ('format', '');
+    $this -> set ('format', $utam_format -> name);
     $this -> set ('format_len', '50');
     $this -> set ('pages_label', gettext ('Pages'));
-    $this -> set ('pages', '');
+    $this -> set ('pages', $utam_book -> pages);
     $this -> set ('pages_len', '4');
     $this -> set ('start_label', gettext ('Start read date'));
-    $this -> set ('start', '');
+    $this -> set ('start', $utam_read -> start);
     $this -> set ('finish_label', gettext ('Finish read date'));
-    $this -> set ('finish', '');
+    $this -> set ('finish', $utam_read -> finish);
     $this -> set ('valoration_label', gettext ('Valoration'));
     $this -> set ('valoration_select', gettext ('Select a valoration'));
+    for ($i = 0; $i <= 10; $i++)
+      {
+	if ($utam_read -> valoration == $i)
+	  $sel = 'selected';
+	else
+	  $sel = '';
+	$valorations[] = array ('selected' => $sel, 'valoration_value' => $i, 'valoration_name' => $i);
+      }
+    $this -> set ('valorations', $valorations);
     $this -> set ('price_msg', gettext ('Complete this field only if this book has been purchased'));
     $this -> set ('price_label', gettext ('Price'));
-    $this -> set ('price', '');
+    $this -> set ('price', $utam_pur -> price);
     $this -> set ('price_len', '6');
     $this -> set ('contact_msg', gettext ('Complete this field only if this book has been loaned'));
     $this -> set ('contact_label', gettext ('Loaned contact'));
     include_once (UT_BASE_PATH . '/modules/helper/contact.php');
     $this -> set ('contacts', contact::get_all_contact ());
     $this -> set ('opinion_label', gettext ('Opinion'));
-    $this -> set ('opinion', '');
+    $this -> set ('opinion', $utam_read -> opinion);
     $this -> set ('opinion_len', '500');
     $this -> set ('opinion_rows', '4');
     $this -> set ('opinion_cols', '50');
@@ -477,6 +544,8 @@ class book extends core_auth_user
 	// Sets all datas.
 	$this -> set ('private_menu', $private_menu -> get_menu ('book'));
 	$this -> set ('book', $tpl_book); // After that, include all its sets.
+	$this -> set ('bookid', $utam_book -> id);
+	$this -> set ('update_book_msg', gettext ('Update book'));
 	$this -> set ('title', $utam_book -> title);
 	$this -> set ('imgid', 'small');
 	$this -> set ('cover', $utam_book -> cover);
