@@ -217,6 +217,7 @@ class book extends core_auth_user
     $formstr = '';
     $msg_file = '';
     $file = '';
+    $tail_msg = '';
 
     // Get POST or GET data.
     $val_facade = $this -> __get_request ();
@@ -227,12 +228,32 @@ class book extends core_auth_user
     // Get clean data.
     $clean = $val_facade -> get_clean_request ();
 
+    echo '<br>ID: ' . $clean -> get('id') . '<br>' .
+      'ISBN: ' . $clean -> get('isbn') . '<br>' .
+      'Title: ' . $clean -> get('title') . '<br>' .
+      'Publisher: ' . $clean -> get('publisher') . '<br>' .
+      'Format: ' . $clean -> get('format') . '<br>' .
+      'Subject: ' . $clean -> get('subject') . '<br>' .
+      'Description: ' . $clean -> get('description') . '<br>';
+
     // The facade validation validates the entry data and the form validate
     // validates the required fields, minimun field length, and so on.
     if ($facade_val_res)
       {
 	try
 	  {
+	    // Operation? It can be 'insert' or 'update'
+	    if ($clean -> get ('update') == 1)
+	      {
+		$operation = 'update';
+		$tail_msg = gettext ('has been updated');
+	      }
+	    else
+	      {
+		$operation = 'insert';
+		$tail_msg = gettext ('has been inserted');
+	      }
+
 	    // Open a transaction because they do two inserts. If one fail rollback.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/core/transaction.php');
 	    $transaction = new transaction ();
@@ -263,12 +284,13 @@ class book extends core_auth_user
 	    $dao = new utam_format_mysql_ext_dao ();
 	    $format = $dao -> insert ($clean -> get ('format'));
 		
-	    // Insert the book into db.
+	    // Insert or update the book into db.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_book_mysql_ext_dao.php');
 	    $dao = new utam_book_mysql_ext_dao ();
 	    $file = new file_phpfiles ('cover', UT_FILES_BASE_PATH . UT_FOLDER_COVERS,
 				       UT_FILES_LOGICAL_PATH . UT_FOLDER_COVERS);
 	    $utam_book = new utam_book ();
+	    $utam_book -> id =$clean -> get ('id');
 	    $utam_book -> isbn = $clean -> get ('isbn');
 	    $utam_book -> title = $clean -> get ('title');
 	    $utam_book -> description = $clean -> get ('description');
@@ -280,31 +302,31 @@ class book extends core_auth_user
 	    $utam_book -> utam_format = $format;
 		
 	    // If ok it gets the identifier of the inserted book.
-	    $idbook = $dao -> insert ($utam_book);
+	    $dao -> $operation ($utam_book);
 	    
-	    // Now, it inserts the book into book reading table.
+	    // Now, it inserts or updates the book into book reading table.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_read_mysql_dao.php');
 	    $dao = new utam_read_mysql_dao ();
 	    $utam_read = new utam_read ();
-	    $utam_read -> id = $idbook;
+	    $utam_read -> id = $clean -> get ('id');
 	    $utam_read -> isbn = $clean -> get ('isbn');
 	    $utam_read -> start = date_util::to_mysql_date ($clean -> get ('start'));
 	    $utam_read -> finish = date_util::to_mysql_date ($clean -> get ('finish'));
 	    $utam_read -> opinion = $clean -> get ('opinion');
 	    $utam_read -> valoration = $clean -> get ('valoration');
-	    $idbook = $dao -> insert ($utam_read);
+	    $dao -> $operation ($utam_read);
 
-	    // If is a purchased book it inserts the book into purchased table. Otherwise,
+	    // If is a purchased book it inserts or updates the book into purchased table. Otherwise,
 	    // it inserts into loaned book table.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_purchased_mysql_ext_dao.php');
 	    $dao = new utam_purchased_mysql_ext_dao ();
 	    $utam_pur = new utam_purchased ();
 	    $utam_pur -> utam_bookshop = new utam_bookshop ();
-	    $utam_pur -> id = $idbook;
+	    $utam_pur -> id = $clean -> get ('id');
 	    $utam_pur -> isbn = $clean -> get ('isbn');
 	    $utam_pur -> price = $clean -> get ('price');
 	    $utam_pur -> utam_bookshop -> id = $clean -> get ('bookshop');
-	    $dao -> insert ($utam_pur);
+	    $dao -> $operation ($utam_pur);
 
 	    // Move the upload cover.
 	    if ($file -> move_uploaded_files ())
@@ -315,7 +337,7 @@ class book extends core_auth_user
 	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/ok.html');
 	    $msg[] = array ('msg' => gettext ('The book') . ' "' . 
 			    $clean -> get ('title') .
-			    '" ' . gettext ('has inserted'));
+			    '" ' . $tail_msg);
 	    $href = "javascript: parent.formupdatebookloader.loadXMLContent ();";
 	    $link = gettext ('Continue');
 	    
@@ -385,6 +407,7 @@ class book extends core_auth_user
 	$utam_format = $utam_book -> utam_format;
 	$utam_publisher = $utam_book -> utam_publisher;
 	$utam_bookshop = $utam_pur -> utam_bookshop;
+	$this -> set ('update_value', '1');
       }
     else
       {
@@ -394,8 +417,10 @@ class book extends core_auth_user
 	$utam_format = new utam_format ();
 	$utam_publisher = new utam_publisher ();
 	$utam_bookshop = new utam_bookshop ();
+	$this -> set ('update_value', '0');
       }
-    
+
+    $this -> set ('id_value', $utam_book -> id);
     $this -> set ('title_label', gettext ('Title'));
     $this -> set ('title', $utam_book -> title);
     $this -> set ('title_len', '50');

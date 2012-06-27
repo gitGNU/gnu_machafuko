@@ -503,7 +503,7 @@ php_generate_mysql_dao_class (struct db_info_table *infotable, char *dir)
 		   "\t\t$query = new sql_query ($sql);\n\n"
 		   "%s\n"
 		   "\t\t$query -> set_number ($%s -> id);\n"
-		   "\t\treturn $this -> execute_query ($query);\n"
+		   "\t\treturn $this -> execute_update ($query);\n"
 		   "\t}\n\n"
 
 		   "\t/**\n"

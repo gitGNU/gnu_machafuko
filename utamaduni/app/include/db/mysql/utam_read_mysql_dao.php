@@ -211,7 +211,6 @@ class utam_read_mysql_dao implements utam_read_dao
 	{
 		$sql = 'UPDATE utam_read SET id = ?, isbn = ?, start = ?, finish = ?, opinion = ?, valoration = ? WHERE id = ?';
 		$query = new sql_query ($sql);
-
 		$query -> set ($utam_read -> id);
 		$query -> set ($utam_read -> isbn);
 		$query -> set ($utam_read -> start);
@@ -220,7 +219,7 @@ class utam_read_mysql_dao implements utam_read_dao
 		$query -> set ($utam_read -> valoration);
 
 		$query -> set_number ($utam_read -> id);
-		return $this -> execute_query ($query);
+		return $this -> execute_update ($query);
 	}
 
 	/**

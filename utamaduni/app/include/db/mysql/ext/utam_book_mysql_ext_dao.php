@@ -88,6 +88,60 @@ class utam_book_mysql_ext_dao extends utam_book_mysql_dao
   }
 
   /**
+   * Update record to table.
+   *
+   * @param utam_book_mysql utam_book.
+   */
+  public function update ($utam_book)
+  {
+    $id = $utam_book -> id;
+
+    $sql = 'UPDATE utam_book SET isbn=?, title=?, description=?, pages=?, publisher=?, format=?';
+    if (!empty ($utam_book -> cover))
+      $sql .= ', cover=?';
+    $sql .= ' WHERE id=?';
+    $query = new sql_query ($sql);
+    $query -> set ($utam_book -> isbn);
+    $query -> set ($utam_book -> title);
+    $query -> set ($utam_book -> description);
+    $query -> set ($utam_book -> pages);
+    $query -> set ($utam_book -> utam_publisher -> id);
+    $query -> set ($utam_book -> utam_format -> id);
+    if (!empty ($utam_book -> cover))
+      $query -> set ($utam_book -> cover);
+    $query -> set ($utam_book -> id);
+    $this -> execute_update ($query);
+    
+    $sql = 'DELETE FROM utam_book_author WHERE book=?';
+    $query = new sql_query ($sql);
+    $query -> set ($utam_book -> id);
+    $this -> execute_update ($query);
+    foreach ($utam_book -> utam_author as $author)
+      {
+	$sql = 'INSERT INTO utam_book_author (book, author) VALUES (?, ?)';
+	$query = new sql_query ($sql);
+	$query -> set ($utam_book -> id);
+	$query -> set ($author -> id);
+	$this -> execute_insert ($query);
+      }
+
+    $sql = 'DELETE FROM utam_book_subject WHERE book=?';
+    $query = new sql_query ($sql);
+    $query -> set ($utam_book -> id);
+    $this -> execute_update ($query);
+    foreach ($utam_book -> utam_subject as $subject)
+      {
+	$sql = 'INSERT INTO utam_book_subject (book, subject) VALUES (?, ?)';
+	$query = new sql_query ($sql);
+	$query -> set ($utam_book -> id);
+	$query -> set ($subject -> id);
+	$this -> execute_insert ($query);
+      }
+
+    return $id;
+  }
+
+  /**
    * Read row and get all subjects and author book to complete all book information.
    *
    * @return utam_book_mysql

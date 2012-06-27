@@ -79,6 +79,28 @@ class utam_purchased_mysql_ext_dao extends utam_purchased_mysql_dao
   }
 
   /**
+   * Update a purchased book (that is a read book) and read book 
+   * information.
+   */
+  public function update ($utam_purchased)
+  {
+    if (!empty ($utam_purchased -> utam_bookshop -> id))
+      $sql = 'UPDATE utam_purchased SET isbn=?, price=?, bookshop=? WHERE id=?';
+    else
+      $sql = 'UPDATE utam_purchased SET isbn=?, price=? WHERE id=?';
+    $query = new sql_query ($sql);
+    $query -> set ($utam_purchased -> isbn);
+    $query -> set ($utam_purchased -> price);
+    if (!empty ($utam_purchased -> utam_bookshop -> id))
+      $query -> set ($utam_purchased -> utam_bookshop -> id);
+    $query -> set ($utam_purchased -> id);
+
+    $this -> execute_update ($query);
+
+    return $utam_purchased -> id;
+  }
+
+  /**
    * Read row.
    *
    * @return utam_purchased_mysql
