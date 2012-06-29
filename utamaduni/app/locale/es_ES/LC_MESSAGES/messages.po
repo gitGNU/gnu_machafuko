@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-27 18:20+0200\n"
+"POT-Creation-Date: 2012-06-29 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,78 +41,91 @@ msgstr "No se ha especificado un móduo válido."
 msgid "Invalid identifier"
 msgstr "Identificador no válido"
 
-#: ../modules/private/author.php:112
+#: ../modules/private/author.php:115
 msgid "The name must consist of letters only"
 msgstr "El nombre debe estar formado por letras"
 
-#: ../modules/private/author.php:116
+#: ../modules/private/author.php:119
 msgid "The surname must consist of letters only"
 msgstr "El apellido debe estar formado por letras"
 
-#: ../modules/private/author.php:150 ../modules/private/book.php:333
+#: ../modules/private/author.php:142 ../modules/private/book.php:241
+msgid "has been updated"
+msgstr "ha sido actualizado"
+
+#: ../modules/private/author.php:147 ../modules/private/book.php:246
+#, fuzzy
+msgid "has been inserted"
+msgstr "Ha sido insertado"
+
+#: ../modules/private/author.php:168 ../modules/private/book.php:325
 #: ../modules/private/bookshop.php:173
 msgid "It can not upload the file"
 msgstr "No se ha podido subir el archivo"
 
-#: ../modules/private/author.php:155
+#: ../modules/private/author.php:173
 msgid "The author"
 msgstr "El autor"
 
-#: ../modules/private/author.php:157 ../modules/private/bookshop.php:218
-msgid "has inserted"
-msgstr "Ha insertado"
-
-#: ../modules/private/author.php:159 ../modules/private/book.php:342
+#: ../modules/private/author.php:177 ../modules/private/book.php:334
 #: ../modules/private/bookshop.php:220
 msgid "Continue"
 msgstr "Continuar"
 
-#: ../modules/private/author.php:172 ../modules/private/author.php:184
-#: ../modules/private/book.php:355 ../modules/private/book.php:367
+#: ../modules/private/author.php:190 ../modules/private/author.php:202
+#: ../modules/private/book.php:347 ../modules/private/book.php:359
 #: ../modules/private/bookshop.php:233 ../modules/private/bookshop.php:245
 msgid "Leave"
 msgstr "Atrás"
 
-#: ../modules/private/author.php:220 ../modules/private/book.php:429
+#: ../modules/private/author.php:251 ../modules/private/book.php:421
 msgid "Author"
 msgstr "Autor"
 
-#: ../modules/private/author.php:221
+#: ../modules/private/author.php:252
 msgid "Photo"
 msgstr "Foto"
 
-#: ../modules/private/author.php:222 ../modules/private/bookshop.php:281
+#: ../modules/private/author.php:254 ../modules/private/author.php:291
+#: ../modules/private/bookshop.php:281
 msgid "Name"
 msgstr "Nombre"
 
-#: ../modules/private/author.php:225
+#: ../modules/private/author.php:257 ../modules/private/author.php:293
 msgid "Surname"
 msgstr "Apellidos"
 
-#: ../modules/private/author.php:228 ../modules/private/book.php:517
+#: ../modules/private/author.php:260 ../modules/private/book.php:509
 #: ../modules/private/bookshop.php:306
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../modules/private/author.php:229 ../modules/private/book.php:518
-#: ../modules/private/bookshop.php:307
-msgid "Create"
-msgstr "Crear"
+#: ../modules/private/author.php:261 ../modules/private/book.php:510
+msgid "Ok"
+msgstr ""
 
-#: ../modules/private/author.php:273 ../modules/private/book.php:650
+#: ../modules/private/author.php:286
+msgid "Author detail"
+msgstr "Detalle del autor"
+
+#: ../modules/private/author.php:288
+msgid "Update author"
+msgstr "Modificar autor"
+
+#: ../modules/private/author.php:343 ../modules/private/book.php:642
 #: ../modules/private/bookshop.php:350 ../modules/private/booksreading.php:92
 msgid "The page must consist of numbers only"
 msgstr "La página debe ser un número"
 
-#: ../modules/private/author.php:297
+#: ../modules/private/author.php:367
 msgid "New author"
 msgstr "Nuevo autor"
 
-#: ../modules/private/author.php:301
+#: ../modules/private/author.php:371
 msgid "All authors:"
 msgstr "Todos los autores:"
 
-#: ../modules/private/author.php:303
+#: ../modules/private/author.php:373
 msgid "There are not authors."
 msgstr "No existen autores"
 
@@ -166,109 +179,100 @@ msgstr "El género o géneros deben estar formadas por letras y números"
 msgid "The price must consist of digits"
 msgstr "El precio es incorrecto"
 
-#: ../modules/private/book.php:249
-msgid "has been updated"
-msgstr "ha sido actualizado"
-
-#: ../modules/private/book.php:254
-#, fuzzy
-msgid "has been inserted"
-msgstr "Ha sido insertado"
-
-#: ../modules/private/book.php:338
+#: ../modules/private/book.php:330
 msgid "The book"
 msgstr "El libro"
 
-#: ../modules/private/book.php:424
+#: ../modules/private/book.php:416
 msgid "Title"
 msgstr "Título"
 
-#: ../modules/private/book.php:427
+#: ../modules/private/book.php:419
 msgid "Cover"
 msgstr "Portada"
 
-#: ../modules/private/book.php:445
+#: ../modules/private/book.php:437
 msgid "Bookshop"
 msgstr "Librería"
 
-#: ../modules/private/book.php:458
+#: ../modules/private/book.php:450
 msgid "Select a bookshop"
 msgstr "Selecciona una librería"
 
-#: ../modules/private/book.php:459 ../modules/private/book.php:582
+#: ../modules/private/book.php:451 ../modules/private/book.php:574
 msgid "ISBN"
 msgstr "ISBN"
 
-#: ../modules/private/book.php:462 ../modules/private/book.php:584
+#: ../modules/private/book.php:454 ../modules/private/book.php:576
 msgid "Publisher"
 msgstr "Editorial"
 
-#: ../modules/private/book.php:465 ../modules/private/book.php:483
-#: ../modules/private/book.php:586
+#: ../modules/private/book.php:457 ../modules/private/book.php:475
+#: ../modules/private/book.php:578
 msgid "Format"
 msgstr "Formato"
 
-#: ../modules/private/book.php:468 ../modules/private/book.php:588
+#: ../modules/private/book.php:460 ../modules/private/book.php:580
 msgid "Subject"
 msgstr "Género"
 
-#: ../modules/private/book.php:478 ../modules/private/book.php:590
+#: ../modules/private/book.php:470 ../modules/private/book.php:582
 msgid "Description"
 msgstr "Descripción"
 
-#: ../modules/private/book.php:486 ../modules/private/book.php:592
+#: ../modules/private/book.php:478 ../modules/private/book.php:584
 msgid "Pages"
 msgstr "Páginas"
 
-#: ../modules/private/book.php:489 ../modules/private/book.php:594
+#: ../modules/private/book.php:481 ../modules/private/book.php:586
 msgid "Start read date"
 msgstr "Fecha inicio lectura"
 
-#: ../modules/private/book.php:491 ../modules/private/book.php:596
+#: ../modules/private/book.php:483 ../modules/private/book.php:588
 msgid "Finish read date"
 msgstr "Fecha final lectura"
 
-#: ../modules/private/book.php:493 ../modules/private/book.php:598
+#: ../modules/private/book.php:485 ../modules/private/book.php:590
 msgid "Valoration"
 msgstr "Valoración"
 
-#: ../modules/private/book.php:494
+#: ../modules/private/book.php:486
 msgid "Select a valoration"
 msgstr "Selecciona una valoración"
 
-#: ../modules/private/book.php:504
+#: ../modules/private/book.php:496
 msgid "Complete this field only if this book has been purchased"
 msgstr "Completa este campo solo si este libro ha sido comprado"
 
-#: ../modules/private/book.php:505 ../modules/private/book.php:600
+#: ../modules/private/book.php:497 ../modules/private/book.php:592
 msgid "Price"
 msgstr "Precio"
 
-#: ../modules/private/book.php:508
+#: ../modules/private/book.php:500
 msgid "Complete this field only if this book has been loaned"
 msgstr "Completa este campo solo si el libro ha sido prestado o dado"
 
-#: ../modules/private/book.php:509
+#: ../modules/private/book.php:501
 msgid "Loaned contact"
 msgstr "Contacto préstamo"
 
-#: ../modules/private/book.php:512 ../modules/private/book.php:602
+#: ../modules/private/book.php:504 ../modules/private/book.php:594
 msgid "Opinion"
 msgstr "Opinión"
 
-#: ../modules/private/book.php:573
+#: ../modules/private/book.php:565
 msgid "Update book"
 msgstr "Actualizar libro"
 
-#: ../modules/private/book.php:674
+#: ../modules/private/book.php:666
 msgid "New book"
 msgstr "Nuevo libro"
 
-#: ../modules/private/book.php:678
+#: ../modules/private/book.php:670
 msgid "All your books"
 msgstr "Todos tus libros"
 
-#: ../modules/private/book.php:680
+#: ../modules/private/book.php:672
 msgid "You do not have any book"
 msgstr "No tienes ningún libro"
 
@@ -305,6 +309,10 @@ msgstr "La dirección web debe ser una URL"
 #: ../modules/private/bookshop.php:216
 msgid "The bookshop"
 msgstr "La librería"
+
+#: ../modules/private/bookshop.php:218
+msgid "has inserted"
+msgstr "Ha insertado"
 
 #: ../modules/private/bookshop.php:284
 msgid "Logo"
@@ -345,6 +353,10 @@ msgstr "Si este libro tiene página web o es una tienda online indica la URL"
 #: ../modules/private/bookshop.php:303
 msgid "Web address"
 msgstr "Dirección web"
+
+#: ../modules/private/bookshop.php:307
+msgid "Create"
+msgstr "Crear"
 
 #: ../modules/private/bookshop.php:374
 msgid "New bookshop"

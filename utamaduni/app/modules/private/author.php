@@ -103,10 +103,13 @@ class author extends core_auth_user
     $href = '';
     $link = '';
     $msg_file = '';
+    $tail_msg = '';
 
     // Get POST or GET data.
     // Prepare validation from POST or GET data (the validators objects
     // get the POST or GET automatically).
+    $id_validator = new validation_digit_field ('id', 'The id must be a digit');
+    $update_validator = new validation_digit_field ('update', 'The update must be a digit');
     $name_validator =
       new validation_alpha_field ('name',
 				  gettext ('The name must consist of letters only'),
@@ -117,6 +120,8 @@ class author extends core_auth_user
 				  true);
     
     $val_facade = new validation_facade ();
+    $val_facade -> add_validator ($id_validator);
+    $val_facade -> add_validator ($update_validator);
     $val_facade -> add_validator ($name_validator);
     $val_facade -> add_validator ($surname_validator);
     
@@ -130,20 +135,33 @@ class author extends core_auth_user
       {
 	try
 	  {
+	    // Operation? It can be 'insert' or 'update'
+	    if ($clean -> get ('update') == 1)
+	      {
+		$operation = 'update';
+		$tail_msg = gettext ('has been updated');
+	      }
+	    else
+	      {
+		$operation = 'insert';
+		$tail_msg = gettext ('has been inserted');
+	      }
+
 	    // Open a transaction.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/core/transaction.php');
 	    $transaction = new transaction ();
 
 	    // Insert the author.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_author_mysql_dao.php');
-	    $dao = new utam_author_mysql_dao ();
+	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_author_mysql_ext_dao.php');
+	    $dao = new utam_author_mysql_ext_dao ();
 	    $utam_author = new utam_author ();
 	    $file = new file_phpfiles ('photo', UT_FILES_BASE_PATH . UT_FOLDER_PHOTOS,
 				       UT_FILES_LOGICAL_PATH . UT_FOLDER_PHOTOS);
+	    $utam_author -> id = $clean -> get ('id');
 	    $utam_author -> name = $clean -> get ('name');
 	    $utam_author -> surname = $clean -> get ('surname');
 	    $utam_author -> photo = $file -> get_logical_full_path ();
-	    $dao -> insert ($utam_author);
+	    $dao -> $operation ($utam_author);
 
 	    // Move the upload photo.
 	    if ($file -> move_uploaded_files ())
@@ -154,7 +172,7 @@ class author extends core_auth_user
 	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/ok.html');
 	    $msg[] = array ('msg' => gettext ('The author') . ' "' . 
 			    $clean -> get ('name') . ' ' . $clean -> get ('surname') .
-			    '" ' . gettext ('has inserted'));
+			    '" ' . $tail_msg);
 	    $href = "javascript: parent.formupdateauthorloader.loadXMLContent ();";
 	    $link = gettext ('Continue');
 		    
@@ -206,6 +224,10 @@ class author extends core_auth_user
    */
   public function formupdate ()
   {
+    $author_id = '';
+    $author_name = '';
+    $author_surname = '';
+
     include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
     $private_menu = new privatemenu ();
 
@@ -216,17 +238,65 @@ class author extends core_auth_user
 
     // Get the book information (maybe null).
     $utam_author = $this -> __get_author ();
+    if ($utam_author)
+      {
+	$author_id = $utam_author -> id;
+	$author_name = $utam_author -> name;
+	$author_surname = $utam_author -> surname;
+	$this -> set ('update_value', '1');
+      }
+    else
+      $this -> set ('update_value', '0');
 
     $this -> set ('author_header', gettext ('Author'));
     $this -> set ('photo_label', gettext ('Photo'));
+    $this -> set ('id_value', $author_id);
     $this -> set ('name_label', gettext ('Name'));
-    $this -> set ('name', $utam_author ? $utam_author -> name : '');
+    $this -> set ('name', $author_name);
     $this -> set ('name_len', '30');
     $this -> set ('surname_label', gettext ('Surname'));
-    $this -> set ('surname', $utam_author ? $utam_author -> surname : '');
+    $this -> set ('surname', $author_surname);
     $this -> set ('surname_len', '50');
     $this -> set ('cancel_btn', gettext ('Cancel'));
-    $this -> set ('ok_btn', gettext ('Create'));
+    $this -> set ('ok_btn', gettext ('Ok'));
+  }
+  // }}}
+
+  // {{{ show ()
+  /**
+   * show
+   *
+   * This function will be ran by model if an event is "show".
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  public function show ()
+  {
+    include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
+    $private_menu = new privatemenu ();
+
+    if ($utam_author = $this -> __get_author ())
+      {
+	// Get the book template.
+	$tpl_author = file_get_contents (UT_HTML_TPL_PATH . '/author.html');
+
+	// Sets all datas.
+	$this -> set ('private_menu', $private_menu -> get_menu ('author'));
+	$this -> set ('author', $tpl_author); // After that, include all its sets.
+	$this -> set ('author_header', gettext ('Author detail'));
+	$this -> set ('authorid', $utam_author -> id);
+	$this -> set ('update_author_msg', gettext ('Update author'));
+	$this -> set ('imgid', 'small');
+	$this -> set ('photo', $utam_author -> photo);
+	$this -> set ('name_label', gettext ('Name'));
+	$this -> set ('name', $utam_author -> name);
+	$this -> set ('surname_label', gettext ('Surname'));
+	$this -> set ('surname', $utam_author -> surname);
+      }
+    else // Validation error.
+      {
+	echo "error<br>";
+      }
   }
   // }}}
 
@@ -259,7 +329,7 @@ class author extends core_auth_user
 	    foreach ($author_list as $author)
 	      {
 		$all_authors[] = array (
-			  'href' => $author -> photo,
+			  'href' => "javascript: showauthorloader.loadXMLContent ('id=" . $author -> id . "');",
 			  'imgid' => 'mini',
 			  'imgsrc' => $author -> photo,
 			  'author_title' => $author -> surname . ', ' . $author -> name);

@@ -228,14 +228,6 @@ class book extends core_auth_user
     // Get clean data.
     $clean = $val_facade -> get_clean_request ();
 
-    echo '<br>ID: ' . $clean -> get('id') . '<br>' .
-      'ISBN: ' . $clean -> get('isbn') . '<br>' .
-      'Title: ' . $clean -> get('title') . '<br>' .
-      'Publisher: ' . $clean -> get('publisher') . '<br>' .
-      'Format: ' . $clean -> get('format') . '<br>' .
-      'Subject: ' . $clean -> get('subject') . '<br>' .
-      'Description: ' . $clean -> get('description') . '<br>';
-
     // The facade validation validates the entry data and the form validate
     // validates the required fields, minimun field length, and so on.
     if ($facade_val_res)
@@ -515,13 +507,13 @@ class book extends core_auth_user
     $this -> set ('opinion_rows', '4');
     $this -> set ('opinion_cols', '50');
     $this -> set ('cancel_btn', gettext ('Cancel'));
-    $this -> set ('ok_btn', gettext ('Create'));
+    $this -> set ('ok_btn', gettext ('Ok'));
   }
   // }}}
 
-  // {{{ __default ()
+  // {{{ show ()
   /**
-   * __default
+   * show
    *
    * This function will be ran by model if an event is "show".
    *

@@ -39,5 +39,27 @@ class utam_author_mysql_ext_dao extends utam_author_mysql_dao
     $query -> set ($idbook);
     return $this -> get_list ($query);
   }
+
+  /**
+   * Update record in table.
+   *
+   * @param utam_author_mysql utam_author
+   */
+  public function update ($utam_author)
+  {
+    $sql = 'UPDATE utam_author SET name = ?, surname = ?';
+    if (!empty ($utam_author -> photo))
+      $sql .= ', photo = ?';
+    $sql .= ' WHERE id = ?';
+    $query = new sql_query ($sql);
+    
+    $query -> set ($utam_author -> name);
+    $query -> set ($utam_author -> surname);
+    if (!empty ($utam_author -> photo))
+      $query -> set ($utam_author -> photo);
+    $query -> set_number ($utam_author -> id);
+
+    return $this -> execute_update ($query);
+  }
 }
 ?>

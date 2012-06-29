@@ -196,6 +196,19 @@ var showbookloader =
      "private-content");
 
 /*
+ * Author info home loader.
+ */
+var showauthorloader =
+    new net.loadContents
+    ("private/author/show.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
  * Private form update author.
  */
 var formupdateauthorloader =
