@@ -209,6 +209,19 @@ var showauthorloader =
      "private-content");
 
 /*
+ * Bookshop info loader.
+ */
+var showbookshoploader =
+    new net.loadContents
+    ("private/bookshop/show.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
  * Private form update author.
  */
 var formupdateauthorloader =

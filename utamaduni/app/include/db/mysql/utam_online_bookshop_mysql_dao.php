@@ -19,6 +19,7 @@
  */
 
 include_once (dirname (__FILE__) . '/../dao/utam_online_bookshop_dao.php');
+include_once (dirname (__FILE__) . '/../dto/utam_online_bookshop.php');
 include_once (dirname (__FILE__) . '/core/array_list.php');
 include_once (dirname (__FILE__) . '/core/sql_query.php');
 include_once (dirname (__FILE__) . '/core/query_executor.php');
@@ -85,7 +86,7 @@ class utam_online_bookshop_mysql_dao implements utam_online_bookshop_dao
 	 */
 	public function query_by_id ($value)
 	{
-		$sql = 'SELECT * FROM utam_online_bookshop a, utam_bookshop b WHERE id = ? and a.id = b.id';
+		$sql = 'SELECT * FROM utam_online_bookshop a, utam_bookshop b WHERE a.id = ? and a.id = b.id';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
@@ -147,7 +148,7 @@ class utam_online_bookshop_mysql_dao implements utam_online_bookshop_dao
 		$query -> set ($utam_online_bookshop -> url);
 
 		$query -> set_number ($utam_online_bookshop -> id);
-		return $this -> execute_query ($query);
+		return $this -> execute_update ($query);
 	}
 
 	/**

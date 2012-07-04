@@ -166,7 +166,7 @@ class utam_bookshop_mysql_dao implements utam_bookshop_dao
 		$query -> set ($utam_bookshop -> logo);
 
 		$query -> set_number ($utam_bookshop -> id);
-		return $this -> execute_query ($query);
+		return $this -> execute_update ($query);
 	}
 
 	/**

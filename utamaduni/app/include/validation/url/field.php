@@ -63,6 +63,7 @@ class validation_url_field extends validation_field
 	    $coordinator -> add_error ($this -> message);
 	    return FALSE;
 	  }
+      }
     else
       {
 	// Field does not exits...

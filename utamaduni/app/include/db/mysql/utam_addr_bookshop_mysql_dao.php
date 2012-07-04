@@ -86,7 +86,7 @@ class utam_addr_bookshop_mysql_dao implements utam_addr_bookshop_dao
 	 */
 	public function query_by_id ($value)
 	{
-		$sql = 'SELECT * FROM utam_addr_bookshop a, utam_bookshop b WHERE id = ? and a.id = b.id';
+		$sql = 'SELECT * FROM utam_addr_bookshop a, utam_bookshop b WHERE a.id = ? and a.id = b.id';
 		$query = new sql_query ($sql);
 		$query -> set ($value);
 		return $this -> get_list ($query);
@@ -148,7 +148,7 @@ class utam_addr_bookshop_mysql_dao implements utam_addr_bookshop_dao
 		$query -> set ($utam_addr_bookshop -> address);
 
 		$query -> set_number ($utam_addr_bookshop -> id);
-		return $this -> execute_query ($query);
+		return $this -> execute_update ($query);
 	}
 
 	/**

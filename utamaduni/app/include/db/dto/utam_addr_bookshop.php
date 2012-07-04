@@ -19,6 +19,7 @@
  */
 
 include_once ('utam_bookshop.php');
+include_once ('ajen_address.php');
 
 /**
  * Object represents table 'utam_addr_bookshop'

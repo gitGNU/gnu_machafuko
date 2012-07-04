@@ -86,6 +86,46 @@ class bookshop extends core_auth_user
   }
   // }}}
 
+  // {{{ __get_addr_bookshop ($id)
+  /**
+   * __get_addr_bookshop
+   *
+   * Get address bookshop information and returns it or null if there is any error or
+   * not exist that bookshop.
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  private function __get_addr_bookshop ($id)
+  {
+    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_addr_bookshop_mysql_ext_dao.php');
+    $dao = new utam_addr_bookshop_mysql_ext_dao ();
+    $utam_bs = new utam_addr_bookshop ();
+    $utam_bs = $dao -> load ($id);
+
+    return $utam_bs;
+  }
+  // }}}
+
+  // {{{ __get_online_bookshop ($id)
+  /**
+   * __get_online_bookshop
+   *
+   * Get online bookshop information and returns it or null if there is any error or
+   * not exist that bookshop.
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  private function __get_online_bookshop ($id)
+  {
+    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_online_bookshop_mysql_ext_dao.php');
+    $dao = new utam_online_bookshop_mysql_ext_dao ();
+    $utam_bs = new utam_online_bookshop ();
+    $utam_bs = $dao -> load ($id);
+
+    return $utam_bs;
+  }
+  // }}}
+
   // {{{ update ()
   /**
    * update
@@ -108,6 +148,8 @@ class bookshop extends core_auth_user
     // Get POST or GET data.
     // Prepare validation from POST or GET data (the validators objects
     // get the POST or GET automatically).
+    $id_validator = new validation_digit_field ('id', 'The id must be a digit');
+    $update_validator = new validation_digit_field ('update', 'The update must be a digit');
     $name_validator =
       new validation_alnum_field ('name',
 				  gettext ('The name is a required field and must consist of letter and numbers only'),
@@ -133,6 +175,8 @@ class bookshop extends core_auth_user
 
 
     $val_facade = new validation_facade ();
+    $val_facade -> add_validator ($id_validator);
+    $val_facade -> add_validator ($update_validator);
     $val_facade -> add_validator ($name_validator);
     $val_facade -> add_validator ($streetname_validator);
     $val_facade -> add_validator ($streetnum_validator);
@@ -155,18 +199,33 @@ class bookshop extends core_auth_user
       {
 	try
 	  {
+	    // Operation? It can be 'insert' or 'update'
+	    if ($clean -> get ('update') == 1)
+	      {
+		$operation = 'update';
+		$tail_msg = gettext ('has been updated');
+	      }
+	    else
+	      {
+		$operation = 'insert';
+		$tail_msg = gettext ('has been inserted');
+	      }
+
 	    // Open a transaction because they do several inserts. If one fail rollback.
 	    include_once (UT_BASE_PATH . '/include/db/mysql/core/transaction.php');
 	    $transaction = new transaction ();
 
 	    // Insert the bookshop into db.
-	    include_once (UT_BASE_PATH . '/include/db/mysql/utam_bookshop_mysql_dao.php');
-	    $dao = new utam_bookshop_mysql_dao ();
+	    include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_bookshop_mysql_ext_dao.php');
+	    $dao = new utam_bookshop_mysql_ext_dao ();
 	    $utam_bs = new utam_bookshop ();
+	    $utam_bs -> id = $clean -> get ('id');
 	    $utam_bs -> name = $clean -> get ('name');
 	    $utam_bs -> logo = $file -> get_logical_full_path ();		
 	    // If ok it gets the identifier of the inserted book.
-	    $idbookshop = $dao -> insert ($utam_bs);
+	    $idbookshop = $dao -> $operation ($utam_bs);
+	    if ($operation == 'update')
+	      $idbookshop = $clean -> get ('id');
 	    
 	    // Move the upload cover.
 	    if ($file -> move_uploaded_files ())
@@ -193,29 +252,29 @@ class bookshop extends core_auth_user
 		$addressid = $dao -> insert_address ($ajen_address);
 
 		// Insert the physical bookshop.
-		include_once (UT_BASE_PATH . '/include/db/mysql/utam_addr_bookshop_mysql_dao.php');
-		$dao = new utam_addr_bookshop_mysql_dao ();
+		include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_addr_bookshop_mysql_ext_dao.php');
+		$dao = new utam_addr_bookshop_mysql_ext_dao ();
 		$utam_abs -> id = $idbookshop;
 		$utam_abs -> address = $addressid;
-		$dao -> insert ($utam_abs);
+		$dao -> $operation ($utam_abs);
 	      }
 
 	    // Insert the online bookshop.
 	    $aux = $clean -> get ('url');
 	    if (!empty ($aux))
 	      {
-		include_once (UT_BASE_PATH . '/include/db/mysql/utam_online_bookshop_mysql_dao.php');
-		$dao = new utam_online_bookshop_mysql_dao ();
+		include_once (UT_BASE_PATH . '/include/db/mysql/ext/utam_online_bookshop_mysql_ext_dao.php');
+		$dao = new utam_online_bookshop_mysql_ext_dao ();
 		$utam_obs -> id = $idbookshop;
 		$utam_obs -> url = $clean -> get ('url');
-		$dao -> insert ($utam_obs);
+		$dao -> $operation ($utam_obs);
 	      }
 	    
 	    // It prepares the message.
 	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/ok.html');
 	    $msg[] = array ('msg' => gettext ('The bookshop') . ' "' . 
 			    $clean -> get ('name') .
-			    '" ' . gettext ('has inserted'));
+			    '" ' . $tail_msg);
 	    $href = "javascript: parent.formupdatebookshoploader.loadXMLContent ();";
 	    $link = gettext ('Continue');
 	    
@@ -268,6 +327,15 @@ class bookshop extends core_auth_user
    */
   public function formupdate ()
   {
+    $bookshop_id = '';
+    $name = '';
+    $streetname = '';
+    $streetnum = '';
+    $streetextra = '';
+    $city = '';
+    $country = '';
+    $url = '';
+
     include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
     $private_menu = new privatemenu ();
 
@@ -277,34 +345,121 @@ class bookshop extends core_auth_user
     $this -> set ('private_menu', $private_menu -> get_menu ('bookshop'));
 
     // Get the bookshop information (maybe null).
-    $utam_bs = $this -> __get_bookshop ();
+    $utam_bookshop = $this -> __get_bookshop ();
+    if ($utam_bookshop)
+      {
+	$bookshop_id = $utam_bookshop -> id;
+	$name = $utam_bookshop -> name;
+	$utam_addr = $this -> __get_addr_bookshop ($utam_bookshop -> id);
+	$utam_online = $this -> __get_online_bookshop ($utam_bookshop -> id);
+	if ($utam_addr) // It can be null
+	  {
+	    $streetname = $utam_addr -> ajen_address -> ajen_street -> name;
+	    $streetnum = $utam_addr -> ajen_address -> ajen_street -> num;
+	    $streetextra = $utam_addr -> ajen_address -> ajen_street -> extra;
+	    $city = $utam_addr -> ajen_address -> city;
+	    $country = $utam_addr -> ajen_address -> country;
+	  }
+	if ($utam_online) // It can be null
+	  {
+	    $url = $utam_online -> url;
+	  }
+	$this -> set ('update_value', '1');
+      }
+    else
+      $this -> set ('update_value', '0');
+
+    $this -> set ('id_value', $bookshop_id);
     $this -> set ('name_label', gettext ('Name'));
-    $this -> set ('name', '');
+    $this -> set ('name', $name);
     $this -> set ('name_len', '100');
     $this -> set ('logo_label', gettext ('Logo'));
     $this -> set ('address_msg', gettext ('if is a physical bookshop type the post address'));
     $this -> set ('street_label', gettext ('Street'));
     $this -> set ('street_name_label', gettext ('name'));
-    $this -> set ('streetname', '');
+    $this -> set ('streetname', $streetname);
     $this -> set ('streetname_len', '100');
     $this -> set ('street_number_label', gettext ('number'));
-    $this -> set ('streetnum', '');
+    $this -> set ('streetnum', $streetnum);
     $this -> set ('streetnum_len', '4');
     $this -> set ('street_extra_label', gettext ('more'));
-    $this -> set ('streetextra', '');
+    $this -> set ('streetextra', $streetextra);
     $this -> set ('streetextra_len', '100');
     $this -> set ('city_label', gettext ('City'));
-    $this -> set ('city', '');
+    $this -> set ('city', $city);
     $this -> set ('city_len', '100');
     $this -> set ('country_label', gettext ('Country'));
-    $this -> set ('country', '');
+    $this -> set ('country', $country);
     $this -> set ('country_len', '100');
     $this -> set ('url_msg', gettext ('If this bookshop have web page or is an online bookshop type the URL'));
     $this -> set ('url_label', gettext ('Web address'));
-    $this -> set ('url', '');
+    $this -> set ('url', $url);
     $this -> set ('url_len', '200');
     $this -> set ('cancel_btn', gettext ('Cancel'));
     $this -> set ('ok_btn', gettext ('Create'));
+  }
+  // }}}
+
+  // {{{ show ()
+  /**
+   * show
+   *
+   * This function will be ran by model if an event is "show".
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  public function show ()
+  {
+    include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
+    $private_menu = new privatemenu ();
+
+    if ($utam_bookshop = $this -> __get_bookshop ())
+      {
+	$utam_addr = $this -> __get_addr_bookshop ($utam_bookshop -> id);
+	$utam_online = $this -> __get_online_bookshop ($utam_bookshop -> id);
+	if (!$utam_addr) // It can be null
+	  {
+	    $utam_addr = new utam_addr_bookshop ();
+	    $ajen_address = new ajen_address ();
+	    $ajen_street = new ajen_street ();
+	    $utam_addr -> utam_bookshop = $utam_bookshop;
+	    $utam_addr -> ajen_address = $ajen_address;
+	    $utam_addr -> ajen_address -> ajen_street = $ajen_street;
+	  }
+	if (!$utam_online) // It can be null
+	  {
+	    $utam_online = new utam_online_bookshop ();
+	  }
+
+	// Get the book template.
+	$tpl_bookshop = file_get_contents (UT_HTML_TPL_PATH . '/bookshop.html');
+
+	// Sets all datas.
+	$this -> set ('private_menu', $private_menu -> get_menu ('bookshop'));
+	$this -> set ('bookshop', $tpl_bookshop); // After that, include all its sets.
+	$this -> set ('bookshop_header', gettext ('Bookshop detail'));
+	$this -> set ('bookshopid', $utam_bookshop -> id);
+	$this -> set ('update_bookshop_msg', gettext ('Update bookshop'));
+	$this -> set ('imgid', 'small');
+	$this -> set ('logo', $utam_bookshop -> logo);
+	$this -> set ('name_label', gettext ('Name'));
+	$this -> set ('name', $utam_bookshop -> name);
+	$this -> set ('street_label', gettext ('Address'));
+	$this -> set ('street_name_label', gettext ('Street'));
+	$this -> set ('streetname', $utam_addr -> ajen_address -> ajen_street -> name);
+	$this -> set ('streetnumber', $utam_addr -> ajen_address -> ajen_street -> num);
+	$this -> set ('streetextra', $utam_addr -> ajen_address -> ajen_street -> extra);
+	$this -> set ('city_label', gettext ('City'));
+	$this -> set ('city', $utam_addr -> ajen_address -> city);
+	$this -> set ('country_label', gettext ('Country'));
+	$this -> set ('country', $utam_addr -> ajen_address -> country);
+	$this -> set ('url_label', gettext ('URL'));
+	$this -> set ('url', $utam_online -> url);
+      }
+    else // Validation error.
+      {
+	echo "error<br>";
+      }
   }
   // }}}
 
