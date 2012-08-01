@@ -1,3 +1,10 @@
+2012-07-25 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* app/modules/private/search.php
+	* app/modules/private/tpl/search.tpl.html
+	* app/sites/html/tpl/searchform.html
+	* app/sites/html/tpl/searchlist.html
+	It has addded these files to create the search facilities.
+
 2012-06-09 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* app/modules/private/book.php
 	It has finished the book inserting.

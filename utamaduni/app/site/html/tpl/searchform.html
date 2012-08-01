@@ -1,0 +1,74 @@
+<!--
+ Utamaduni (suajili language meaning 'culture') is a book management.
+ Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<form id='search-form' method='post' action="javascript: formobj.ajaxSubmit (searchresultloader, 'search-form');">
+
+    <div class="container_12">
+      <!-- FIRST ROW -->
+      <div class="grid_12">
+	<h2>
+	  {search_header}
+	</h2>
+      </div>
+
+      <div class="clear"></div>
+      
+      <!-- SECOND ROW -->
+      <!-- First column -->
+      <div id="left" class="grid_3">
+	<div id="left" class="normal-box">
+	  <b>{book_label}:</b><br />
+	    <input class='my-input-large' type='text' name='book' id='book' maxlength='{book_len}' />
+	</div>
+      </div>
+      
+      <!-- Second column -->
+      <div id="left" class="grid_3">
+	<div id="normal-box">
+	  <b>{tag_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='tag' id='tag' maxlength='{tag_len}' />
+	  </p>
+	</div>
+	</div>
+
+	<!-- Third column -->
+	<div id="left" class="grid_3">
+	<div id="normal-box">
+	  <b>{author_label}:</b>
+	  <p>
+	    <input class='my-input-large' type='text' name='author' id='author' maxlength='{author_len}' />
+	  </p>
+	</div>
+	</div>
+
+      <!-- THIRD ROW -->
+      <div id="left" class="grid_3">
+	<p>&nbsp;</p>
+	<p>
+	<input type="submit" id="submit" name="submit" value="{search_btn}" class="my-btn" />
+	</p>
+      </div>
+
+      <div class="clear"></div>
+
+      <!-- FOURTH ROW -->
+      <div id="search-result" class="grid_12">
+      </div>
+    </div>
+</form>
