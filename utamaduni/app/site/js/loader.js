@@ -105,43 +105,17 @@ var bookshoploader =
      "private-content");
 
 /*
- * Private whislist book loader.
+ * Private author.
  */
-var wishlistloader =
+var authorloader =
     new net.loadContents
-    ("private/wishlist",
+    ("private/author",
      insertContent,
      null,
      "POST",
      "",
      "application/x-www-form-urlencoded",
-     "content");
-
-/*
- * Private loaned book loader.
- */
-var loanedbookloader =
-    new net.loadContents
-    ("private/loanedbook",
-     insertContent,
-     null,
-     "POST",
-     "",
-     "application/x-www-form-urlencoded",
-     "content");
-
-/*
- * Private purchased book loader.
- */
-var purchasedbookloader =
-    new net.loadContents
-    ("private/purchasedbook",
-     insertContent,
-     null,
-     "POST",
-     "",
-     "application/x-www-form-urlencoded",
-     "content");
+     "private-content");
 
 /*
  * Private quote loader.
@@ -157,11 +131,11 @@ var qouteloader =
      "content");
 
 /*
- * Private author.
+ * Private search loader.
  */
-var authorloader =
+var searchloader =
     new net.loadContents
-    ("private/author",
+    ("private/search",
      insertContent,
      null,
      "POST",
@@ -246,3 +220,16 @@ var formupdatebookshoploader =
      "",
      "application/x-www-form-urlencoded",
      "private-content");
+
+/*
+ * Private form search result loader.
+ */
+var searchresultloader =
+    new net.loadContents
+    ("private/search/search.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "search-result");

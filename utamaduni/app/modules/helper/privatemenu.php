@@ -59,21 +59,15 @@ class privatemenu extends core_auth_user
        'bookshop' => array ('id' => 'privatemenu',
 			    'link' => 'javascript: bookshoploader.loadXMLContent ();',
 			    'msg' => gettext ('Bookshops')),
-       'wish' => array ('id' => 'privatemenu',
-			'link' => 'javascript: wishlistloader.loadXMLContent ();',
-			'msg' => gettext ('Wish')),
-       'loaned' => array ('id' => 'privatemenu',
-			  'link' => 'javascript: loanedbookloader.loadXMLContent ();',
-			  'msg' => gettext ('Loaned')),
-       'purchased' => array ('id' => 'privatemenu',
-			     'link' => 'javascript: purchasedbookloader.loadXMLContent ();',
-			     'msg' => gettext ('Purchased')),
+       'author' => array ('id' => 'privatemenu',
+			  'link' => 'javascript: authorloader.loadXMLContent ();',
+			  'msg' => gettext ('Authors')),
        'quote' => array ('id' => 'privatemenu',
 			 'link' => 'javascript: quoteloader.loadXMLContent ();',
 			 'msg' => gettext ('Quotes')),
-       'author' => array ('id' => 'privatemenu',
-			  'link' => 'javascript: authorloader.loadXMLContent ();',
-			  'msg' => gettext ('Authors'))
+       'search' => array ('id' => 'privatemenu',
+			  'link' => 'javascript: searchloader.loadXMLContent ();',
+			  'msg' => gettext ('Search'))
 			   );
   }
   // }}}

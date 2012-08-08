@@ -43,6 +43,34 @@ class utam_book_mysql_ext_dao extends utam_book_mysql_dao
     $query -> set_number ($id);
     return $this -> get_row ($query);
   }
+
+  /**
+   * Get domain object by fields..
+   *
+   * @param mixed $where is an array with pair 'name attribute' => 'pattern'.
+   * @return utam_book_mysql list.
+   */
+  public function search ($where = array ())
+  {
+    $sql = 
+      'SELECT ' .
+           'b.id id, b.isbn isbn, b.title title, b.description description, b.cover cover, b.pages pages, ' .
+           'p.id publisherid, p.name publishername, ' .
+           'f.id formatid, f.name formatname ' .
+      'FROM ' .
+           'utam_book b, ' .
+           'utam_publisher p, ' .
+           'utam_format f ' .
+      'WHERE ' .
+           'b.publisher = p.id and b.format = f.id';
+    foreach ($where as $field => $value)
+      {
+	$sql .= ' and lower(' . $field . ') like lower("%' . $value . '%")';
+      }
+    $query = new sql_query ($sql);
+    //$query -> set_number ($id);
+    return $this -> get_list ($query);
+  }
   
   /**
    * Insert record to table.
