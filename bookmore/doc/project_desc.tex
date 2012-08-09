@@ -1,0 +1,84 @@
+% Bookmore (more than a bookmark) is a web application to management bookmarks.
+% Copyright (C) 2012 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+%
+% This is the project documentatio that is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\documentclass[12pt,twoside,a4paper]{article}
+
+\usepackage[spanish,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr} % Para modificar y gestionar los encabezado y pie de página.
+\usepackage[top=3cm, bottom=3cm, left=2cm, right=2cm]{geometry} % De esta forma se indican los margenes del papel.
+\usepackage{url}
+
+\pagestyle{fancy} % Usamos el estilo ``fancy'' para encabezado y pie de página.
+\fancyhead{} % Reseteamos encabezado.
+\fancyfoot{} % Reseteamos pie de página.
+
+% Configuramos los encabezado y pie de página. Significados de las letras:
+% L: izquierda.
+% R: derecha.
+% C: centro.
+% O: par.
+% E: impar.
+\fancyhead[LO,LE]{\slshape \rightmark}
+\fancyhead[RO,RE]{\slshape \leftmark}
+\fancyfoot[CO,CE] {\thepage}
+
+% Define la línea de debajo y encima del encabezado y pie de página: 0pt = invisible.
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{Proyecto \texttt{Bookmore}}
+\author{Román Ginés Martínez Ferrández \\ \texttt{rgmf@riseup.net}}
+
+% BEGIN DOCUMENT
+\begin{document}
+\maketitle
+\thispagestyle{fancy} % Con esto en la portada también aparecer encabezado y pie de página. Si no deseas en la portada encabezado y pie de página elimina esta línea.
+\tableofcontents
+
+% Empieza aquí
+\section{Arquitectura}
+Para este subproyecto se va a emplear el patrón de diseño MVC (Model View Controller) con el framework \texttt{Yii Framework} (\url{http://www.yiiframework.com}).
+
+\subsection{Requerimientos}
+Se necesita tener instalado:
+\begin{itemize}
+\item MySQL.
+\item Apache con el módulo ``rewrite'' (libapache2-mod-proxy-html - Apache2 filter module for HTML links rewriting)
+\item PHP.
+\item Yii Framework 1.1.x.
+\end{itemize}
+
+En concreto esta aplicación web es desarrollada con Apache2, MySql 5.1.63, PHP 5.3.6 y Yii Framework 1.1.10.
+
+\subsection{Criterios de codificación}
+Los criterios de codificación que se van a seguir en este proyecto son los mismos que los empleados en Yii Framework.
+
+\subsection{Estructura de directorios}
+La estructura de directorios utilizada es la creada por la herramienta \texttt{yiic} que viene con \texttt{Yii Framework}. Además, se pueden añadir otros directorios como, por ejemplo, el directorio que contiene esta documentación (\texttt{doc}).
+
+\section{Proyectos}
+Esta aplicación web debe ofrecer la posibilidad de recopilar información de recursos en general: páginas web favoritas (pueden ser sitios completos o páginas concretas dentro de un sitio web), imágenes (que estarán en el servidor web alojadas), documentos (pdfs, textos, etc - que estarán alojadas en el servidor web).
+
+De las páginas webs se necesita recopilar: dirección web (URL), tag o tags, una breve descripción, el logotipo de la página web (que puede ayudar para identificarla), la fecha en que se creó el marcador. Además, asociada a cada página web, se puede guardar información acerca del usuario y la contraseña si se tiene usuario en dicha página web.
+
+De los recursos (documentos, imágenes, etc) se necesita: el enlace al archivo, el nombre del archivo, el formato, una descripción, un tag o tags y la fecha en que fue dada de alta el recurso.
+
+El usuario que crea el recurso puede determinar si el mismo es privado o público. Por defecto los marcadores serán públicos y el resto de recursos privados. El usuario y contraseña de aquellas páginas web donde se haya registrado será privada.
+
+Los usuarios anónimos pueden ver la información de todos los recursos públicos, con sus descripciones, y las pueden valorar. Cada usuario registrado puede añadir y eliminar sus páginas webs, así como ver su nombre de usuario y contraseña de aquellas páginas donde está registrado, y, por último, también pueden valorar los recursos (públicos y de los que es usuario) y comentarlos.
+
+\end{document}
