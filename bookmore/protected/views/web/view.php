@@ -15,16 +15,37 @@ $this->menu=array(
 
 <h1><?php echo Yii::t('bm','View Web'); ?> #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'resource.uri',
-		'resource.name',
+		array(
+			'label'=>Yii::t('bm','Name'),
+			'type'=>'raw',
+			'value'=>CHtml::link(CHtml::encode($model->resource->name),$model->resource->uri,array('target'=>'_blank')),
+		),
 		'resource.description',
 		'resource.created',
-		'resource.privacy',
-		'logo',
-		'account',
+		array(
+			'label'=>Yii::t('bm','Privacy'),
+			'value'=>($model->resource->privacy ? Yii::t('bm','Private') : Yii::t('bm','Public')),
+		),
+		'logo',		
 	),
-)); ?>
+)); 
+
+// If there is WebAccount model it shows the account.
+if($waModel)
+{
+	echo '<h2>'.Yii::t('bm','Account information').'</h2>';
+	$this->widget('zii.widgets.CDetailView', array(
+			'data'=>$waModel,
+			'attributes'=>array(
+					'username',
+					'email',
+					'password',
+			),
+	));
+}
+
+?>

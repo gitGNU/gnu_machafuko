@@ -1,6 +1,6 @@
 <?php
 
-class WebController extends Controller
+class WebController extends ResourceController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -52,8 +52,17 @@ class WebController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=$this->loadModel($id);
+		$waModel=null;
+		
+		// If the user is the resource owner it shows the account information.
+		if($this->isOwner($model->id))
+		{
+			$waModel=$model->webAccount;
+		}
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id),'waModel'=>$waModel,
 		));
 	}
 

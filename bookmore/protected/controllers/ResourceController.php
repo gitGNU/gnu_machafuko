@@ -212,6 +212,29 @@ class ResourceController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+	
+	/**
+	 * This function checks if the user is the resource owner.
+	 * 
+	 * @param string $id the resource id.
+	 * @return boolean this function returns true if this user is the resource $id owner.
+	 */
+	protected function isOwner($id)
+	{
+		if(Yii::app()->user->isGuest)
+			return false;
+		else
+		{
+			//$model=$this->loadModel($id);
+			$model=UserResource::model()->findByAttributes(
+				array('res'=>$id,
+				      'user'=>Yii::app()->user->id));
+			if($model)
+				return true;
+			else
+				return false;
+		}
+	}
 
 	/**
 	 * Performs the AJAX validation.

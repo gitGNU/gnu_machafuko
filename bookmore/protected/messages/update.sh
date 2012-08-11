@@ -1,1 +1,1 @@
-../../../../yii/framework/yiic message config.php
+../../../../../yii/framework/yiic message config.php

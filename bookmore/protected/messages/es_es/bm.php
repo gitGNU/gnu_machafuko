@@ -19,9 +19,12 @@
  * @version $Id: $
  */
 return array (
-  'Operations' => 'Operaciones',
+  'Delete Document' => 'Eliminar documento',
+  'Update Document' => 'Modificar documento',
+  'View Document' => 'Detalle del documento',
   'About' => 'Quienes somos',
   'Account' => 'Cuenta',
+  'Account information' => 'Cuenta de usuario para esta web',
   'Advanced Search' => 'Búsqueda avanzada',
   'Are you sure you want to delete this item?' => '¿Está seguro que desea eliminar este registro?',
   'Body' => 'Mensaje',
@@ -37,7 +40,7 @@ return array (
   'Delete Bookmark' => 'Eliminar favorito',
   'Delete Web' => 'Eliminar web favorita',
   'Description' => 'Descripción',
-  'Document' => 'Documento',
+  'Document type' => 'Tipo de documento',
   'Documents' => 'Documentos',
   'E-mail' => 'E-mail',
   'Fields with' => 'Los campos con',
@@ -59,6 +62,7 @@ return array (
   'Manage Webs' => 'Gestión de webs',
   'Mime type' => 'Mime type',
   'Name' => 'Nombre',
+  'Operations' => 'Operaciones',
   'Password' => 'Contraseña',
   'Please enter the letters as they are shown in the image above' => 'Por favor, inserta las letras que puede ver en la imagen de arriba',
   'Please fill out the following form with your login credentials' => 'Por favor, complete el siguiente formulario con tu usuario y contraseña para entrar al sistema',

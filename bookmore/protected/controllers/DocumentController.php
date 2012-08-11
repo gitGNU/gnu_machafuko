@@ -1,6 +1,6 @@
 <?php
 
-class DocumentController extends Controller
+class DocumentController extends ResourceController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

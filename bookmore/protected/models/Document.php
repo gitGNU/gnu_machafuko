@@ -75,7 +75,7 @@ class Document extends CActiveRecord
 	{
 		return array(
 			'id'=>'ID',
-			'mimeType'=>Yii::t('bm','Document'),
+			'mimeType'=>Yii::t('bm','Document type'),
 		);
 	}
 
