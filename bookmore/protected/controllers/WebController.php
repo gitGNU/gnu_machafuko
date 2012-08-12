@@ -134,8 +134,8 @@ class WebController extends ResourceController
 						{
 							// Tries to upload file.
 							$file=Yii::app()->file;
-							$file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').'/protected/upload/logos/'.$resModel->id);
-							$model->logo=$file->dirname.'/'.$file->basename;
+							$file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id);
+							$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
 							$model->resource=$resModel;
 							if($model->save())
 							{
@@ -223,8 +223,8 @@ class WebController extends ResourceController
 						
 						// Tries to upload file.
 						$file=Yii::app()->file;
-						$file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').'/protected/upload/logos/'.$resModel->id);
-						$model->logo=$file->dirname.'/'.$file->basename;
+						$file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id);
+						$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
 						$model->resource=$resModel;
 						if($model->save())
 						{

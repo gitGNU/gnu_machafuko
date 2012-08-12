@@ -33,7 +33,7 @@ class DocumentController extends ResourceController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','download'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,14 +81,14 @@ class DocumentController extends ResourceController
 				
 				// Tries to upload file.
 				$file=Yii::app()->file;
-				$file->saveAs($model,'mimeType',Yii::getPathOfAlias('webroot').'/protected/upload/documents/'.$resModel->created);
+				$file->saveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created);
 				
 				// Get document model attributes.
 				$model->attributes=$_POST['Document'];
 				$model->mimeType=$file->mimeType;
 				
 				// Complet resource model attributes.
-				$resModel->uri=$file->dirname.'/'.$file->basename;
+				$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
 				$usrModel->user=Yii::app()->user->id;
 				
 				// Realizes the saves.
@@ -158,14 +158,14 @@ class DocumentController extends ResourceController
 								
 				// Tries to upload file.
 				$file=Yii::app()->file;
-				$file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').'/protected/upload/documents/'.$resModel->created);
+				$file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created);
 				
 				// Get document model attributes.
 				$model->attributes=$_POST['Document'];
 				$model->mimeType=$file->mimeType;
 				
 				// Complet resource model attributes.
-				$resModel->uri=$file->dirname.'/'.$file->basename;
+				$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
 				$usrModel->user=Yii::app()->user->id;
 				
 				// Realizes the saves.				
@@ -319,6 +319,14 @@ class DocumentController extends ResourceController
 		$this->render('admin',array(
 			'model'=>$model,'resModel'=>$resModel,
 		));
+	}
+	
+	/**
+	 * This action donwloads the document.
+	 */
+	public function actionDownload($doc)
+	{
+		Yii::app()->request->sendFile($doc,file_get_contents(Yii::getPathOfAlias('webroot').$doc));
 	}
 
 	/**

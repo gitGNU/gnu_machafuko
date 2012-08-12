@@ -86,5 +86,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'rgmf@riseup.net',
+		'docdir'=>'/protected/upload/documents',
+		'logodir'=>'/protected/upload/logos',
 	),
 );
