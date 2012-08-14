@@ -126,6 +126,78 @@ class bookshop extends core_auth_user
   }
   // }}}
 
+  // {{{ delete ()
+  /**
+   * delete
+   *
+   * This function will be ran by model if an event is "delete".
+   *
+   * This function will delete a bookshop.
+   *
+   * @author Román Ginés Martínez Ferrández <rgmf@riseup.net>
+   */
+  public function delete ()
+  {
+    include_once (UT_BASE_PATH . '/modules/helper/privatemenu.php');
+    $private_menu = new privatemenu ();
+
+    // Get the bookshop template.
+    $tpl_bookshop = file_get_contents (UT_HTML_TPL_PATH . '/bookshopform.html');
+    $this -> set ('bookshop', $tpl_bookshop);
+    $this -> set ('private_menu', $private_menu -> get_menu ('bookshop'));
+
+    // Get POST or GET data.
+    // Prepare validation from POST or GET data (the validators objects
+    // get the POST or GET automatically).
+    $id_validator = new validation_digit_field ('id',
+						gettext ('Invalid identifier'));
+    $val_facade = new validation_facade ();
+    $val_facade -> add_validator ($id_validator);
+    if ($val_facade -> validation ())
+      {
+	include_once (UT_BASE_PATH . '/include/db/mysql/utam_bookshop_mysql_dao.php');
+	$clean = $val_facade -> get_clean_request ();
+	$dao = new utam_bookshop_mysql_dao ();
+	try
+	  {
+	    $dao -> delete ($clean -> get ('id'));
+
+	    // It prepares the message.
+	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/ok.html');
+	    $msg[] = array ('msg' => gettext ('The bookshop') . ' ' . 
+			    gettext ('has been deleted') . '.');
+	    $href = "javascript: bookshoploader.loadXMLContent ();";
+	    $link = gettext ('Continue');
+	  }
+	catch (Exception $e)
+	  {
+	    // If error rollback the transaction and delete the file.
+	    $msg_file = file_get_contents (UT_HTML_TPL_PATH . '/error.html');
+	    $msg[] = array ('msg' => $e -> getMessage ());
+	    $href = "javascript: bookshoploader.loadXMLContent ();";
+	    $link = gettext ('Leave');
+	  }
+      }
+    else // Validation error.
+      {
+	foreach ($val_facade -> get_errors () as $err)
+	  {
+	    $msg[] = array ('msg' => $err);
+	  }
+	$msg_file = file_get_contents (UT_HTML_TPL_PATH . '/error.html');
+	$msg_id = 'error-box';
+	$href = "javascript: bookshoploader.loadXMLContent ();";
+	$link = gettext ('Leave');
+      }
+
+    $this -> set ('bookshop', file_get_contents (dirname (__FILE__) . '/tpl/msg.tpl.html'));
+    $this -> set ('msg_file', $msg_file);
+    $this -> set ('messages', $msg);
+    $this -> set ('href', $href);
+    $this -> set ('link', $link);
+  }
+  // }}}
+
   // {{{ update ()
   /**
    * update
@@ -440,6 +512,7 @@ class bookshop extends core_auth_user
 	$this -> set ('bookshop_header', gettext ('Bookshop detail'));
 	$this -> set ('bookshopid', $utam_bookshop -> id);
 	$this -> set ('update_bookshop_msg', gettext ('Update bookshop'));
+	$this -> set ('delete_bookshop_msg', gettext ('Delete bookshop'));
 	$this -> set ('imgid', 'small');
 	$this -> set ('logo', $utam_bookshop -> logo);
 	$this -> set ('name_label', gettext ('Name'));

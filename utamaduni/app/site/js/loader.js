@@ -92,6 +92,19 @@ var formupdatebookloader =
      "private-content");
 
 /*
+ * Private delete book loader.
+ */
+var deletebookloader =
+    new net.loadContents
+    ("private/book/delete.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
  * Private bookshop loader.
  */
 var bookshoploader =
@@ -209,11 +222,37 @@ var formupdateauthorloader =
      "private-content");
 
 /*
+ * Private delete author.
+ */
+var deleteauthorloader =
+    new net.loadContents
+    ("private/author/delete.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
  * Private form update bookshop.
  */
 var formupdatebookshoploader =
     new net.loadContents
     ("private/bookshop/formupdate.html",
+     insertContent,
+     null,
+     "POST",
+     "",
+     "application/x-www-form-urlencoded",
+     "private-content");
+
+/*
+ * Private delete bookshop.
+ */
+var deletebookshoploader =
+    new net.loadContents
+    ("private/bookshop/delete.html",
      insertContent,
      null,
      "POST",

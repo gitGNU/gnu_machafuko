@@ -4,6 +4,7 @@
 ../modules/private/bookshop.php
 ../modules/private/booksreading.php
 ../modules/private/home.php
+../modules/private/search.php
 ../modules/user/login.php
 ../modules/user/logout.php
 ../modules/user/whoami.php

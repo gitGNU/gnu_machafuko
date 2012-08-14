@@ -63,6 +63,11 @@ a:hover
   color: #6666ff;
 }
 
+a#button, a:hover#button
+{ 
+  margin-left: 20px;
+}
+
 div#b { font-weight: bold; }
 div#right { text-align: right; }
 div#left { text-align: left; }

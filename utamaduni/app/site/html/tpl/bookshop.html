@@ -20,12 +20,12 @@
     <!-- FIRST ROW -->
     <div class="grid_8">
       <h2>
-	{author_header}
+	{bookshop_header}
       </h2>
     </div>
     <div id="right" class="grid_4">
-      <a id="button" href="javascript: formupdateauthorloader.loadXMLContent ('id={authorid}&update=1');">{update_author_msg}</a>
-      <a id="button" href="javascript: deleteauthorloader.loadXMLContent ('id={authorid}');">{delete_author_msg}</a>
+      <a id="button" href="javascript: formupdatebookshoploader.loadXMLContent ('id={bookshopid}&update=1');">{update_bookshop_msg}</a>
+      <a id="button" href="javascript: deletebookshoploader.loadXMLContent ('id={bookshopid}');">{delete_bookshop_msg}</a>
     </div>
     
     <div class="clear"></div>
@@ -34,13 +34,16 @@
     <!-- First column -->
     <div id="right" class="grid_6">
       <div id="right" class="normal-box">
-	<img id="{imgid}" src="{photo}" />
+	<img id="{imgid}" src="{logo}" />
       </div>
     </div>
       
     <!-- Second column -->
     <div id="left" class="grid_6">
       <div id="normal-box"><b>{name_label}:</b><p>{name}</p></div>
-      <div id="normal-box"><b>{surname_label}:</b><p>{surname}</p></div>
+      <div id="normal-box"><b>{street_label}:</b><p>{street_name_label}: {streetname}, {streetnumber}. {streetextra}</p></div>
+      <div id="normal-box"><b>{city_label}:</b><p>{city}</p></div>
+      <div id="normal-box"><b>{country_label}:</b><p>{country}</p></div>
+      <div id="normal-box"><b>{url_label}:</b><p>{url}</p></div>
     </div>
   </div>
