@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'Document':
  * @property integer $id
+ * @property string $extension
  * @property string $mimeType
  *
  * The followings are the available model relations:
@@ -75,6 +76,7 @@ class Document extends CActiveRecord
 	{
 		return array(
 			'id'=>'ID',
+			'extension'=>Yii::t('bm','File extension'),
 			'mimeType'=>Yii::t('bm','Document type'),
 		);
 	}

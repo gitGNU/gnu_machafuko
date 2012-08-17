@@ -22,7 +22,7 @@ $this->menu=array(
 			'label'=>Yii::t('bm','Name'),
 			'type'=>'raw',
 			//'value'=>CHtml::link(CHtml::encode($model->resource->name),$model->resource->uri,array('target'=>'_blank')),
-			'value'=>CHtml::link(CHtml::encode($model->resource->name),array('download','doc'=>$model->resource->uri)),
+			'value'=>CHtml::link(CHtml::encode($model->resource->name),array('download','doc'=>$model->resource->uri,'name'=>$model->resource->name.'.'.$model->extension)),
 		),
 		'resource.description',
 		'resource.created',

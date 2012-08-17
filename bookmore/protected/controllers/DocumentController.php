@@ -86,6 +86,7 @@ class DocumentController extends ResourceController
 				// Get document model attributes.
 				$model->attributes=$_POST['Document'];
 				$model->mimeType=$file->mimeType;
+				$model->extension=$file->extension;
 				
 				// Complet resource model attributes.
 				$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
@@ -163,6 +164,7 @@ class DocumentController extends ResourceController
 				// Get document model attributes.
 				$model->attributes=$_POST['Document'];
 				$model->mimeType=$file->mimeType;
+				$model->extension=$file->extension;
 				
 				// Complet resource model attributes.
 				$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
@@ -324,9 +326,9 @@ class DocumentController extends ResourceController
 	/**
 	 * This action donwloads the document.
 	 */
-	public function actionDownload($doc)
+	public function actionDownload($doc,$name)
 	{
-		Yii::app()->request->sendFile($doc,file_get_contents(Yii::getPathOfAlias('webroot').$doc));
+		Yii::app()->request->sendFile($name,file_get_contents(Yii::getPathOfAlias('webroot').$doc));
 	}
 
 	/**

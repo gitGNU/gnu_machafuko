@@ -33,6 +33,7 @@ create table if not exists Web (
 
 create table if not exists Document (
        id int auto_increment,
+       extension varchar(10) not null,
        mimeType varchar(100) not null,
        constraint pk_document primary key (id),
        constraint fk_document_resource foreign key (id) references Resource (id) on delete cascade on update cascade
