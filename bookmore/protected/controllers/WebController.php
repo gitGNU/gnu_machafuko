@@ -54,9 +54,19 @@ class WebController extends ResourceController
 	{
 		$model=$this->loadModel($id);
 		$waModel=null;
+		$isOwner=$this->isOwner($model->id);
+		
+		// If the resource is private and this user is not the owner...
+		if($model->resource->privacy)
+		{
+			if(!$isOwner)
+			{
+				throw new CHttpException(400,Yii::t('bm','You can not access to that resource'));
+			}
+		}
 		
 		// If the user is the resource owner it shows the account information.
-		if($this->isOwner($model->id))
+		if($isOwner)
 		{
 			$waModel=$model->webAccount;
 		}

@@ -52,8 +52,20 @@ class DocumentController extends ResourceController
 	 */
 	public function actionView($id)
 	{
+		$model=$this->loadModel($id);
+		
+		// If the resource is private and this user is not the owner...
+		if($model->resource->privacy)
+		{
+			if(!$this->isOwner($model->id))
+			{
+				throw new CHttpException(400,Yii::t('bm','You can not access to that resource'));
+			}
+		}
+		
+		// This user can view the document detail.
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 

@@ -19,42 +19,66 @@
 
 <body>
 
-<div class="container" id="page">
-
-	<div class="container" id="header">
-		<div class="span-4" id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-		<div class="span-19 last" id="mainmenu">
-			<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>Yii::t('bm', 'About'), 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>Yii::t('bm', 'Contact'), 'url'=>array('/site/contact')),
-				array('label'=>Yii::t('bm', 'Bookmarks'), 'url'=>array('/resource/index'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>Yii::t('bm', 'Logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-			)); ?>
-		</div><!-- mainmenu -->
+	<div class="header-container" id="header">
+		<div class="container">
+			<div class="span-8" id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+			<div class="span-15" id="menu">
+				<div class="span-5" id="mainmenu">
+					<span id="menuheader"><?php echo Yii::t('bm','Information'); ?></span>
+					<?php $this->widget('zii.widgets.CMenu',array(
+					'items'=>array(
+						array('label'=>'Home', 'url'=>array('/site/index')),
+						array('label'=>Yii::t('bm', 'About'), 'url'=>array('/site/page', 'view'=>'about'))
+					),
+					)); ?>
+				</div><!-- menu block -->
+	
+				<div class="span-5" id="mainmenu">
+					<span id="menuheader"><?php echo Yii::t('bm','Bookmarks'); ?></span>
+					<?php $this->widget('zii.widgets.CMenu',array(
+					'items'=>array(
+						array('label'=>Yii::t('bm', 'Bookmarks'), 'url'=>array('/resource/index')),
+						array('label'=>Yii::t('bm', 'Webs'), 'url'=>array('/web/index')),
+						array('label'=>Yii::t('bm', 'Documents'), 'url'=>array('/document/index')),
+					),
+					)); ?>
+				</div><!-- menu block -->
+				
+				<div class="span-3 last" id="mainmenu">
+					<span id="menuheader"><?php echo Yii::t('bm','Connect'); ?></span>
+					<?php $this->widget('zii.widgets.CMenu',array(
+					'items'=>array(
+						array('label'=>Yii::t('bm', 'Contact'), 'url'=>array('/site/contact')),
+						array('label'=>Yii::t('bm', 'Bookmarks'), 'url'=>array('/resource/index'), 'visible'=>!Yii::app()->user->isGuest),
+						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+						array('label'=>Yii::t('bm', 'Logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+					),
+					)); ?>
+				</div><!-- menu block -->
+			</div><!-- menu -->
+		</div><!-- container -->
+		<div id="menu">&nbsp;</div>
 	</div><!-- header -->
 
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
+	<div class="container" id="page">
+		<?php if(isset($this->breadcrumbs)):?>
+			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+				'links'=>$this->breadcrumbs,
+			)); ?><!-- breadcrumbs -->
+		<?php endif?>
 	
-	<div class="clear"></div>
-
-	<div id="footer">
+		<?php echo $content; ?>
+		
+		<div class="clear"></div>
+	</div><!-- page -->
+	
+	<div class="header-container" id="footer">
+		<div id="menu">&nbsp;</div>
 		<?php echo CHtml::encode (Yii::app () -> name); ?> by Román Ginés Martínez Ferrández
 		&copy; <?php echo date('Y'); ?> is licensed under
 		<a href="http://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a>.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
-
-</div><!-- page -->
 
 </body>
 </html>

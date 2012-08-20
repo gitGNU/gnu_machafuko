@@ -1,25 +1,35 @@
+/**
+ * Copyright 2012 - Román Ginés Martínez Ferrández (rgmf@riseup.net).
+ * License GPLv3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ */
 body
 {
 	margin: 0;
 	padding: 0;
-	color: #555;
+	color: #333;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	background: #ffffff;
 }
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 	background: white;
-	border: 1px solid #C9E0ED;
+	/*border: 1px solid #C9E0ED;*/
+}
+
+.header-container
+{
+	width: 100%;
 }
 
 #header
 {
 	margin: 0;
 	padding: 0;
-	background:white url(bg.gif) repeat-x left top;
+	color: #ffffff;
+	background: #cdcdcd;/* url(bg.gif) repeat-x left top;*/
 }
 
 #content
@@ -34,24 +44,32 @@ body
 
 #footer
 {
-	padding: 10px;
-	margin: 10px 20px;
-	font-size: 0.8em;
+	/*padding: 10px;
+	margin: 10px 20px;*/
+	height: 100px;
+	
+	
 	text-align: center;
-	border-top: 1px solid #C9E0ED;
+	background: #cdcdcd;
+	/*border-top: 1px solid #C9E0ED;*/
 }
 
 #logo
 {
 	padding: 5px 10px;
-	font-size: 200%;
+	font-size: 300%;
 	font-weight: bold;
+}
+
+#menu
+{
+	background-color: #999999;
 }
 
 #mainmenu
 {
 	padding: 5px 10px;
-	text-align: right;
+	text-align: left;
 }
 
 #mainmenu ul
@@ -62,24 +80,31 @@ body
 
 #mainmenu ul li
 {
-	display: inline;
+	display: block;
 }
 
 #mainmenu ul li a
 {
 	color:#ffffff;
 	background-color:transparent;
-	font-size:12px;
+	font-size:16px;
 	font-weight:bold;
+	font-family:serif;
 	text-decoration:none;
 	padding:5px 8px;
 }
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #6399cd;
-	background-color:#EFF4FA;
-	text-decoration:none;
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+#menuheader
+{
+	color: #efefef;
+	font-size: 150%;
+	font-family: Helvetica, sans-serif;
 }
 
 div.flash-error, div.flash-notice, div.flash-success
