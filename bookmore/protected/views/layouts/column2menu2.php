@@ -20,9 +20,9 @@
 		$this->beginWidget('zii.widgets.CPortlet', array(
 				'title'=>Yii::t('bm','Tags'),
 		));
-		$this->widget('zii.widgets.CListView', array(
-				'dataProvider'=>$this->tags,
-				'itemView'=>'_menutags',
+		$this->widget('zii.widgets.CMenu', array(
+			'items'=>$this->tags,
+			'htmlOptions'=>array('class'=>'operations'),
 		));
 		$this->endWidget();
 	?>

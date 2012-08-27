@@ -123,6 +123,24 @@ class ResourceController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+	
+	/**
+	 * 
+	 */
+	public function setTags($url='resource/index')
+	{
+		$tagDataProvider=new CActiveDataProvider('Tag',
+				array(
+						'criteria'=>array(
+								'join'=>'join TagResource tr on (tr.tag=t.id)',
+								'distinct'=>true,
+						),
+				)
+		);
+		$tagList=$tagDataProvider->getData();
+		foreach($tagList as $tag)
+			$this->tags[]=array('label'=>$tag->name,'url'=>array($url.'/'.$tag->id));
+	}
 
 	/**
 	 * List all models. If come ID it filters by the ID tag. 
@@ -134,14 +152,7 @@ class ResourceController extends Controller
 		$this->layout="//layouts/column2menu2";
 		
 		// It creates the tags right menu.
-		$this->tags=new CActiveDataProvider('Tag',
-				array(
-						'criteria'=>array(
-								'join'=>'join TagResource tr on (tr.tag=t.id)',
-								'distinct'=>true,
-								),
-						)
-				);
+		$this->setTags();
 		
 		// The guest users only can view public resources.
 		if(Yii::app()->user->isGuest)

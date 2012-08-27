@@ -262,14 +262,7 @@ class DocumentController extends ResourceController
 		$this->layout="//layouts/column2menu2";
 		
 		// It creates the tags right menu.
-		$this->tags=new CActiveDataProvider('Tag',
-				array(
-						'criteria'=>array(
-								'join'=>'join TagResource tr on (tr.tag=t.id)',
-								'distinct'=>true,
-						),
-				)
-		);
+		$this->setTags('document/index');
 		
 		// The guest users only can view public resources.
 		if(Yii::app()->user->isGuest)
