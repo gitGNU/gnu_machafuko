@@ -11,6 +11,40 @@ body
 	background: #ffffff;
 }
 
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+
+h1, h2 { margin: 10px 0; }
+
+h1
+{
+	font-size: 300%;
+	text-shadow: 1px 1px 0px #ccc;
+	filter: dropshadow(color=#cccccc, offx=1, offy=1);
+}
+
+h2
+{
+	font-size: 250%;
+}
+
+a
+{
+	font-family:serif;
+	font-weight: bold;
+	color: #000099;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: #000099;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
 #page
 {
 	margin-top: 0px;
@@ -44,14 +78,9 @@ body
 
 #footer
 {
-	/*padding: 10px;
-	margin: 10px 20px;*/
 	height: 100px;
-	
-	
 	text-align: center;
 	background: #cdcdcd;
-	/*border-top: 1px solid #C9E0ED;*/
 }
 
 #logo
@@ -88,8 +117,6 @@ body
 	color:#ffffff;
 	background-color:transparent;
 	font-size:16px;
-	font-weight:bold;
-	font-family:serif;
 	text-decoration:none;
 	padding:5px 8px;
 }
@@ -159,7 +186,7 @@ div.view
 {
 	padding: 10px;
 	margin: 10px 0;
-	border: 1px solid #C9E0ED;
+	border: 1px solid #999999;
 }
 
 div.breadcrumbs
@@ -188,25 +215,26 @@ div.search-form
 .portlet-decoration
 {
 	padding: 3px 8px;
-	background: #B7D6E7;
-	border-left: 5px solid #6FACCF;
+	/*background: #B7D6E7;*/
+	border-left: 20px solid #999999;
 }
 
 .portlet-title
 {
-	font-size: 12px;
+	font-size: 150%;
 	font-weight: bold;
+	text-shadow: 1px 1px 0px #ccc;
+	filter: dropshadow(color=#cccccc, offx=1, offy=1);
 	padding: 0;
 	margin: 0;
-	color: #298dcd;
 }
 
 .portlet-content
 {
-	font-size:0.9em;
+	font-size: 16px;
 	margin: 0 0 15px 0;
 	padding: 5px 8px;
-	background:#EFFDFF;
+	/*background:#EFFDFF;*/
 }
 
 .portlet-content ul
@@ -237,20 +265,33 @@ div.search-form
 
 .operations li a
 {
-	font: bold 12px Arial;
-	color: #0066A4;
+	font-size: 16px;
+	color: #999999;
 	display: block;
 	padding: 2px 0 2px 8px;
-	line-height: 15px;
+	/*line-height: 25px;*/
 	text-decoration: none;
 }
 
 .operations li a:visited
 {
-	color: #0066A4;
+	color: #999999;
 }
 
 .operations li a:hover
 {
-	background: #80CFFF;
+	text-decoration: underline;
+}
+
+div.grid-container
+{
+	float: left;
+}
+
+div.grid
+{
+	float: left;
+	margin: 3px;
+	width: 200px;
+	height: 200px;
 }

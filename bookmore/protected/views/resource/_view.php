@@ -1,4 +1,4 @@
-<div class="view">
+<div class="grid view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array($data->web ? 'web/view' : 'document/view', 'id'=>$data->id)); ?>
@@ -35,4 +35,5 @@
 	<?php echo CHtml::encode($data->document->mimeType); ?>
 	<br />
 	<?php } ?>
+
 </div>
