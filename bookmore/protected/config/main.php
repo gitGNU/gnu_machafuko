@@ -79,6 +79,9 @@ return array(
 		'file'=>array(
 			'class'=>'application.extensions.file.CFile',
 		),
+		'bmparser'=>array(
+			'class'=>'application.extensions.parser.bookmark.CNetscapeBookmarkFormatParser',
+		),
 	),
 
 	// application-level parameters that can be accessed
@@ -88,5 +91,6 @@ return array(
 		'adminEmail'=>'rgmf@riseup.net',
 		'docdir'=>'/protected/upload/documents',
 		'logodir'=>'/protected/upload/logos',
+		'tmpdir'=>'/protected/upload/tmp',
 	),
 );

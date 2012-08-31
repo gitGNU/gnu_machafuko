@@ -5,11 +5,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('bm','List Document'), 'url'=>array('index')),
 	array('label'=>Yii::t('bm','Create Document'), 'url'=>array('create')),
 	array('label'=>Yii::t('bm','Update Document'), 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>Yii::t('bm','Delete Document'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('bm','Manage Document'), 'url'=>array('admin')),
 );
 ?>
 

@@ -4,11 +4,6 @@ $this->breadcrumbs=array(
 	Yii::t('bm','Manage'),
 );
 
-$this->menu=array(
-	array('label'=>Yii::t('bm','List Web'), 'url'=>array('index')),
-	array('label'=>Yii::t('bm','Create Web'), 'url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

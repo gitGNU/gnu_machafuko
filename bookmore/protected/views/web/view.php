@@ -5,11 +5,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('bm','List Web'), 'url'=>array('index')),
-	array('label'=>Yii::t('bm','Create Web'), 'url'=>array('create')),
-	array('label'=>Yii::t('bm','Update Web'), 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>Yii::t('bm','Delete Web'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('bm','Manage Web'), 'url'=>array('admin')),
+	array('label'=>Yii::t('bm','Create Web'),'url'=>array('create')),
+	array('label'=>Yii::t('bm','Update Web'),'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>Yii::t('bm','Delete Web'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
 

@@ -2,17 +2,10 @@
 $this->breadcrumbs=array(
 	'Documents'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Document', 'url'=>array('index')),
-	array('label'=>'Create Document', 'url'=>array('create')),
-	array('label'=>'View Document', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Document', 'url'=>array('admin')),
+	Yii::t('bm','Update'),
 );
 ?>
 
-<h1>Update Document <?php echo $model->id; ?></h1>
+<h1><?php echo Yii::t('bm','Update Document').' '.$model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'resModel'=>$resModel)); ?>

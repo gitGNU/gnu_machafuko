@@ -37,7 +37,7 @@ class WebController extends ResourceController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update'),
+				'actions'=>array('admin','delete','create','update','import'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -87,6 +87,7 @@ class WebController extends ResourceController
 		$usrModel=new UserResource();
 		$waModel=new WebAccount();
 		$continue=true;
+		$this->layout='//layouts/column1';
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -180,6 +181,7 @@ class WebController extends ResourceController
 		$resModel=$model->resource;
 		$waModel=$model->webAccount ? $model->webAccount : new WebAccount();
 		$continue=true;
+		$this->layout='//layouts/column1';
 		//foreach($resModel->tagResources as $tr)
 			//$resModel->tag.=$tr->tagModel->name;
 
@@ -353,6 +355,7 @@ class WebController extends ResourceController
 	{
 		$model=new Web('search');
 		$resModel=new Resource();
+		$this->layout='//layouts/column1';
 		
 		// clear any default values
 		$model->unsetAttributes();
@@ -366,6 +369,34 @@ class WebController extends ResourceController
 		$this->render('admin',array(
 			'model'=>$model,'resModel'=>$resModel,
 		));
+	}
+	
+	/**
+	 * Import a netscape bookmark format file.
+	 */
+	public function actionImport()
+	{
+		$this->layout='//layouts/column1';
+		$model=new ImportForm();
+		$bmArray=array();
+		
+		if(isset($_POST['ImportForm']))
+		{
+			$model->attributes=$_POST['ImportForm'];
+			if($model->validate())
+			{
+				// It gets the file uploaded.
+				$file=Yii::app()->file;
+				$file->saveAs($model,'bmFile',Yii::getPathOfAlias('webroot').Yii::app()->params['tmpdir']);
+				
+				// It gets the array with bookmarks throught CNetscapeBookmarkFormatParser class.
+				$parser=Yii::app()->bmparser;
+				$parser->loadFile($file->filepath);
+				$bmArray=$parser->getBookmarks();
+			}
+		}
+		
+		$this->render('import',array('model'=>$model,'bmArray'=>$bmArray));
 	}
 	
 	/**

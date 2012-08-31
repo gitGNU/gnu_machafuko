@@ -14,9 +14,7 @@ create table if not exists WebAccount (
        username varchar(128) not null,
        email varchar(128) not null,
        password varchar(128) not null,
-       constraint pk_webaccount primary key (id),
-       constraint un_webaccount1 unique (username),
-       constraint un_webaccount2 unique (email)
+       constraint pk_webaccount primary key (id)
 ) engine=innodb, charset=utf8;
 
 

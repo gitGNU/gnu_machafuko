@@ -78,6 +78,7 @@ class DocumentController extends ResourceController
 		$model=new Document();
 		$resModel=new Resource();
 		$usrModel=new UserResource();
+		$this->layout='//layouts/column1';
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -154,6 +155,7 @@ class DocumentController extends ResourceController
 	{
 		$model=$this->loadModel($id);
 		$resModel=$model->resource;
+		$this->layout='//layouts/column1';
 		//foreach($resModel->tagResources as $tr)
 			//$resModel->tag.=$tr->tagModel->name;
 
@@ -313,6 +315,7 @@ class DocumentController extends ResourceController
 	{
 		$model=new Document('search');
 		$resModel=new Resource();
+		$this->layout='//layouts/column1';
 		
 		// clear any default values
 		$model->unsetAttributes();
