@@ -37,7 +37,7 @@ class WebController extends ResourceController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','import','load'),
+				'actions'=>array('admin','delete','create','update','import','importsave'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -404,7 +404,13 @@ class WebController extends ResourceController
 					$resource->description=$bm['desc'];
 					$resource->tag=$bm['tags'];
 					$resArray[]=$resource;
-						
+					/*$web=new Web();
+					$web->resource=new Resource();
+					$web->resource->uri=$bm['url'];
+					$web->resource->name=$bm['name'];
+					$web->resource->description=$bm['desc'];
+					$web->resource->tag=$bm['tags'];
+					$resArray[]=$web;*/
 				}
 				
 				// It caches the data and it creates the data provider.
@@ -421,6 +427,45 @@ class WebController extends ResourceController
 		}
 		
 		$this->render('import',array('dataProvider'=>$dataProvider,'model'=>$model));
+	}
+	
+	public function actionImportsave()
+	{
+		if(isset($_POST['Resource']))
+		{
+			$res=new Resource();
+			$web=new Web();
+			$user=new UserResource();
+			
+			$res->attributes=$_POST['Resource'];
+			$res->privacy=0;
+			$res->created=date('Y-m-d');
+			$web->resource=$res;
+			$user->user=Yii::app()->user->id; // Who have created this resource?
+			
+			$trx=$web->getDbConnection()->beginTransaction();
+			try
+			{
+				if($res->save())
+				{
+					if($web->save())
+					{
+						$user->res=$res->id;
+						if($user->save())
+						{
+							$trx->commit();
+							return;
+						}
+					}
+				}
+				$trx->rollback();
+			}
+			catch(CException $e)
+			{
+				$trx->rollback();
+				throw $e;
+			}
+		}
 	}
 	
 	/**

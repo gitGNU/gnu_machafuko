@@ -41,7 +41,7 @@ class Web extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('account', 'numerical', 'integerOnly'=>true),
-			array('logo', 'file', 'types'=>'jpg,gif,png,svg'),
+			//array('logo', 'file', 'types'=>'jpg,gif,png,svg'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, resource.name, resource.description', 'safe', 'on'=>'search'),

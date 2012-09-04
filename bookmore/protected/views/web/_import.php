@@ -3,7 +3,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'resource-form',
 		'enableAjaxValidation'=>false,
-		'action'=>'/machafuko/bookmore/index.php/resource/create',
+		//'action'=>'/machafuko/bookmore/index.php/web/importsave',
 ));
 ?>
 	
@@ -32,7 +32,10 @@
 	</div>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('bm','Save')); ?>
+		<?php 
+		//echo CHtml::submitButton(Yii::t('bm','Save')); 
+		echo CHtml::ajaxSubmitButton(Yii::t('bm','Save'),CHtml::normalizeUrl(array('importsave')));
+		?>
 	</div>
 
 <?php $this->endWidget(); ?>
