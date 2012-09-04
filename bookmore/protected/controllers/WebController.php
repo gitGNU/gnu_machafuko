@@ -37,7 +37,7 @@ class WebController extends ResourceController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','import'),
+				'actions'=>array('admin','delete','create','update','import','load'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -378,8 +378,8 @@ class WebController extends ResourceController
 	{
 		$this->layout='//layouts/column1';
 		$model=new ImportForm();
-		$bmArray=array();
-		
+		$dataProvider=null;
+				
 		if(isset($_POST['ImportForm']))
 		{
 			$model->attributes=$_POST['ImportForm'];
@@ -388,15 +388,39 @@ class WebController extends ResourceController
 				// It gets the file uploaded.
 				$file=Yii::app()->file;
 				$file->saveAs($model,'bmFile',Yii::getPathOfAlias('webroot').Yii::app()->params['tmpdir']);
-				
+		
 				// It gets the array with bookmarks throught CNetscapeBookmarkFormatParser class.
 				$parser=Yii::app()->bmparser;
 				$parser->loadFile($file->filepath);
 				$bmArray=$parser->getBookmarks();
+		
+				// It prepares and creates the data provider.
+				$resArray=array();
+				foreach($bmArray as $bm)
+				{
+					$resource=new Resource();
+					$resource->uri=$bm['url'];
+					$resource->name=$bm['name'];
+					$resource->description=$bm['desc'];
+					$resource->tag=$bm['tags'];
+					$resArray[]=$resource;
+						
+				}
+				
+				// It caches the data and it creates the data provider.
+				Yii::app()->cache->flush(); // if there are datas, it flushes...
+				Yii::app()->cache->set('bmfile',$resArray); // caching contents...
+				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>2)));
 			}
 		}
+		else
+		{
+			$resArray=Yii::app()->cache->get('bmfile'); // get caching data...
+			if($resArray)
+				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>2)));
+		}
 		
-		$this->render('import',array('model'=>$model,'bmArray'=>$bmArray));
+		$this->render('import',array('dataProvider'=>$dataProvider,'model'=>$model));
 	}
 	
 	/**

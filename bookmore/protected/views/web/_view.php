@@ -32,5 +32,4 @@
 	<?php echo CHtml::encode($data->account); ?>
 	<br />
 
-
 </div>

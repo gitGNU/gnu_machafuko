@@ -72,7 +72,7 @@ class CNetscapeBookmarkFormatParser extends CApplicationComponent
 	 * 
 	 * @param string $file path and name of the file with bookmarks.
 	 */
-	public function loadFile($file='/home/roman/Escritorio/bookmarks.html')
+	public function loadFile($file)
 	{
 		$c='';
 		$i=0;

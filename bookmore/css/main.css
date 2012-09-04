@@ -291,7 +291,14 @@ div.grid-container
 div.grid
 {
 	float: left;
-	margin: 3px;
+	margin: 4px;
 	width: 200px;
 	height: 200px;
+}
+
+div.grid-2
+{
+	float: left;
+	margin: 4px;
+	width: 423px;
 }
