@@ -32,6 +32,12 @@ $this->breadcrumbs=array(
 <?php
 if(!empty($dataProvider))
 {
+	$this->widget('application.extensions.ajaxvalidationmessages.EAjaxValidationMessages',
+			array(
+					'errorCssClass'=>'clsError',
+					'errorMessageCssClass'=>'clsErrorMessage',
+		                       'errorSummaryCssClass'=>'clsErrorSummary'));
+		
 	echo '<h2>'.Yii::t('bm','Bookmarks').'</h2>';
 	
 	$this->widget('zii.widgets.CListView', array(

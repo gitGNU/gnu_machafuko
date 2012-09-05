@@ -404,13 +404,6 @@ class WebController extends ResourceController
 					$resource->description=$bm['desc'];
 					$resource->tag=$bm['tags'];
 					$resArray[]=$resource;
-					/*$web=new Web();
-					$web->resource=new Resource();
-					$web->resource->uri=$bm['url'];
-					$web->resource->name=$bm['name'];
-					$web->resource->description=$bm['desc'];
-					$web->resource->tag=$bm['tags'];
-					$resArray[]=$web;*/
 				}
 				
 				// It caches the data and it creates the data provider.
@@ -429,11 +422,15 @@ class WebController extends ResourceController
 		$this->render('import',array('dataProvider'=>$dataProvider,'model'=>$model));
 	}
 	
+	/**
+	 * This action create a web throught a resource data.
+	 * @throws CException
+	 */
 	public function actionImportsave()
 	{
 		if(isset($_POST['Resource']))
 		{
-			$res=new Resource();
+			$res=new Resource('web');
 			$web=new Web();
 			$user=new UserResource();
 			
@@ -443,6 +440,14 @@ class WebController extends ResourceController
 			$web->resource=$res;
 			$user->user=Yii::app()->user->id; // Who have created this resource?
 			
+			// Ajax validation...
+			$errors = CActiveForm::validate($res);
+			if ($errors !== '[]') {
+				echo $errors;
+				Yii::app()->end();
+			}
+
+			// If Ajax validation is ok...
 			$trx=$web->getDbConnection()->beginTransaction();
 			try
 			{
@@ -454,15 +459,18 @@ class WebController extends ResourceController
 						if($user->save())
 						{
 							$trx->commit();
-							return;
+							echo "ok";
+							Yii::app()->end();
 						}
 					}
 				}
+				echo "wrong";
 				$trx->rollback();
 			}
 			catch(CException $e)
 			{
 				$trx->rollback();
+				echo "wrong";
 				throw $e;
 			}
 		}
