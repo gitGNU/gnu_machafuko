@@ -3,6 +3,11 @@
 class WebController extends ResourceController
 {
 	/**
+	 * @var integer it specify how many items per page it will show into import web form. 
+	 */
+	const PAGESIZE=2;
+	
+	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
@@ -182,8 +187,6 @@ class WebController extends ResourceController
 		$waModel=$model->webAccount ? $model->webAccount : new WebAccount();
 		$continue=true;
 		$this->layout='//layouts/column1';
-		//foreach($resModel->tagResources as $tr)
-			//$resModel->tag.=$tr->tagModel->name;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -396,6 +399,7 @@ class WebController extends ResourceController
 		
 				// It prepares and creates the data provider.
 				$resArray=array();
+				$i=0;
 				foreach($bmArray as $bm)
 				{
 					$resource=new Resource();
@@ -403,20 +407,20 @@ class WebController extends ResourceController
 					$resource->name=$bm['name'];
 					$resource->description=$bm['desc'];
 					$resource->tag=$bm['tags'];
-					$resArray[]=$resource;
+					$resArray[$i++]=$resource;
 				}
 				
 				// It caches the data and it creates the data provider.
 				Yii::app()->cache->flush(); // if there are datas, it flushes...
 				Yii::app()->cache->set('bmfile',$resArray); // caching contents...
-				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>2)));
+				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>WebController::PAGESIZE)));
 			}
 		}
 		else
 		{
 			$resArray=Yii::app()->cache->get('bmfile'); // get caching data...
 			if($resArray)
-				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>2)));
+				$dataProvider=new CArrayDataProvider($resArray,array('pagination'=>array('pageSize'=>WebController::PAGESIZE)));
 		}
 		
 		$this->render('import',array('dataProvider'=>$dataProvider,'model'=>$model));
@@ -435,6 +439,7 @@ class WebController extends ResourceController
 			$user=new UserResource();
 			
 			$res->attributes=$_POST['Resource'];
+			$res->tag=$_POST['Resource']['tag'];
 			$res->privacy=0;
 			$res->created=date('Y-m-d');
 			$web->resource=$res;
@@ -453,24 +458,43 @@ class WebController extends ResourceController
 			{
 				if($res->save())
 				{
+					// It saves Tag and TagResource.
+					$tags=preg_split ("/[\s]*[,][\s]*/", $res->tag);
+					foreach($tags as $t)
+					{
+						$tm=new Tag();
+						$tm->name=strtolower($t);
+						$tm->save();
+						$trm=new TagResource();
+						$trm->res=$res->id;
+						$trm->tag=$tm->id;
+						$trm->save();
+					}
 					if($web->save())
 					{
 						$user->res=$res->id;
 						if($user->save())
 						{
+							// It must change the cache with new datas.
+							$page=$_POST['page'];
+							$index=$_POST['index'];
+							$resArray=Yii::app()->cache->get('bmfile'); // get caching data...
+							if($resArray)
+							{
+								Yii::app()->cache->flush(); // if there are datas, it flushes...
+								$resArray[($page-1)*WebController::PAGESIZE+$index]=$res; // update the item changed...
+								Yii::app()->cache->set('bmfile',$resArray); // caching contents...
+							}
 							$trx->commit();
-							echo "ok";
 							Yii::app()->end();
 						}
 					}
 				}
-				echo "wrong";
-				$trx->rollback();
+				Yii::app()->end();
 			}
 			catch(CException $e)
 			{
 				$trx->rollback();
-				echo "wrong";
 				throw $e;
 			}
 		}

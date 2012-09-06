@@ -4,12 +4,14 @@
 		'id'=>'web-form-'.$index,
 		'enableAjaxValidation'=>true,
 		'clientOptions'=>array('validateOnSubmit'=>true),
-		//'action'=>'/machafuko/bookmore/index.php/web/importsave',
 ));
 ?>
 	
 	<?php echo $form->errorSummary($data); ?>
 	
+	<input type="hidden" id="index" name="index" value="<?php echo $index; ?>" />
+	<input type="hidden" id="page" name="page" value="<?php echo isset($_GET['page'])?$_GET['page']:'1'; ?>" />
+			
 	<div class="row">
 		<?php echo $form->labelEx($data,'uri'); ?>
 		<?php echo $form->textField($data,'uri',array('size'=>40,'maxlength'=>200)); ?>
@@ -36,30 +38,29 @@
 	
 	<div class="row buttons">
 		<?php 
-		//echo CHtml::submitButton(Yii::t('bm','Save')); 
 		echo CHtml::ajaxSubmitButton(
 			Yii::t('bm','Save'),
 			CHtml::normalizeUrl(array('importsave')),
 			array(
-				//'update'=>'#ajax-'.$index,
 				'success'=>"function(html) {
 						if (html.indexOf('{')==0) {
 							jQuery('#web-form-".$index."').ajaxvalidationmessages('show', html, '".$index."');
 						}
 						else {
 							jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
+							jQuery('#submit-".$index."').attr('disabled','disabled'); // I have added this line to disabled this button when this form will be saved.
 						}
 					}",
 				'error'=>"function(html) {
 						jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
 					}",
-			)
+			),
+			array('id'=>'submit-'.$index,'name'=>'submit-'.$index,'disabled'=>$data->id?1:0) // I have added this line to change the id and name attribute.
+                                                                                             // Although, if $data have id it means that it have been saved.
 			);
 		?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-<!-- <div class="" id="ajax-<?php echo $index; ?>"></div> -->
 
 </div>

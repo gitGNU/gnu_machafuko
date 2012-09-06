@@ -49,7 +49,6 @@
 					<?php $this->widget('zii.widgets.CMenu',array(
 					'items'=>array(
 						array('label'=>Yii::t('bm', 'Contact'), 'url'=>array('/site/contact')),
-						array('label'=>Yii::t('bm', 'Bookmarks'), 'url'=>array('/resource/index'), 'visible'=>!Yii::app()->user->isGuest),
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 						array('label'=>Yii::t('bm', 'Logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 					),

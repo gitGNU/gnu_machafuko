@@ -28,9 +28,9 @@
 // tries to do =)
 (function($) {
    var settings = {
-      errorCssClass        : 'clsError',
-      errorMessageCssClass : 'clsErrorMessage',
-      errorSummaryCssClass : 'clsErrorSummary'
+      errorCssClass        : 'clsError',//'clsError',
+      errorMessageCssClass : 'errorMessage',//'clsErrorMessage', // He cambiado clsErrorMessage por errorMessage.
+      errorSummaryCssClass : 'clsErrorSummary'//'clsErrorSummary'
    };
 
    var methods = {
@@ -40,6 +40,7 @@
       show: function(json, numItem) {
          var e = jQuery.parseJSON(json);
          var summary = '';
+         jQuery('.errorMessage',$(this)).css('display','none'); // clean the error messages and then show the current errors.
          jQuery.each(e, function(key, value) {
             jQuery('#'+key+'_em_'+numItem).html(value.toString()).show();
             jQuery('#'+key).addClass(settings.errorCssClass);
@@ -60,16 +61,21 @@
                $(this).removeClass(settings.errorCssClass);
             }
          );
-         jQuery('.'+settings.errorMessageCssClass, $(this)).css('display', 'none');
+         //jQuery('.'+settings.errorMessageCssClass, $(this)).css('display', 'none');
+         //jQuery('.'+settings.errorSummaryCssClass, $(this)).hide(); // Si quieres un cuadro descomenta esta línea y cambia errorSummaryCssClass a 'errorSummary'
+         jQuery('.errorMessage',$(this)).css('display','none'); // He cambiado dos líneas más arriba por esta.
       }
    };
 
    $.fn.ajaxvalidationmessages = function(method) {
       if (methods[method]) {
-    	  if(arguments.length==2)
-    		  return methods[method].apply(this, Array.prototype.slice.call(arguments, 1), '');
-    	  else if(arguments.length==3)
+    	  // The arguments can be 2 or 3 (these are my changes).
+    	  if(arguments.length==3)
     		  return methods[method].apply(this, Array.prototype.slice.call(arguments, 1), Array.prototype.slice.call(arguments, 2));
+    	  else if(arguments.length==2)
+    		  return methods[method].apply(this, Array.prototype.slice.call(arguments, 1), '');
+    	  else if(arguments.length==1)
+    		  return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
       }
       else if (typeof method === 'object' || !method) {
          return methods.init.apply(this, arguments);
