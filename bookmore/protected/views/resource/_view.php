@@ -1,39 +1,17 @@
-<div class="grid view">
+<div class="grid">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array($data->web ? 'web/view' : 'document/view', 'id'=>$data->id)); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('uri')); ?>:</b>
-	<?php echo CHtml::encode($data->uri); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode($data->created); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('privacy')); ?>:</b>
-	<?php echo CHtml::encode($data->privacy) ? Yii::t('bm', 'Private') : Yii::t('bm', 'Public'); ?>
-	<br />
-	
 	<!-- A resource can be a web or a document -->
 	<?php if($data->web) { ?>
-	<b><?php echo CHtml::encode($data->getAttributeLabel('logo')); ?>:</b>
-	<?php echo CHtml::encode($data->web->logo); ?>
+	<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.CHtml::encode($data->web->logo),CHtml::encode($data->name)),
+			array('web/view', 'id'=>$data->id),array('align'=>'center')); ?>
 	<br />
+	<?php echo CHtml::encode($data->name); ?>
 	<?php } ?>
 	<?php if($data->document) { ?>
-	<b><?php echo CHtml::encode($data->getAttributeLabel('mimeType')); ?>:</b>
-	<?php echo CHtml::encode($data->document->mimeType); ?>
+	<?php echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.CHtml::encode(Yii::app()->params['mimeImg'][$data->document->mimeType]),CHtml::encode($data->name)),
+			array('document/view', 'id'=>$data->id)); ?>
 	<br />
+	<?php echo CHtml::encode($data->name); ?>
 	<?php } ?>
 
 </div>

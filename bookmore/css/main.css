@@ -293,7 +293,16 @@ div.grid
 	float: left;
 	margin: 4px;
 	width: 200px;
-	height: 200px;
+	height: 250px;
+	border: 1px solid #999999;
+	text-align: center;
+}
+
+div.grid img
+{
+	width: 180px;
+	height: 180px;
+	padding: 10px;
 }
 
 div.grid-2
