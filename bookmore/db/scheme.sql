@@ -5,7 +5,8 @@ create table if not exists Resource (
        description varchar(200),
        created date,
        privacy int(1) default 0, -- 0=private, 1=public
-       constraint pk_resource primary key (id)
+       constraint pk_resource primary key (id),
+       constraint un_resource unique (uri)
 ) engine=innodb, charset=utf8;
 
 

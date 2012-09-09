@@ -49,10 +49,18 @@
 						else {
 							jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
 							jQuery('#submit-".$index."').attr('disabled','disabled'); // I have added this line to disabled this button when this form will be saved.
+							jQuery('#error-".$index."').attr('class','flash-success');
+							jQuery('#error-".$index."').text('".Yii::t('bm','The web has been inserted')."');
 						}
 					}",
-				'error'=>"function(html) {
+				'error'=>"function(html,textStatus,errorThrown) {
 						jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
+						if(errorThrown=='CDbException') {
+							jQuery('#error-".$index."').attr('class','flash-error');
+							jQuery('#error-".$index."').text('".Yii::t('bm','Database exception: does this site?')."');
+						}
+						else
+							alert(html.responseText);
 					}",
 			),
 			array('id'=>'submit-'.$index,'name'=>'submit-'.$index,'disabled'=>$data->id?1:0) // I have added this line to change the id and name attribute.
@@ -62,5 +70,9 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+
+<div id="error-<?php echo $index; ?>" class="<?php echo $data->id?'flash-success':''; ?>">
+	<?php echo $data->id?Yii::t('bm','The web has been inserted'):''; ?>
+</div>
 
 </div>

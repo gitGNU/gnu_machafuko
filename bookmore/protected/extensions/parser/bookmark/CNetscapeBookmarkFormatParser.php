@@ -83,8 +83,8 @@ class CNetscapeBookmarkFormatParser extends CApplicationComponent
 			{
 				if($this->_tag['name']=='a' || $this->_tag['name']=='A')
 				{
-					$url=isset($this->_tag['attributes']['href'])?$this->_tag['attributes']['href']:'';
-					$name=isset($this->_tag['content'])?$this->_tag['content']:'';
+					$url=isset($this->_tag['attributes']['href'])?rtrim($this->_tag['attributes']['href']):'';
+					$name=isset($this->_tag['content'])?rtrim($this->_tag['content']):'';
 					$tags=isset($this->_tag['attributes']['tags'])?$this->_tag['attributes']['tags']:'';
 					$this->_bookmarks[$i]=array(
 							'url'=>$url,
@@ -97,7 +97,7 @@ class CNetscapeBookmarkFormatParser extends CApplicationComponent
 				else if($this->_tag['name']=='dd' || $this->_tag['name']=='DD')
 				{
 					$i--;
-					$this->_bookmarks[$i]['desc']=isset($this->_tag['content'])?$this->_tag['content']:'';
+					$this->_bookmarks[$i]['desc']=isset($this->_tag['content'])?rtrim($this->_tag['content']):'';
 					$i++;
 				}
 			}
