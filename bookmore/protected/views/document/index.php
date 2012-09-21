@@ -11,8 +11,17 @@ $this->menu=array(
 
 <h1><?php echo Yii::t('bm','Documents'); ?></h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-	'itemsCssClass'=>'grid-container',
-)); ?>
+<?php 
+if($dataProvider!=null)
+{
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$dataProvider,
+		'itemView'=>'_view',
+		'itemsCssClass'=>'grid-container',
+	)); 
+}
+else
+{
+	echo Yii::t('bm','No results found').'.';
+}
+?>

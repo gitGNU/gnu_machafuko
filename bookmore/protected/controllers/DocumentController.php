@@ -33,11 +33,11 @@ class DocumentController extends ResourceController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','download'),
+				'actions'=>array('index','view','download','searchbytag'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update'),
+				'actions'=>array('admin','delete','create','update','searchbytag'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -252,6 +252,58 @@ class DocumentController extends ResourceController
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	/**
+	 * It gets the documents through a tag name.
+	 */
+	public function actionSearchByTag()
+	{
+		$this->layout="//layouts/column2menu2";
+		$dataProvider=null;
+	
+		// It creates the tags right menu.
+		$this->setTags('document/index');
+	
+		if(isset($_POST['tag']))
+		{
+			$name=$_POST['tag'];
+	
+			// The guest users only can view public resources.
+			if(Yii::app()->user->isGuest)
+			{
+				$join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res and r.privacy=0)' .
+						' join TagResource tr on (t.id=tr.res)' .
+						' join Tag ta on (ta.id=tr.tag)';
+				$criteria=new CDbCriteria();
+				$criteria->compare('ta.name',$name,true);
+				$criteria->join=$join;
+				$dataProvider=new CActiveDataProvider('Document',
+						array(
+								'criteria'=>$criteria
+						));
+			}
+			// The registered users can view his/her resources and public resources.
+			else
+			{
+				$join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res)' .
+						' join TagResource tr on (t.id=tr.res)' .
+						' join Tag ta on (ta.id=tr.tag)';
+				$criteria=new CDbCriteria();
+				$criteria->compare('r.privacy','0',false);
+				$criteria->compare('ur.user',Yii::app()->user->id,false,'OR');
+				$criteria->compare('ta.name',$name,true);
+				$criteria->join=$join;
+				$dataProvider=new CActiveDataProvider('Document',
+						array(
+								'criteria'=>$criteria
+						));
+			}
+		}
+	
+		$this->render('index',array(
+				'dataProvider'=>$dataProvider,
+		));
 	}
 
 	/**

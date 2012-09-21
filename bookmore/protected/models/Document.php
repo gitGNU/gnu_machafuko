@@ -39,7 +39,7 @@ class Document extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('mimeType','file','types'=>'jpg,gif,png,svg,txt,pdf,odt,odp,ods,odg,odb,doc'),
+			array('mimeType','file','types'=>'jpg,gif,png,svg,txt,pdf,odt,odp,ods,odg,odb,doc,zip,tgz,tar.gz,tar.bz2,7z'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, mimeType, resource.name, resource.description','safe','on'=>'search'),

@@ -33,11 +33,11 @@ class ResourceController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','searchbytag'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create', 'update' and 'delete' actions
-				'actions'=>array('admin', 'create','update','delete'),
+				'actions'=>array('admin', 'create','update','delete','searchbytag'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -125,7 +125,7 @@ class ResourceController extends Controller
 	}
 	
 	/**
-	 * 
+	 * Set tags var.
 	 */
 	public function setTags($url='resource/index')
 	{
@@ -140,6 +140,58 @@ class ResourceController extends Controller
 		$tagList=$tagDataProvider->getData();
 		foreach($tagList as $tag)
 			$this->tags[]=array('label'=>$tag->name,'url'=>array($url.'/'.$tag->id));
+	}
+	
+	/**
+	 * It gets the resources through a tag name.
+	 */
+	public function actionSearchByTag()
+	{
+		$this->layout="//layouts/column2menu2";
+		$dataProvider=null;
+		
+		// It creates the tags right menu.
+		$this->setTags();
+		
+		if(isset($_POST['tag']))
+		{
+			$name=$_POST['tag'];
+			
+			// The guest users only can view public resources.
+			if(Yii::app()->user->isGuest)
+			{
+				$join='join UserResource ur on (t.id=ur.res and t.privacy=0)' .
+					 ' join TagResource tr on (t.id=tr.res)' .
+				     ' join Tag ta on (ta.id=tr.tag)';
+				$criteria=new CDbCriteria();
+				$criteria->compare('ta.name',$name,true);
+				$criteria->join=$join;
+				$dataProvider=new CActiveDataProvider('Resource',
+						array(
+								'criteria'=>$criteria
+						));
+			}
+			// The registered users can view his/her resources and public resources.
+			else
+			{
+				$join='join UserResource ur on (t.id=ur.res)' .
+					 ' join TagResource tr on (t.id=tr.res)' .
+					 ' join Tag ta on (ta.id=tr.tag)';
+				$criteria=new CDbCriteria();
+				$criteria->compare('t.privacy','0',false);
+				$criteria->compare('ur.user',Yii::app()->user->id,false,'OR');
+				$criteria->compare('ta.name',$name,true);
+				$criteria->join=$join;
+				$dataProvider=new CActiveDataProvider('Resource',
+						array(
+								'criteria'=>$criteria
+						));
+			}
+		}
+		
+		$this->render('index',array(
+				'dataProvider'=>$dataProvider,
+		));
 	}
 
 	/**

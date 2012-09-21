@@ -15,11 +15,23 @@
 			'htmlOptions'=>array('class'=>'operations'),
 		));
 		$this->endWidget();
-		
-		
+		 
 		$this->beginWidget('zii.widgets.CPortlet', array(
 				'title'=>Yii::t('bm','Tags'),
 		));
+	?>
+		<div class="form">
+		<?php $form=$this->beginWidget('CActiveForm', array(
+				'id'=>'tagsearch-form',
+				'enableAjaxValidation'=>false,
+				'action'=>'searchbytag',
+				)); ?>
+					<div class="row">
+						<input type="text" id="tag" name="tag" />
+					</div>
+				<?php $this->endWidget(); ?>
+			</div><!-- form -->
+	<?php
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->tags,
 			'htmlOptions'=>array('class'=>'operations'),

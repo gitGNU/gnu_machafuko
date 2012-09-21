@@ -72,11 +72,11 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+				
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
+				
 			),
 		),
 		'file'=>array(
@@ -96,6 +96,7 @@ return array(
 		'logodir'=>'/protected/upload/logos',
 		'tmpdir'=>'/protected/upload/tmp',
 		'mimeImg'=>array(
+				        'application/zip'=>'/images/mime/background.jpg',
 					'text/plain'=>'/images/mime/background.jpg',
 					'application/vnd.oasis.opendocument.text'=>'/images/mime/background.jpg',
 					'application/vnd.oasis.opendocument.spreadsheet'=>'/images/mime/background.jpg',
