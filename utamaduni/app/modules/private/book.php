@@ -707,7 +707,7 @@ class book extends core_auth_user
 				      'imgid' => 'mini',
 				      'imgsrc' => $book -> utam_book -> cover,
 				      'book_title' => $book -> utam_book -> title,
-				      'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
+				      'clear' => $i % 6 == 0 ? '<div class=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.

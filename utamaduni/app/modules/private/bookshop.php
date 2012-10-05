@@ -570,7 +570,7 @@ class bookshop extends core_auth_user
 					  'imgid' => 'mini',
 					  'imgsrc' => $bookshop -> logo,
 					  'bookshop_title' => $bookshop -> name,
-					  'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
+					  'clear' => $i % 6 == 0 ? '<div class=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.

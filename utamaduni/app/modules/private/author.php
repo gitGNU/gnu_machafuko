@@ -408,7 +408,7 @@ class author extends core_auth_user
 			  'imgid' => 'mini',
 			  'imgsrc' => $author -> photo,
 			  'author_title' => $author -> surname . ', ' . $author -> name,
-			  'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
+			  'clear' => $i % 6 == 0 ? '<div class=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.
