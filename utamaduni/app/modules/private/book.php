@@ -690,6 +690,7 @@ class book extends core_auth_user
     $all_books = array ();
     $ab_paginated = array ();
     $page_navigation = '';
+    $i = 0;
     
     // Get all books.
     $dao = new utam_read_mysql_ext_dao ();
@@ -701,10 +702,12 @@ class book extends core_auth_user
 	  {
 	    foreach ($book_list as $book)
 	      {
+		$i++;
 		$all_books[] = array ('href' => "javascript: showbookloader.loadXMLContent ('id=" . $book -> id . "');",
 				      'imgid' => 'mini',
 				      'imgsrc' => $book -> utam_book -> cover,
-				      'book_title' => $book -> utam_book -> title);
+				      'book_title' => $book -> utam_book -> title,
+				      'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.

@@ -553,6 +553,7 @@ class bookshop extends core_auth_user
     $all_bookshops = array ();
     $abs_paginated = array ();
     $page_navigation = '';
+    $i = 0;
     
     // Get all books.
     $dao = new utam_bookshop_mysql_dao ();
@@ -564,10 +565,12 @@ class bookshop extends core_auth_user
 	  {
 	    foreach ($bookshop_list as $bookshop)
 	      {
+		$i++;
 		$all_bookshops[] = array ('href' => "javascript: showbookshoploader.loadXMLContent ('id=" . $bookshop -> id . "');",
 					  'imgid' => 'mini',
 					  'imgsrc' => $bookshop -> logo,
-					  'bookshop_title' => $bookshop -> name);
+					  'bookshop_title' => $bookshop -> name,
+					  'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.

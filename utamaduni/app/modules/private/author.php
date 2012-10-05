@@ -390,6 +390,7 @@ class author extends core_auth_user
     $all_authors = array ();
     $aa_paginated = array ();
     $page_navigation = '';
+    $i = 0;
     
     // Get all authors.
     $dao = new utam_author_mysql_dao ();
@@ -401,11 +402,13 @@ class author extends core_auth_user
 	  {
 	    foreach ($author_list as $author)
 	      {
+		$i++;
 		$all_authors[] = array (
 			  'href' => "javascript: showauthorloader.loadXMLContent ('id=" . $author -> id . "');",
 			  'imgid' => 'mini',
 			  'imgsrc' => $author -> photo,
-			  'author_title' => $author -> surname . ', ' . $author -> name);
+			  'author_title' => $author -> surname . ', ' . $author -> name,
+			  'clear' => $i % 6 == 0 ? '<div id=\'clear\'></div>' : '');
 	      }
 
 	    // Paginated.
