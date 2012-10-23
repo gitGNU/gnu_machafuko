@@ -36,9 +36,13 @@ class DocumentController extends ResourceController
 				'actions'=>array('index','view','download','searchbytag'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','searchbytag'),
+			array('allow', // allow authenticated user to perform...
+				'actions'=>array('admin','create','searchbytag'),
 				'users'=>array('@'),
+			),
+			array('allow', // allow own user to perform...
+				'actions'=>array('delete','update'),
+				'expression'=>'ResourceController::isOwner()',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

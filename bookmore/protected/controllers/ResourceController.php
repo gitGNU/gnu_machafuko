@@ -282,8 +282,16 @@ class ResourceController extends Controller
 	 * @param string $id the resource id.
 	 * @return boolean this function returns true if this user is the resource $id owner.
 	 */
-	protected function isOwner($id)
+	protected function isOwner($id = null)
 	{
+		if (!$id)
+		{
+			if (isset($_GET['id']))
+			{
+				$id = $_GET['id'];
+			}	
+		}
+		
 		if(Yii::app()->user->isGuest)
 			return false;
 		else

@@ -37,13 +37,17 @@ class WebController extends ResourceController
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+			array('allow',  // all users can...
 				'actions'=>array('index','view','searchbytag'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','delete','create','update','import','importsave','searchbytag'),
+			array('allow', // all users with accounts can...
+				'actions'=>array('admin', 'create','update','import','importsave','searchbytag'),
 				'users'=>array('@'),
+			),
+			array('allow', // the own user can...
+				'actions'=>array('delete','update'),
+				'expression'=>'ResourceController::isOwner()',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
