@@ -246,7 +246,7 @@ class DocumentController extends ResourceController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$model=$this->loadModel($id);
+			$model=parent::loadModel($id);
 			Yii::app()->file->deleteFile($model->resource->uri);
 			$model->delete();
 			

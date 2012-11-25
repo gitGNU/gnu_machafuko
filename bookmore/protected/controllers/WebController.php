@@ -285,7 +285,7 @@ class WebController extends ResourceController
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$model=$this->loadModel($id);
+			$model=parent::loadModel($id);
 			// Delete the logo (if exists).
 			if(!empty($model->logo))
 			{

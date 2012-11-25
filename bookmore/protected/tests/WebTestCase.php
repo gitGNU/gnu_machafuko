@@ -4,7 +4,7 @@
  * Change the following URL based on your server configuration
  * Make sure the URL ends with a slash so that we can use relative URLs in test cases
  */
-define('TEST_BASE_URL','http://localhost/testdrive/index-test.php/');
+define('TEST_BASE_URL','http://workspace/machafuko/bookmore/index-test.php/');
 
 /**
  * The base class for functional test cases.
@@ -21,5 +21,20 @@ class WebTestCase extends CWebTestCase
 	{
 		parent::setUp();
 		$this->setBrowserUrl(TEST_BASE_URL);
+		//$this->setSleep(2);
+	}
+	
+	/**
+	 * Is a general function, that can be use by a lot of classes.
+	 */
+	protected function login($user, $password)
+	{
+		// Login.
+		$this->open('');
+		$this->clickAndWait('link=Login');
+		$this->assertElementPresent('name=LoginForm[username]');
+		$this->type('name=LoginForm[username]',$user);
+		$this->type('name=LoginForm[password]',$password);
+		$this->clickAndWait("//input[@value='Login']");
 	}
 }
