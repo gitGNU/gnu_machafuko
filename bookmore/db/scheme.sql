@@ -10,6 +10,34 @@ create table if not exists Resource (
 ) engine=innodb, charset=utf8;
 
 
+create table if not exists Priority (
+       id int auto_increment,
+       name varchar(50) not null,
+       constraint pk_priority primary key (id)
+) engine=innodb, charset=utf8;
+
+
+create table if not exists Queue (
+       id int auto_increment,
+       res int not null,
+       priority int default null,
+       constraint pk_queue primary key (id),
+       constraint fk_article_resource foreign key (res) references Resource (id) on delete cascade on update cascade,
+       constraint fk_queue_priority foreign key (priority) references Priority (id) on delete set null on update cascade
+) engine=innodb, charset=utf8;
+
+
+create table if not exists Article (
+       id int auto_increment,
+       res int not null,
+       priority int default null,
+       readed int default 0,
+       constraint pk_article primary key (id),
+       constraint fk_article_resource foreign key (res) references Resource (id) on delete cascade on update cascade,
+       constraint fk_article_priority foreign key (priority) references Priority (id) on delete set null on update cascade
+) engine=innodb, charset=utf8;
+
+
 create table if not exists WebAccount (
        id int auto_increment,
        username varchar(128) not null,
