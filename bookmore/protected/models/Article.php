@@ -10,7 +10,7 @@
  * @property integer $readed
  *
  * The followings are the available model relations:
- * @property Priority $priority0
+ * @property Priority $priorityobj
  * @property Resource $res0
  */
 class Article extends CActiveRecord
@@ -57,7 +57,7 @@ class Article extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'priority0' => array(self::BELONGS_TO, 'Priority', 'priority'),
+			'priorityobj' => array(self::BELONGS_TO, 'Priority', 'priority'),
 			'res0' => array(self::BELONGS_TO, 'Resource', 'res'),
 		);
 	}

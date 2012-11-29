@@ -1,0 +1,7 @@
+2012-11-29 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/WebController.php (actionCreate): It has added web article capability.
+	* bookmore/protected/controllers/WebController.php (actionUpdate): It has added web article capability.
+	Also, it has fixed some bugs with image upload.
+	* bookmore/protected/view/web/_form.php: It has added fields to create/update web article information.
+	Also, it has added the image show capability if is updating the web or web article.
+	* bookmore/protected/view/web/create.php: It has added new jQuery code to able and disable article option.

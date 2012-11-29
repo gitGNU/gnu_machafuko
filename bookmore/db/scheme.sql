@@ -15,6 +15,10 @@ create table if not exists Priority (
        name varchar(50) not null,
        constraint pk_priority primary key (id)
 ) engine=innodb, charset=utf8;
+insert into Priority (id, name) values (1, 'Low');
+insert into Priority (id, name) values (2, 'Normal');
+insert into Priority (id, name) values (3, 'High');
+insert into Priority (id, name) values (4, 'Higher');
 
 
 create table if not exists Queue (

@@ -56,6 +56,12 @@
 				<?php echo $form->error($model,'logo'); ?>
 			</div>
 			
+			<?php if(!empty($model->logo)) { ?>
+			<div class="row">
+     			<?php echo CHtml::image(Yii::app()->request->baseUrl.$model->logo,'image',array('width'=>200)); ?>
+			</div>
+			<?php } ?>
+			
 		</div><!-- div span-9 -->
 		
 		<div class="span-9 last view">
@@ -87,6 +93,21 @@
 			</div>
 			
 		</div><!-- div span-9 last -->
+		
+		<div class="span-18 last view">
+			
+			<div class="row">
+				<input type="checkbox" name="isarticle" id="isarticle" <?php if($articleModel->id) echo "checked"; ?> />
+				<?php echo Yii::t('bm','if it is an article you can queue it to read later. Would you like?'); ?>
+			</div>
+			
+			<div class="row">
+				<?php echo $form->labelEx($articleModel,'priority'); ?>
+				<?php echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'),array('disabled'=>'true')); ?>
+				<?php echo $form->error($articleModel,'priority'); ?>
+			</div>
+			
+		</div><!-- div span-18 last -->
 		
 	</div><!-- div container -->
 	

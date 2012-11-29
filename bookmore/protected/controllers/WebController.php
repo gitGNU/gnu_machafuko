@@ -95,6 +95,8 @@ class WebController extends ResourceController
 		$resModel=new Resource('web'); // Scenario web where the URI must be an URL.
 		$usrModel=new UserResource();
 		$waModel=new WebAccount();
+		$articleModel=new Article();
+		$articleModel->priorityobj=Priority::model()->findAll();
 		$continue=true;
 		$this->layout='//layouts/column1';
 		
@@ -154,17 +156,34 @@ class WebController extends ResourceController
 						{
 							// Tries to upload file.
 							$file=Yii::app()->file;
-							$file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id);
-							$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
+							if($file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id))
+								$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
+							else
+								$model->logo='';
 							$model->resource=$resModel;
 							if($model->save())
 							{
-								$trx->commit(); // Before redirect.
-								$this->redirect(array('view','id'=>$model->id));
+								// If there is Article data...
+								if(isset($_POST['Article']) && isset($_POST['isarticle']))
+								{
+									$articleModel->res=$resModel->id;
+									$articleModel->priority=$_POST['Article']['priority'];
+									if($articleModel->save())
+									{
+										$trx->commit();
+										$this->redirect(array('view','id'=>$model->id));
+									}									
+								}
+								else
+								{
+									$trx->commit(); // Before redirect.
+									$this->redirect(array('view','id'=>$model->id));
+								}
 							}
 						}
 					}
 				}
+				
 				$trx->rollback();
 			}
 			catch(CException $e)
@@ -175,7 +194,7 @@ class WebController extends ResourceController
 		}
 		
 		$this->render('create',array(
-				'model'=>$model,'resModel'=>$resModel,'waModel'=>$waModel,
+				'model'=>$model,'resModel'=>$resModel,'waModel'=>$waModel,'articleModel'=>$articleModel,
 		));
 	}
 
@@ -189,8 +208,19 @@ class WebController extends ResourceController
 		$model=$this->loadModel($id);
 		$resModel=$model->resource;
 		$waModel=$model->webAccount ? $model->webAccount : new WebAccount();
+		$aux=Article::model()->findByAttributes(array('res'=>$id));
+		$articleModel=$aux?$aux:new Article();
+		$articleModel->priorityobj=Priority::model()->findAll();
 		$continue=true;
 		$this->layout='//layouts/column1';
+		
+		// Prepare tags.
+		$tags=array();
+		foreach($resModel->tagResources as $tr)
+		{
+			$tags[]=$tr->tagModel->name;
+		}
+		$resModel->tag=implode(", ",$tags);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -220,7 +250,6 @@ class WebController extends ResourceController
 				if($continue)
 				{
 					$model->attributes=$_POST['Web'];
-					$model->logo=CUploadedFile::getInstance($model, 'logo');
 					$resModel->attributes=$_POST['Resource'];
 					$resModel->tag=$_POST['Resource']['tag'];
 					if($resModel->save())
@@ -242,13 +271,41 @@ class WebController extends ResourceController
 						
 						// Tries to upload file.
 						$file=Yii::app()->file;
-						$file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id);
-						$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
-						$model->resource=$resModel;
-						if($model->save())
+						if($file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id))
 						{
-							$trx->commit(); // Before redirect.
-							$this->redirect(array('view','id'=>$model->id));
+							$model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
+							$attr=array('id','logo','account');
+						}
+						else
+							$attr=array('id','account');
+							
+						$model->resource=$resModel;
+						if($model->save(true,$attr))
+						{
+							// If there is Article data...
+							if(isset($_POST['Article']) && isset($_POST['isarticle']))
+							{
+								$articleModel->res=$resModel->id;
+								$articleModel->priority=$_POST['Article']['priority'];
+								if($articleModel->save())
+								{
+									$trx->commit();
+									$this->redirect(array('view','id'=>$model->id));
+								}
+							}
+							else if($articleModel->res)
+							{
+								if($articleModel->delete())
+								{
+									$trx->commit(); // Before redirect.
+									$this->redirect(array('view','id'=>$model->id));
+								}
+							}
+							else
+							{
+								$trx->commit(); // Before redirect.
+								$this->redirect(array('view','id'=>$model->id));
+							}
 						}
 					}
 				}
@@ -260,18 +317,9 @@ class WebController extends ResourceController
 				throw $e;
 			}
 		}
-		else
-		{
-			$tags=array();
-			foreach($resModel->tagResources as $tr)
-			{
-				$tags[]=$tr->tagModel->name;
-			}
-			$resModel->tag=implode(", ",$tags);
-		}
 
 		$this->render('update',array(
-			'model'=>$model,'resModel'=>$resModel,'waModel'=>$waModel,
+			'model'=>$model,'resModel'=>$resModel,'waModel'=>$waModel,'articleModel'=>$articleModel,
 		));
 	}
 
