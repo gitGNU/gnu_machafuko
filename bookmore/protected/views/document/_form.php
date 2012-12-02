@@ -46,6 +46,23 @@
 		<?php echo $form->error($resModel,'privacy'); ?>
 	</div>
 
+	<div class="container">
+		<div class="span-18 last view">
+				
+			<div class="row">
+				<input type="checkbox" name="isarticle" id="isarticle" <?php if($articleModel->id) echo "checked"; ?> />
+				<?php echo Yii::t('bm','if it is an article you can queue it to read later. Would you like?'); ?>
+			</div>
+			
+			<div class="row">
+				<?php echo $form->labelEx($articleModel,'priority'); ?>
+				<?php echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'),array('disabled'=>'true')); ?>
+				<?php echo $form->error($articleModel,'priority'); ?>
+			</div>
+				
+		</div><!-- div span-18 last -->
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('bm','Create') : Yii::t('bm','Save')); ?>
 	</div>

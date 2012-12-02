@@ -163,7 +163,7 @@ class WebController extends ResourceController
 							$model->resource=$resModel;
 							if($model->save())
 							{
-								// If there is Article data...
+								// If there is an Article data...
 								if(isset($_POST['Article']) && isset($_POST['isarticle']))
 								{
 									$articleModel->res=$resModel->id;

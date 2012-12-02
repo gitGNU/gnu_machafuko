@@ -82,6 +82,8 @@ class DocumentController extends ResourceController
 		$model=new Document();
 		$resModel=new Resource();
 		$usrModel=new UserResource();
+		$articleModel=new Article();
+		$articleModel->priorityobj=Priority::model()->findAll();
 		$this->layout='//layouts/column1';
 		
 		// Uncomment the following line if AJAX validation is needed
@@ -131,8 +133,22 @@ class DocumentController extends ResourceController
 						$model->resource=$resModel;
 						if($model->save())
 						{
-							$trx->commit();
-							$this->redirect(array('view','id'=>$model->id));
+							// If there is an article data...
+							if(isset($_POST['Article']) && isset($_POST['isarticle']))
+							{
+								$articleModel->res=$resModel->id;
+								$articleModel->priority=$_POST['Article']['priority'];
+								if($articleModel->save())
+								{
+									$trx->commit();
+									$this->redirect(array('view','id'=>$model->id));
+								}
+							}
+							else
+							{
+								$trx->commit(); // Before redirect.
+								$this->redirect(array('view','id'=>$model->id));
+							}
 						}
 					}
 				}
@@ -146,7 +162,7 @@ class DocumentController extends ResourceController
 		}
 
 		$this->render('create',array(
-			'model'=>$model,'resModel'=>$resModel,
+			'model'=>$model,'resModel'=>$resModel,'articleModel'=>$articleModel,
 		));
 	}
 
@@ -159,9 +175,17 @@ class DocumentController extends ResourceController
 	{
 		$model=$this->loadModel($id);
 		$resModel=$model->resource;
+		$aux=Article::model()->findByAttributes(array('res'=>$id));
+		$articleModel=$aux?$aux:new Article();
+		$articleModel->priorityobj=Priority::model()->findAll();
 		$this->layout='//layouts/column1';
-		//foreach($resModel->tagResources as $tr)
-			//$resModel->tag.=$tr->tagModel->name;
+		
+		$tags=array();
+		foreach($resModel->tagResources as $tr)
+		{
+			$tags[]=$tr->tagModel->name;
+		}
+		$resModel->tag=implode(", ",$tags);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -177,7 +201,17 @@ class DocumentController extends ResourceController
 								
 				// Tries to upload file.
 				$file=Yii::app()->file;
-				$file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created);
+				if($file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created))
+				{
+					$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
+					$attrRes=array('id','uri','name','description','created','privacy');
+					$attrDoc=array('id','mimeType','extension');
+				}
+				else
+				{
+					$attrRes=array('id','name','description','created','privacy');
+					$attrDoc=array('id');
+				}
 				
 				// Get document model attributes.
 				$model->attributes=$_POST['Document'];
@@ -185,11 +219,10 @@ class DocumentController extends ResourceController
 				$model->extension=$file->extension;
 				
 				// Complet resource model attributes.
-				$resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
 				$usrModel->user=Yii::app()->user->id;
 				
 				// Realizes the saves.				
-				if($resModel->save())
+				if($resModel->save(true,$attrRes))
 				{
 					// It updates Tag and TagResource.
 					$tags=preg_split ("/[\s]*[,][\s]*/", $resModel->tag);
@@ -207,10 +240,32 @@ class DocumentController extends ResourceController
 					}
 					
 					$model->resource=$resModel;
-					if($model->save())
+					if($model->save(true,$attrDoc))
 					{
-						$trx->commit();
-						$this->redirect(array('view','id'=>$model->id));
+						// If there is Article data...
+						if(isset($_POST['Article']) && isset($_POST['isarticle']))
+						{
+							$articleModel->res=$resModel->id;
+							$articleModel->priority=$_POST['Article']['priority'];
+							if($articleModel->save())
+							{
+								$trx->commit();
+								$this->redirect(array('view','id'=>$model->id));
+							}
+						}
+						else if($articleModel->res)
+						{
+							if($articleModel->delete())
+							{
+								$trx->commit(); // Before redirect.
+								$this->redirect(array('view','id'=>$model->id));
+							}
+						}
+						else
+						{
+							$trx->commit(); // Before redirect.
+							$this->redirect(array('view','id'=>$model->id));
+						}
 					}
 				}
 				$trx->rollback();
@@ -221,18 +276,9 @@ class DocumentController extends ResourceController
 				throw $e;
 			}
 		}
-		else
-		{
-			$tags=array();
-			foreach($resModel->tagResources as $tr)
-			{
-				$tags[]=$tr->tagModel->name;
-			}
-			$resModel->tag=implode(", ",$tags);
-		}
 
 		$this->render('update',array(
-			'model'=>$model,'resModel'=>$resModel,
+			'model'=>$model,'resModel'=>$resModel,'articleModel'=>$articleModel,
 		));
 	}
 
@@ -247,7 +293,7 @@ class DocumentController extends ResourceController
 		{
 			// we only allow deletion via POST request
 			$model=parent::loadModel($id);
-			Yii::app()->file->deleteFile($model->resource->uri);
+			Yii::app()->file->deleteFile($model->uri);
 			$model->delete();
 			
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
