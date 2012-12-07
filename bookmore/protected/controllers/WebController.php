@@ -108,6 +108,7 @@ class WebController extends ResourceController
 			$resModel->attributes=$_POST['Resource'];
 			$resModel->tag=$_POST['Resource']['tag'];
 			$waModel->attributes=$_POST['WebAccount'];
+			$waModel->rawPassword=$_POST['WebAccount']['rawPassword'];
 			
 			$trx=$model->getDbConnection()->beginTransaction();
 			try
@@ -120,11 +121,6 @@ class WebController extends ResourceController
 				if(!empty($waModel->id) || !empty($waModel->username) || !empty($waModel->email) || !empty($waModel->password))
 				{
 					$waModel->scenario='webAccount';
-					if(!empty($waModel->password))
-					{
-						$waModel->password=md5($waModel->password);
-						$waModel->passwordRepeat=md5($waModel->passwordRepeat);
-					}
 					if($waModel->save())
 						$model->webAccount=$waModel;
 					else
@@ -227,31 +223,38 @@ class WebController extends ResourceController
 
 		if(isset($_POST['Web']) && isset($_POST['Resource']) && isset($_POST['WebAccount']))
 		{
+			// Before it saves anything it needs to get all POST.
+			$waModel->attributes=$_POST['WebAccount'];
+			$waModel->rawPassword=$_POST['WebAccount']['rawPassword'];
+			$model->attributes=$_POST['Web'];
+			$resModel->attributes=$_POST['Resource'];
+			$resModel->tag=$_POST['Resource']['tag'];
+			$articleModel->priority=isset($_POST['Article']['priority'])?$_POST['Article']['priority']:null;
+			
 			$trx=$model->getDbConnection()->beginTransaction();
 			try
 			{
 				// If come some web account attributes it changes scenario, it saves web account and it changes
 				// the relations with web.
-				$waModel->attributes=$_POST['WebAccount'];
 				if(!empty($waModel->id) || !empty($waModel->username) || !empty($waModel->email) || !empty($waModel->password))
 				{
 					$waModel->scenario='webAccount';
-					if(!empty($waModel->password))
+					/*if(!empty($waModel->password))
 					{
 						$waModel->password=md5($waModel->password);
 						$waModel->passwordRepeat=md5($waModel->passwordRepeat);
-					}
+					}*/
 					if($waModel->save())
 						$model->webAccount=$waModel;
 					else
+					{
 						$continue=false; // It comes values and there are some errors...
+						echo "hola amigos " . $waModel->rawPassword; print_r($_POST['WebAccount']);
+					}
 				}
 				
 				if($continue)
 				{
-					$model->attributes=$_POST['Web'];
-					$resModel->attributes=$_POST['Resource'];
-					$resModel->tag=$_POST['Resource']['tag'];
 					if($resModel->save())
 					{
 						// It saves Tag and TagResource.
@@ -286,7 +289,6 @@ class WebController extends ResourceController
 							if(isset($_POST['Article']) && isset($_POST['isarticle']))
 							{
 								$articleModel->res=$resModel->id;
-								$articleModel->priority=$_POST['Article']['priority'];
 								if($articleModel->save())
 								{
 									$trx->commit();

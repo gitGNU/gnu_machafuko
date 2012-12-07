@@ -74,6 +74,25 @@ class TagResource extends CActiveRecord
 	}
 	
 	/**
+	 * Before save a tag resource it needs to test if exists or not this tag resource.
+	 *
+	 * @see CActiveRecord::beforeSave()
+	 */
+	public function beforeSave()
+	{
+		$model=$this->findByAttributes(array('res'=>$this->res,'tag'=>$this->tag));
+		if($model)
+		{
+			$this->id=$model->id;
+			return false;
+		}
+		else
+		{
+			return parent::beforeSave();
+		}
+	}
+	
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

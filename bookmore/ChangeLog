@@ -1,3 +1,18 @@
+2012-12-07 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has changed. Before it had the md5 on password, now not.
+	* bookmore/protected/views/web/_form.php: It has changed from password to rawPassword.
+	* bookmore/protected/models/Web.php: It has added rawPassword property.
+	* bookmore/protected/models/Web.php (beforeSave): It has added this method when it doing md5 on rawPassword to password.
+
+2012-12-05 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/extensions/file/CFile.php (emptyDir): There was a bug that was fixed. It needs to check if the argument was a directory.
+	* bookmore/protected/controllers/WebController.php (actionUpdate): There was a bug that was fixed.
+	It needs to get POST data befor any save. If there was any error the update form was misdata.
+
+2012-12-03 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/models/TagResource.php (beforeSave): It has modified to check if the tag resource is already exist.
+	* bookmore/protected/models/UserResource.php (beforeSave): It has modified to check if the user resource is already exist.
+
 2012-12-02 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/DocumentController.php (actionCreate): It has added document article capability.
 	* bookmore/protected/controllers/DocumentController.php (actionUpdate): It has added document article capability.

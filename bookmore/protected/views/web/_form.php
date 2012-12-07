@@ -81,9 +81,9 @@
 			</div>
 			
 			<div class="row">
-				<?php echo $form->labelEx($waModel,'password'); ?>
-				<?php echo $form->passwordField($waModel,'password',array('size'=>40,'maxlength'=>100)); ?>
-				<?php echo $form->error($waModel,'password'); ?>
+				<?php echo $form->labelEx($waModel,'rawPassword'); ?>
+				<?php echo $form->passwordField($waModel,'rawPassword',array('size'=>40,'maxlength'=>100)); ?>
+				<?php echo $form->error($waModel,'rawPassword'); ?>
 			</div>
 			
 			<div class="row">

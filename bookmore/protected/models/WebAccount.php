@@ -14,6 +14,7 @@
  */
 class WebAccount extends CActiveRecord
 {
+	public $rawPassword;
 	public $passwordRepeat;
 	
 	/**
@@ -42,13 +43,15 @@ class WebAccount extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, email, password', 'required', 'on'=>'webAccount'),
+			array('username, email, rawPassword', 'required', 'on'=>'webAccount'),
 			array('password', 'length', 'min'=>'5', 'on'=>'webAccount'),
 			array('username, email, password', 'length', 'max'=>128),
-			array('passwordRepeat', 'compare', 'compareAttribute'=>'password'),
+			array('rawPassword', 'length', 'min'=>'5', 'on'=>'webAccount'),
+			array('passwordRepeat', 'compare', 'compareAttribute'=>'rawPassword'),
+			array('rawPassword', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, email, password', 'safe', 'on'=>'search'),
+			array('id, username, email, password, rawPassword', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,8 +77,23 @@ class WebAccount extends CActiveRecord
 			'username' => 'Username',
 			'email' => 'Email',
 			'password' => 'Password',
+			'rawPassword'=> 'Password',
 			'passwordRepeat' => 'Repeat password',
 		);
+	}
+	
+	/**
+	 * Before save a web account it needs to crypt password.
+	 *
+	 * @see CActiveRecord::beforeSave()
+	 */
+	public function beforeSave()
+	{
+		if(!empty($this->rawPassword))
+		{
+			$this->password=md5($this->rawPassword);
+		}
+		return parent::beforeSave();
 	}
 
 	/**

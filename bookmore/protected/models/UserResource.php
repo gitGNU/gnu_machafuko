@@ -72,6 +72,25 @@ class UserResource extends CActiveRecord
 			'user' => 'User ID',
 		);
 	}
+	
+	/**
+	 * Before save a user resource it needs to test if exists or not this user resource.
+	 *
+	 * @see CActiveRecord::beforeSave()
+	 */
+	public function beforeSave()
+	{
+		$model=$this->findByAttributes(array('res'=>$this->res,'user'=>$this->user));
+		if($model)
+		{
+			$this->id=$model->id;
+			return false;
+		}
+		else
+		{
+			return parent::beforeSave();
+		}
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

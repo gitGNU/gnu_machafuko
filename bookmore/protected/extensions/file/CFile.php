@@ -125,24 +125,27 @@ class CFile extends CApplicationComponent
      * @return boolean true if successed.
      */
     public function emptyDir($dir)
-    {    	
-    	if($contents=scandir($dir))
+    {
+    	if(is_dir($dir))
     	{
-    		foreach ($contents as $item)
-    		{
-    			if($item!='.' && $item!='..')
-    			{
-    				if(is_file($dir.DIRECTORY_SEPARATOR.$item))
-    				{
-    					@unlink($dir.DIRECTORY_SEPARATOR.$item);
-    				}
-    				elseif (is_dir($dir.DIRECTORY_SEPARATOR.$item))
-    				{
-    					@rmdir($dir.DIRECTORY_SEPARATOR.$item);
-    				}
-    			}
-    		}
-    		return true;
+	    	if($contents=scandir($dir))
+	    	{
+	    		foreach ($contents as $item)
+	    		{
+	    			if($item!='.' && $item!='..')
+	    			{
+	    				if(is_file($dir.DIRECTORY_SEPARATOR.$item))
+	    				{
+	    					@unlink($dir.DIRECTORY_SEPARATOR.$item);
+	    				}
+	    				elseif (is_dir($dir.DIRECTORY_SEPARATOR.$item))
+	    				{
+	    					@rmdir($dir.DIRECTORY_SEPARATOR.$item);
+	    				}
+	    			}
+	    		}
+	    		return true;
+	    	}
     	}
     	
    		return false;
