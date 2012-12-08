@@ -109,6 +109,9 @@ class WebController extends ResourceController
 			$resModel->tag=$_POST['Resource']['tag'];
 			$waModel->attributes=$_POST['WebAccount'];
 			$waModel->rawPassword=$_POST['WebAccount']['rawPassword'];
+			$waModel->passwordRepeat=$_POST['WebAccount']['passwordRepeat'];
+			$articleModel->priority=isset($_POST['Article'])?$_POST['Article']['priority']:'';
+			$articleModel->isarticle=isset($_POST['isarticle'])?$_POST['isarticle']:'';
 			
 			$trx=$model->getDbConnection()->beginTransaction();
 			try
@@ -120,7 +123,7 @@ class WebController extends ResourceController
 				// the relations with web.
 				if(!empty($waModel->id) || !empty($waModel->username) || !empty($waModel->email) || !empty($waModel->password))
 				{
-					$waModel->scenario='webAccount';
+					$waModel->scenario='insert';
 					if($waModel->save())
 						$model->webAccount=$waModel;
 					else
@@ -203,6 +206,7 @@ class WebController extends ResourceController
 	{
 		$model=$this->loadModel($id);
 		$resModel=$model->resource;
+		$resModel->scenario='web';
 		$waModel=$model->webAccount ? $model->webAccount : new WebAccount();
 		$aux=Article::model()->findByAttributes(array('res'=>$id));
 		$articleModel=$aux?$aux:new Article();
@@ -229,7 +233,8 @@ class WebController extends ResourceController
 			$model->attributes=$_POST['Web'];
 			$resModel->attributes=$_POST['Resource'];
 			$resModel->tag=$_POST['Resource']['tag'];
-			$articleModel->priority=isset($_POST['Article']['priority'])?$_POST['Article']['priority']:null;
+			$articleModel->priority=isset($_POST['Article'])?$_POST['Article']['priority']:'';
+			$articleModel->isarticle=isset($_POST['isarticle'])?$_POST['isarticle']:'';
 			
 			$trx=$model->getDbConnection()->beginTransaction();
 			try
@@ -238,13 +243,9 @@ class WebController extends ResourceController
 				// the relations with web.
 				if(!empty($waModel->id) || !empty($waModel->username) || !empty($waModel->email) || !empty($waModel->password))
 				{
-					$waModel->scenario='webAccount';
-					/*if(!empty($waModel->password))
-					{
-						$waModel->password=md5($waModel->password);
-						$waModel->passwordRepeat=md5($waModel->passwordRepeat);
-					}*/
-					if($waModel->save())
+					$waModel->scenario='update';
+					$attr=empty($waModel->rawPassword)?array('id','username','email'):array('id','username','email','password');
+					if($waModel->save($attr))
 						$model->webAccount=$waModel;
 					else
 					{

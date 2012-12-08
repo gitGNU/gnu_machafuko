@@ -1,3 +1,11 @@
+2012-12-08 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has fixed some bugs and it has fixed some problems with rules and scenarios.
+	* bookmore/protected/models/Resource.php (rules): It has modified the rules because did not work correctly.
+	* bookmore/protected/models/Resource.php (uniqueValidator): It has added a new validator to validates unique constraints.
+	* bookmore/protected/models/WebAccount.php (rules): It has modified the rules because did not work correctly.
+	* bookmore/protected/models/Article.php: It has added the 'isarticle' attribute to the class.
+	* bookmore/protected/views/web/_form.php: It has modified. Now when fail the validation it stands all values typed.
+
 2012-12-07 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has changed. Before it had the md5 on password, now not.
 	* bookmore/protected/views/web/_form.php: It has changed from password to rawPassword.

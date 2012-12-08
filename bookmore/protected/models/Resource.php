@@ -60,6 +60,7 @@ class Resource extends CActiveRecord
 			array('uri, description', 'length', 'max'=>200),
 			array('name', 'length', 'max'=>100),
 			array('created', 'date', 'format'=>array('d-M-yyyy', 'yyyy-M-d')),
+			array('uri', 'uniqueValidator'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, uri, name, description, created, privacy', 'safe', 'on'=>'search'),
@@ -121,5 +122,24 @@ class Resource extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * This function check unique restrictions. This works with update and insert.
+	 * 
+	 * @param string $attribute Attribute.
+	 * @param string $params Params.
+	 */
+	public function uniqueValidator($attribute, $params)
+	{
+		// If is update and the attribute is the same return.
+		if(!empty($this->id))
+		{
+			$current=$this->findByPk($this->id);
+			if($current->$attribute==$this->$attribute)
+				return;
+		}
+		if($this->findByAttributes(array($attribute=>$this->$attribute)))
+			$this->addError($attribute, "The attribute '".$attribute."' must to be unique.");
 	}
 }

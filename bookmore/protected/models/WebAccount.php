@@ -43,12 +43,12 @@ class WebAccount extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, email, rawPassword', 'required', 'on'=>'webAccount'),
-			array('password', 'length', 'min'=>'5', 'on'=>'webAccount'),
-			array('username, email, password', 'length', 'max'=>128),
-			array('rawPassword', 'length', 'min'=>'5', 'on'=>'webAccount'),
+			array('username, email, rawPassword', 'required', 'on'=>'insert'),
+			array('username, email', 'required', 'on'=>'update'),
+			array('email', 'email'),
+			array('rawPassword', 'length', 'min'=>'5'),
 			array('passwordRepeat', 'compare', 'compareAttribute'=>'rawPassword'),
-			array('rawPassword', 'safe'),
+			array('username, email, password', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, email, password, rawPassword', 'safe', 'on'=>'search'),

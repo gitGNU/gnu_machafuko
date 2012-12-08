@@ -97,13 +97,18 @@
 		<div class="span-18 last view">
 			
 			<div class="row">
-				<input type="checkbox" name="isarticle" id="isarticle" <?php if($articleModel->id) echo "checked"; ?> />
+				<input type="checkbox" name="isarticle" id="isarticle" <?php if($articleModel->id || $articleModel->isarticle) echo "checked"; ?> />
 				<?php echo Yii::t('bm','if it is an article you can queue it to read later. Would you like?'); ?>
 			</div>
 			
 			<div class="row">
 				<?php echo $form->labelEx($articleModel,'priority'); ?>
-				<?php echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'),array('disabled'=>'true')); ?>
+				<?php
+					if(!$articleModel->isarticle) 
+						echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'),array('disabled'=>'true'));
+					else
+						echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'));
+				?>
 				<?php echo $form->error($articleModel,'priority'); ?>
 			</div>
 			
