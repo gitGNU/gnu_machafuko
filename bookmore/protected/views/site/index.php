@@ -4,6 +4,9 @@
 
 <p><?php echo Yii::t('bm', 'This web application is a bookmark with more options'); ?>.</p>
 
+<?php
+if (!Yii::app()->user->isGuest) {
+?>
 <div class="container">
 
     <div class="span-12">
@@ -39,3 +42,6 @@
     </div>
     
 </div>
+<?php
+}
+?>
