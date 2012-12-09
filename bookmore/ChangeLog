@@ -5,6 +5,8 @@
 	* bookmore/protected/views/document/admin.php: It has changed the css attribute of the grid view.
 	* bookmore/protected/views/resource/admin.php: It has changed the css attribute of the grid view.
 	* bookmore/protected/views/web/admin.php: It has changed the css attribute of the grid view.
+	* bookmore/protected/views/site/index.php: It has added the home page. Now it shows articles to read and queued resources.
+	* bookmore/protected/controllers/SiteController.php (actionIndex): It has added code to get articles and queued articles to show in home page (site/index).
 
 2012-12-08 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has fixed some bugs and it has fixed some problems with rules and scenarios.
