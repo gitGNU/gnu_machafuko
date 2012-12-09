@@ -9,19 +9,19 @@
  * @license GPLv3 (http://www.gnu.org/licenses/gpl)
  */
 return array(
-		'sample1'=>array(
-				'id'=>'1',
-				'logo'=>'',
-				),
-		
-		'sample2'=>array(
-				'id'=>'2',
-				'logo'=>'',
-				),
-		
-		'sample3'=>array(
-				'id'=>'3',
-				'logo'=>'',
-				'account'=>'1',
-				),
-		);
+        'sample1'=>array(
+                'id'=>'1',
+                'logo'=>'',
+                ),
+
+        'sample2'=>array(
+                'id'=>'2',
+                'logo'=>'',
+                ),
+
+        'sample3'=>array(
+                'id'=>'3',
+                'logo'=>'',
+                'account'=>'1',
+                ),
+        );

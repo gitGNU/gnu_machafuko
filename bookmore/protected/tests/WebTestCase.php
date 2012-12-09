@@ -13,28 +13,28 @@ define('TEST_BASE_URL','http://workspace/machafuko/bookmore/index-test.php/');
  */
 class WebTestCase extends CWebTestCase
 {
-	/**
-	 * Sets up before each test method runs.
-	 * This mainly sets the base URL for the test application.
-	 */
-	protected function setUp()
-	{
-		parent::setUp();
-		$this->setBrowserUrl(TEST_BASE_URL);
-		//$this->setSleep(2);
-	}
-	
-	/**
-	 * Is a general function, that can be use by a lot of classes.
-	 */
-	protected function login($user, $password)
-	{
-		// Login.
-		$this->open('');
-		$this->clickAndWait('link=Login');
-		$this->assertElementPresent('name=LoginForm[username]');
-		$this->type('name=LoginForm[username]',$user);
-		$this->type('name=LoginForm[password]',$password);
-		$this->clickAndWait("//input[@value='Login']");
-	}
+    /**
+     * Sets up before each test method runs.
+     * This mainly sets the base URL for the test application.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->setBrowserUrl(TEST_BASE_URL);
+        //$this->setSleep(2);
+    }
+
+    /**
+     * Is a general function, that can be use by a lot of classes.
+     */
+    protected function login($user, $password)
+    {
+        // Login.
+        $this->open('');
+        $this->clickAndWait('link=Login');
+        $this->assertElementPresent('name=LoginForm[username]');
+        $this->type('name=LoginForm[username]',$user);
+        $this->type('name=LoginForm[password]',$password);
+        $this->clickAndWait("//input[@value='Login']");
+    }
 }

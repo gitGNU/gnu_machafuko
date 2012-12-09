@@ -14,106 +14,106 @@
  */
 class WebAccount extends CActiveRecord
 {
-	public $rawPassword;
-	public $passwordRepeat;
-	
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return WebAccount the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    public $rawPassword;
+    public $passwordRepeat;
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'WebAccount';
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param  string     $className active record class name.
+     * @return WebAccount the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('username, email, rawPassword', 'required', 'on'=>'insert'),
-			array('username, email', 'required', 'on'=>'update'),
-			array('email', 'email'),
-			array('rawPassword', 'length', 'min'=>'5'),
-			array('passwordRepeat', 'compare', 'compareAttribute'=>'rawPassword'),
-			array('username, email, password', 'length', 'max'=>128),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, username, email, password, rawPassword', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'WebAccount';
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'webs' => array(self::HAS_MANY, 'Web', 'account'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('username, email, rawPassword', 'required', 'on'=>'insert'),
+            array('username, email', 'required', 'on'=>'update'),
+            array('email', 'email'),
+            array('rawPassword', 'length', 'min'=>'5'),
+            array('passwordRepeat', 'compare', 'compareAttribute'=>'rawPassword'),
+            array('username, email, password', 'length', 'max'=>128),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, username, email, password, rawPassword', 'safe', 'on'=>'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'username' => 'Username',
-			'email' => 'Email',
-			'password' => 'Password',
-			'rawPassword'=> 'Password',
-			'passwordRepeat' => 'Repeat password',
-		);
-	}
-	
-	/**
-	 * Before save a web account it needs to crypt password.
-	 *
-	 * @see CActiveRecord::beforeSave()
-	 */
-	public function beforeSave()
-	{
-		if(!empty($this->rawPassword))
-		{
-			$this->password=md5($this->rawPassword);
-		}
-		return parent::beforeSave();
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'webs' => array(self::HAS_MANY, 'Web', 'account'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'username' => 'Username',
+            'email' => 'Email',
+            'password' => 'Password',
+            'rawPassword'=> 'Password',
+            'passwordRepeat' => 'Repeat password',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Before save a web account it needs to crypt password.
+     *
+     * @see CActiveRecord::beforeSave()
+     */
+    public function beforeSave()
+    {
+        if (!empty($this->rawPassword)) {
+            $this->password=md5($this->rawPassword);
+        }
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('password',$this->password,true);
+        return parent::beforeSave();
+    }
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('username',$this->username,true);
+        $criteria->compare('email',$this->email,true);
+        $criteria->compare('password',$this->password,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

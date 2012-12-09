@@ -1,17 +1,17 @@
 <?php
 $this->breadcrumbs=array(
-	'Priorities',
+    'Priorities',
 );
 
 $this->menu=array(
-	array('label'=>'Create Priority', 'url'=>array('create')),
-	array('label'=>'Manage Priority', 'url'=>array('admin')),
+    array('label'=>'Create Priority', 'url'=>array('create')),
+    array('label'=>'Manage Priority', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Priorities</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+    'dataProvider'=>$dataProvider,
+    'itemView'=>'_view',
+));

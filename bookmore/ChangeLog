@@ -1,3 +1,11 @@
+2012-12-09 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/css/down.gif: It has added this image.
+	* bookmore/css/up.gif: It has added this image.
+	* bookmore/css/mygridview.css: It has added this CSS File to change grid view styles.
+	* bookmore/protected/views/document/admin.php: It has changed the css attribute of the grid view.
+	* bookmore/protected/views/resource/admin.php: It has changed the css attribute of the grid view.
+	* bookmore/protected/views/web/admin.php: It has changed the css attribute of the grid view.
+
 2012-12-08 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has fixed some bugs and it has fixed some problems with rules and scenarios.
 	* bookmore/protected/models/Resource.php (rules): It has modified the rules because did not work correctly.
@@ -5,6 +13,10 @@
 	* bookmore/protected/models/WebAccount.php (rules): It has modified the rules because did not work correctly.
 	* bookmore/protected/models/Article.php: It has added the 'isarticle' attribute to the class.
 	* bookmore/protected/views/web/_form.php: It has modified. Now when fail the validation it stands all values typed.
+	* bookmore/protected/views/layouts/column2.php: If is a guest user it does not show the options.
+	* bookmore/protected/views/web/view.php: If there is not a owner it only shows the create option.
+	* bookmore/protected/views/document/view.php: If there is not a owner it only shows the create option.
+	* bookmore/protected/config/main.php: It has changed the application title name. Before was Bookmark but it must be Bookmore.
 
 2012-12-07 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionUpdate, actionCreate): It has changed. Before it had the md5 on password, now not.

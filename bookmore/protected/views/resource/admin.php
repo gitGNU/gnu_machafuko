@@ -1,25 +1,21 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('bm','Resources')=>array('index'),
-	Yii::t('bm','Manage'),
-);
-
-$this->menu=array(
-	array('label'=>Yii::t('bm','List Resource'), 'url'=>array('index')),
-	array('label'=>Yii::t('bm', 'Create Web Bookmark'), 'url'=>array('create')),
-	array('label'=>Yii::t('bm', 'Create Document Bookmark'), 'url'=>array('document/create')),
+    Yii::t('bm','Resources')=>array('index'),
+    Yii::t('bm','Manage'),
 );
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+    $('.search-form').toggle();
+
+    return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('resource-grid', {
-		data: $(this).serialize()
-	});
-	return false;
+    $.fn.yiiGridView.update('resource-grid', {
+        data: $(this).serialize()
+    });
+
+    return false;
 });
 ");
 ?>
@@ -34,23 +30,24 @@ $('.search-form form').submit(function(){
 <?php echo CHtml::link(Yii::t('bm','Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+    'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'resource-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'uri',
-		'name',
-		'description',
-		'created',
-		'privacy',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+    'id'=>'resource-grid',
+	'htmlOptions'=>array('class'=>'my-grid-view'),
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'columns'=>array(
+        'id',
+        'uri',
+        'name',
+        'description',
+        'created',
+        'privacy',
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    ),
+));

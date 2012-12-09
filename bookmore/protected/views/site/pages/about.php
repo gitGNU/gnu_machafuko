@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - About';
 $this->breadcrumbs=array(
-	'About',
+    'About',
 );
 ?>
 <h1><?php echo Yii::t('bm', 'About'); ?></h1>

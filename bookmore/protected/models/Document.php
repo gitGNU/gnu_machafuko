@@ -13,95 +13,95 @@
  */
 class Document extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Document the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param  string   $className active record class name.
+     * @return Document the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'Document';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'Document';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('mimeType','file','types'=>'jpg,gif,png,svg,txt,pdf,odt,odp,ods,odg,odb,doc,zip,tgz,tar.gz,tar.bz2,7z'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, mimeType, resource.name, resource.description','safe','on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('mimeType','file','types'=>'jpg,gif,png,svg,txt,pdf,odt,odp,ods,odg,odb,doc,zip,tgz,tar.gz,tar.bz2,7z'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, mimeType, resource.name, resource.description','safe','on'=>'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'resource' => array(self::BELONGS_TO, 'Resource', 'id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'resource' => array(self::BELONGS_TO, 'Resource', 'id'),
+        );
+    }
 
-	/**
-	 * To add behaviours.
-	 * @see CModel::behaviors()
-	 */
-	public function behaviors()
-	{
-		return array(
-				'activerecord-relation'=>array('class'=>'ext.behaviors.activerecord-relation.EActiveRecordRelationBehavior'),
-		);
-	}
-	
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id'=>'ID',
-			'extension'=>Yii::t('bm','File extension'),
-			'mimeType'=>Yii::t('bm','Document type'),
-		);
-	}
+    /**
+     * To add behaviours.
+     * @see CModel::behaviors()
+     */
+    public function behaviors()
+    {
+        return array(
+                'activerecord-relation'=>array('class'=>'ext.behaviors.activerecord-relation.EActiveRecordRelationBehavior'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id'=>'ID',
+            'extension'=>Yii::t('bm','File extension'),
+            'mimeType'=>Yii::t('bm','Document type'),
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('mimeType',$this->mimeType,true);
-		if(isset($_GET['Resource']))
-		{
-			$criteria->with[]='resource';
-			$criteria->addSearchCondition('name',$_GET['Resource']['name'],true);
-			$criteria->addSearchCondition('description',$_GET['Resource']['description'],true);
-		}
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('mimeType',$this->mimeType,true);
+        if (isset($_GET['Resource'])) {
+            $criteria->with[]='resource';
+            $criteria->addSearchCondition('name',$_GET['Resource']['name'],true);
+            $criteria->addSearchCondition('description',$_GET['Resource']['description'],true);
+        }
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

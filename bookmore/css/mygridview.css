@@ -1,0 +1,129 @@
+/**
+ * Copyright 2012 - Román Ginés Martínez Ferrández (rgmf@riseup.net).
+ * This CSS file is based on a CSS Yii Framework file.
+ * License GPLv3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ */
+.grid-view-loading
+{
+	background:url(loading.gif) no-repeat;
+}
+
+.my-grid-view
+{
+	padding: 15px 0;
+}
+
+.my-grid-view table.items
+{
+	background: white;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.my-grid-view table.items th, .grid-view table.items td
+{
+	border: 2px white solid;
+	padding: 0.3em;
+}
+
+.my-grid-view table.items th
+{
+	color: #ffffff;
+	background: #999999;
+	text-align: center;
+}
+
+.my-grid-view table.items th a
+{
+	color: #EEE;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.my-grid-view table.items th a:hover
+{
+	color: #FFF;
+}
+
+.my-grid-view table.items th a.asc
+{
+	background:url(up.gif) right center no-repeat;
+	padding-right: 10px;
+}
+
+.my-grid-view table.items th a.desc
+{
+	background:url(down.gif) right center no-repeat;
+	padding-right: 10px;
+}
+
+.my-grid-view table.items tr,
+.my-grid-view table.items td
+{
+	border: 2px white solid;
+}
+
+.my-grid-view table.items tr.even
+{
+	background: #F8F8F8;
+}
+
+.my-grid-view table.items tr.odd
+{
+	background: #E5F1F4;
+}
+
+.my-grid-view table.items tr.selected
+{
+	background: #BCE774;
+}
+
+.my-grid-view table.items tr:hover
+{
+	background: #ECFBD4;
+}
+
+.my-grid-view .link-column img
+{
+	border: 0;
+}
+
+.my-grid-view .button-column
+{
+	text-align: center;
+	width: 60px;
+}
+
+.my-grid-view .button-column img
+{
+	border: 0;
+}
+
+.my-grid-view .checkbox-column
+{
+	width: 15px;
+}
+
+.my-grid-view .summary
+{
+	margin: 0 0 5px 0;
+	text-align: right;
+}
+
+.my-grid-view .pager
+{
+	margin: 5px 0 0 0;
+	text-align: right;
+}
+
+.my-grid-view .empty
+{
+	font-style: italic;
+}
+
+.my-grid-view .filters input,
+.my-grid-view .filters select
+{
+	width: 100%;
+	border: 1px solid #ccc;
+}
