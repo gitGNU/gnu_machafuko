@@ -57,12 +57,15 @@ class CFile extends CApplicationComponent
      * @param  object  $model     the model object.
      * @param  string  $file      value of the property 'name' from the input file tag.
      * @param  string  $directory destination directory when file will be save.
+     * @param  boolean $deleteDir if true then it will empty the directory.
      * @return boolean true if it has been able to upload file.
      */
-    public function saveAs($model,$file,$directory)
+    public function saveAs($model,$file,$directory,$deleteDir=false)
     {
         $this->_uploadedFile=CUploadedFile::getInstance($model,$file);
         if ($this->_uploadedFile instanceof CUploadedFile) {
+            if($deleteDir)
+                $this->emptyDir($directory);
             $this->createDir($directory);
             $this->_uploadedFile->saveAs($directory.DIRECTORY_SEPARATOR.$this->_uploadedFile->name);
 
@@ -83,7 +86,7 @@ class CFile extends CApplicationComponent
     }
 
     /**
-     * This function deletes all into $directory and save the $file that
+     * This function ask to saveAs to delete all into $directory and save the $file that
      * comes from a form into $directory.
      *
      * @param  object  $model     the model object.
@@ -93,9 +96,7 @@ class CFile extends CApplicationComponent
      */
     public function moveAs($model,$file,$directory)
     {
-        $this->emptyDir($directory);
-
-        return $this->saveAs($model,$file,$directory);
+        return $this->saveAs($model,$file,$directory,true);
     }
 
     /**

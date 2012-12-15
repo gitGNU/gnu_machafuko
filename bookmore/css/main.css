@@ -312,3 +312,15 @@ div.grid-2
 	width: 423px;
 	height: 323px;
 }
+
+div.normal-size img
+{
+	width: 200px;
+	height: 250px;
+}
+
+div.right-separator
+{
+    border-right: solid 2px #999999;
+    padding: 10px;
+}

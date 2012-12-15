@@ -1,3 +1,12 @@
+2012-12-15 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/css/mydetailview.css: It has added this CSS file to change detail view styles.
+	* bookmore/css/main.css: It has added new styles.
+	* bookmore/protected/views/web/view.php: It has changed this file to show the web logo.
+	* bookmore/protected/views/layouts/main.php: It has added the CSS mydetailview file with new styles to detail views.
+	* bookmore/protected/extensions/file/CFile.php (saveAs): It has added a new optional parameter when you can say it that empty the directory.
+	* bookmore/protected/extensions/file/CFile.php (moveAs): It has modified to pass saveAs function the order to empty directory.
+	* bookmore/protected/controllers/SiteController.php (actionIndex): It has added a pageSize. Now it is 4 the number of items per page.
+
 2012-12-09 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/css/down.gif: It has added this image.
 	* bookmore/css/up.gif: It has added this image.

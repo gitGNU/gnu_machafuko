@@ -1,0 +1,50 @@
+/**
+ * Copyright 2012 - Román Ginés Martínez Ferrández (rgmf@riseup.net).
+ * This CSS file is based on a CSS Yii Framework file.
+ * License GPLv3 (http://www.gnu.org/licenses/gpl-3.0.html)
+ */
+table.my-detail-view .null
+{
+    color: pink;
+}
+
+table.my-detail-view
+{
+    background: white;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0;
+}
+
+table.my-detail-view th, table.my-detail-view td
+{
+    font-size: 0.9em;
+    border: 1px white solid;
+    padding: 0.3em 0.6em;
+    vertical-align: top;
+    color: black;
+}
+
+table.my-detail-view th
+{
+    text-align: right;
+    width: 160px;
+}
+
+table.my-detail-view tr.odd
+{
+    background:#E5F1F4;
+}
+
+table.my-detail-view tr.even
+{
+    background:#F8F8F8;
+}
+
+table.my-detail-view tr.odd th
+{
+}
+
+table.my-detail-view tr.even th
+{
+}

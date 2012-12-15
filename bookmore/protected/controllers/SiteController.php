@@ -41,6 +41,7 @@ class SiteController extends Controller
             $params=array(':userId'=>Yii::app()->user->id);
             $dpArticle=new CActiveDataProvider('Web',
                     array(
+                            'pagination'=>array('pageSize'=>4),
                             'criteria'=>array(
                                     'join'=>$join,
                                     'params'=>$params,
@@ -54,6 +55,7 @@ class SiteController extends Controller
             $params=array(':userId'=>Yii::app()->user->id);
             $dpQueue=new CActiveDataProvider('Web',
             		array(
+                            'pagination'=>array('pageSize'=>4),
             				'criteria'=>array(
             						'join'=>$join,
             						'params'=>$params,

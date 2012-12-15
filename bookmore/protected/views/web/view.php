@@ -21,6 +21,7 @@ if ($this->isOwner($model->id)) {
 <?php
 $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
+	'htmlOptions'=>array('class'=>'my-detail-view'),
     'attributes'=>array(
         array(
             'label'=>Yii::t('bm','Name'),
@@ -33,7 +34,13 @@ $this->widget('zii.widgets.CDetailView', array(
             'label'=>Yii::t('bm','Privacy'),
             'value'=>($model->resource->privacy ? Yii::t('bm','Private') : Yii::t('bm','Public')),
         ),
-        'logo',
+        array(
+            'label'=>Yii::t('bm','Logo'),
+            'type'=>'raw',
+            'value'=>"<div class='normal-size'>".
+                        html_entity_decode(CHtml::image(Yii::app()->request->baseUrl.CHtml::encode($model->logo),CHtml::encode($model->resource->name))).
+                     "</div>",
+        ),
     ),
 ));
 
@@ -42,6 +49,7 @@ if ($waModel) {
     echo '<h2>'.Yii::t('bm','Account information').'</h2>';
     $this->widget('zii.widgets.CDetailView', array(
             'data'=>$waModel,
+            'htmlOptions'=>array('class'=>'my-detail-view'),
             'attributes'=>array(
                     'username',
                     'email',

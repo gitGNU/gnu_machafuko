@@ -9,7 +9,7 @@ if (!Yii::app()->user->isGuest) {
 ?>
 <div class="container">
 
-    <div class="span-12">
+    <div class="span-11 right-separator">
         <?php
         if ($dpArticle!=null) {
             $this->widget('zii.widgets.CListView', array(
@@ -25,7 +25,7 @@ if (!Yii::app()->user->isGuest) {
         ?>
     </div>
     
-    <div class="span-12 last">
+    <div class="span-11 last">
         <?php
         if ($dpQueue!=null) {
             $this->widget('zii.widgets.CListView', array(
