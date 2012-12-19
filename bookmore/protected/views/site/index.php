@@ -9,39 +9,45 @@ if (!Yii::app()->user->isGuest) {
 ?>
 <div class="container">
 
-    <div class="span-11 right-separator">
-        <?php
-        if ($dpArticle!=null) {
-            $this->widget('zii.widgets.CListView', array(
-                'dataProvider'=>$dpArticle,
-                'itemView'=>'//web/_view',
-                'itemsCssClass'=>'grid-container',
-                'emptyText'=>Yii::t('bm', 'There are not articles to read').'.',
-            ));
-        }
-        else {
-            echo Yii::t('bm', 'There are not articles to read').'.';
-        }
-        ?>
+    <div class="span-24 equalcolumns">
+    
+        <div class="span-11">
+            <?php
+            if ($dpArticle!=null) {
+                $this->widget('zii.widgets.CListView', array(
+                    'dataProvider'=>$dpArticle,
+                    'itemView'=>'//web/_view',
+                    'itemsCssClass'=>'grid-container',
+                    'emptyText'=>Yii::t('bm', 'There are not articles to read').'.',
+                ));
+            }
+            else {
+                echo Yii::t('bm', 'There are not articles to read').'.';
+            }
+            ?>
+        </div>
+        
+        <div class="span-1 separator">&nbsp;</div>
+        
+        <div class="span-11 last">
+            <?php
+            if ($dpQueue!=null) {
+                $this->widget('zii.widgets.CListView', array(
+                    'dataProvider'=>$dpQueue,
+                    'itemView'=>'//web/_view',
+                    'itemsCssClass'=>'grid-container',
+                    'emptyText'=>Yii::t('bm', 'There are not resources queued').'.',
+                ));
+            }
+            else {
+                echo Yii::t('bm', 'There are not resources queued').'.';
+            }
+            ?>
+        </div>
+    
     </div>
     
-    <div class="span-11 last">
-        <?php
-        if ($dpQueue!=null) {
-            $this->widget('zii.widgets.CListView', array(
-                'dataProvider'=>$dpQueue,
-                'itemView'=>'//resource/_view',
-                'itemsCssClass'=>'grid-container',
-                'emptyText'=>Yii::t('bm', 'There are not resources queued').'.',
-            ));
-        }
-        else {
-            echo Yii::t('bm', 'There are not resources queued').'.';
-        }
-        ?>
-    </div>
-    
-</div>
+</div><!-- container -->
 <?php
 }
 ?>

@@ -1,3 +1,9 @@
+2012-12-19 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/views/web/_import.php: It has added the queue button to queue webs when it imports bookmarks.
+	* bookmore/protected/controllers/WebController.php (actionImport): It has added the queue facility.
+	* bookmore/css/main.css: It has added a new class to create equal height columns.
+	* bookmore/protected/views/site/index.php: It has modified to fix a bug and creates three equals height columns.
+
 2012-12-15 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/css/mydetailview.css: It has added this CSS file to change detail view styles.
 	* bookmore/css/main.css: It has added new styles.

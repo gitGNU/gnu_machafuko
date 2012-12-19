@@ -50,8 +50,8 @@ class SiteController extends Controller
             
             // Queue resources.
             $join='join Resource r on (t.id=r.id) '.
-            		'join UserResource ur on (t.id=ur.res and ur.user=:userId)'.
-            		'join Queue q on (t.id=q.res)';
+                'join UserResource ur on (t.id=ur.res and ur.user=:userId)'.
+                'join Queue q on (t.id=q.res)';
             $params=array(':userId'=>Yii::app()->user->id);
             $dpQueue=new CActiveDataProvider('Web',
             		array(
@@ -59,11 +59,12 @@ class SiteController extends Controller
             				'criteria'=>array(
             						'join'=>$join,
             						'params'=>$params,
-            				),
-            		));
+            				        ),
+            		        ));
         }
         
-        $this->render('index', array('dpArticle'=>$dpArticle, 'dpQueue'=>$dpQueue));
+        $this->render('index', 
+                array('dpArticle'=>$dpArticle, 'dpQueue'=>$dpQueue));
     }
 
     /**

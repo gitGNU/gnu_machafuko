@@ -47,7 +47,8 @@
                             jQuery('#web-form-".$index."').ajaxvalidationmessages('show', html, '".$index."');
                         } else {
                             jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
-                            jQuery('#submit-".$index."').attr('disabled','disabled'); // I have added this line to disabled this button when this form will be saved.
+                            jQuery('#submit-".$index."').attr('disabled','disabled'); // I have added this line to disabled this button when this form will be saved/queued.
+                            jQuery('#queue-".$index."').attr('disabled','disabled');  // I have added this line to disabled this button when this form will be saved/queued.
                             jQuery('#error-".$index."').attr('class','flash-success');
                             jQuery('#error-".$index."').text('".Yii::t('bm','The web has been inserted')."');
                         }
@@ -62,6 +63,36 @@
                     }",
             ),
             array('id'=>'submit-'.$index,'name'=>'submit-'.$index,'disabled'=>$data->id?1:0) // I have added this line to change the id and name attribute.
+                                                                                             // Although, if $data have id it means that it have been saved.
+            );
+        ?>
+        
+        <?php
+        echo CHtml::ajaxSubmitButton(
+            Yii::t('bm','Queue'),
+            CHtml::normalizeUrl(array('importsave?queue=1')),
+            array(
+                'success'=>"function(html) {
+                        if (html.indexOf('{')==0) {
+                            jQuery('#web-form-".$index."').ajaxvalidationmessages('show', html, '".$index."');
+                        } else {
+                            jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
+                            jQuery('#submit-".$index."').attr('disabled','disabled'); // I have added this line to disabled this button when this form will be saved/queued.
+                            jQuery('#queue-".$index."').attr('disabled','disabled');  // I have added this line to disabled this button when this form will be saved/queued.
+                            jQuery('#error-".$index."').attr('class','flash-success');
+                            jQuery('#error-".$index."').text('".Yii::t('bm','The web has been inserted')."');
+                        }
+                    }",
+                'error'=>"function(html,textStatus,errorThrown) {
+                        jQuery('#web-form-".$index."').ajaxvalidationmessages('hide');
+                        if (errorThrown=='CDbException') {
+                            jQuery('#error-".$index."').attr('class','flash-error');
+                            jQuery('#error-".$index."').text('".Yii::t('bm','Database exception: does this site?')."');
+                        } else
+                            alert(html.responseText);
+                    }",
+            ),
+            array('id'=>'queue-'.$index,'name'=>'queue-'.$index,'disabled'=>$data->id?1:0) // I have added this line to change the id and name attribute.
                                                                                              // Although, if $data have id it means that it have been saved.
             );
         ?>

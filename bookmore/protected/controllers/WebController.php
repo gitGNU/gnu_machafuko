@@ -533,8 +533,19 @@ class WebController extends ResourceController
                                 $resArray[($page-1)*WebController::PAGESIZE+$index]=$res; // update the item changed...
                                 Yii::app()->cache->set('bmfile',$resArray); // caching contents...
                             }
-                            $trx->commit();
-                            Yii::app()->end();
+                            // If is queueing...
+                            if (isset($_GET['queue'])) {
+                                $queueModel=new Queue();
+                                $queueModel->res=$web->id;
+                                if ($queueModel->save()) {
+                                    $trx->commit();
+                                    Yii::app()->end();
+                                }
+                            }
+                            else {
+                                $trx->commit();
+                                Yii::app()->end();
+                            }
                         }
                     }
                 }
