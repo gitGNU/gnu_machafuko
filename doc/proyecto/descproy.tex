@@ -59,45 +59,24 @@ Este proyecto es, en realidad, un conjunto de proyectos que pretenden gestionar 
 Para todos estos subproyectos se va a emplear el patrón de diseño MVC (Model View Controller).
 
 \subsection{Criterios de codificación}
-A continuación se especifican los criterios que se deben seguir para codificar este programa. Dado que no hay unanimidad en PHP para la codificación del código, se emplearán unos criterios parecidos a los seguidos en la programación C/C++.
+El código se adaptará a las recomendaciones de estilo dadas por la \texttt{Framework Interop Group}, antes conocido como \texttt{PHP Standards Group}, conocidas como \texttt{PSR-0}, \texttt{PSR-1} y \texttt{PSR-2}. Estas recomendaciones pueden ser leídas en:
 \begin{itemize}
-\item Los nombres de los identificadores deben ser claros, cortos e informativos.
-\item Se separarán palabras con el carácter ``\_'' para todo tipo de identificadores (variables, constantes, nombres de función, nombres de clase, etc).
-\item Se usarán minúsculas en los nombres de variables, funciones, métodos y clases.
-\item Las variables globales comenzarán por el prefijo ``g\_'' (aunque se debe evitar su uso).
-\item Las constantes comenzarán con el carácter ``k'' (minúscula) seguido por el identificador en mayúsculas.
-\item El nombre de las clases que pertenezcan al controlador acabarán con el sufijo ``\_controller''.
-\item El nombre de las clases que pertenezcan al modelo acabarán con el sufijo ``\_model''.
+\item \url{https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md}
+\item \url{https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md}
+\item \url{https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md}
 \end{itemize}
 
+Existe una herramienta, \texttt{PHP Coding Standard Fixing}, que modifica automáticamente el código fuente para adaptarlo a los estándares mencionados arriba. Esta herramienta puede ser descargada en: \url{http://cs.sensiolabs.org}.
+
 \subsection{Estructura de directorios}
-El proyecto consta de un fichero ``index.html'' que nos llevará a cada uno de los subproyectos mencionados y que tendrán, todos ellos, la siguiente estructura de directorios:
-\begin{itemize}
-\item \textbf{doc}: en este directorio se almacenará toda la documentación del proyecto.
-\item \textbf{po}: los archivos de localización e internacionalización.
-\item \textbf{db}: todos los archivos relacionados con la base de datos (backups, sql, etc).
-\item \textbf{log}: los logs que genere la aplicación (sobre todo para la depuración).
-\item \textbf{tmp}: para que la aplicación pueda almacenar archivos temporales.
-\item \textbf{app}: aquí está la aplicación como tal.
-  \begin{itemize}
-  \item \textbf{include}: aquí dentro está el ``framework'', ``helpers'', ``utils'', ``decorator'', etc. Es decir, todo aquello considerado el ``núcleo'' del sistema.
-  \item \textbf{site}: directorio exclusivo para los diseñadore, es decir, la parte estática del sistema.
-    \begin{itemize}
-    \item \textbf{css}: los estilos.
-    \item \textbf{img}: las imágenes.
-    \item \textbf{js}: el JavaScript.
-    \item \textbf{html}: ficheros HTML generales.
-      \begin{itemize}
-      \item \textbf{tpl}: plantillas HTML generales.
-      \end{itemize}
-    \end{itemize}
-  \item \textbf{modules}: los módulos de la aplicación (el modelo). Cada modelo tiene su directorio \textbf{tpl} con la/s página/s o template/s.
-  \end{itemize}
-\end{itemize}
+El proyecto consta de un fichero ``index.html'' que nos llevará a cada uno de los subproyectos mencionados y que tendrán, todos ellos, la estructura de directorios de un proyecto que utiliza el framework \texttt{Yii Framework}.
 
 \section{Proyectos}
 Las diferentes partes de que consta la aplicación y su descripción se detallan en los siguientes apartados.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UTAMADUNI.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Utamaduni}
 \subsubsection{Libros}
 Esta parte de la aplicación permitirá gestionar la información de los libros que se leen y se requieren:
@@ -122,6 +101,9 @@ Interesa almacenar frases célebres que pueden haber sido obtenidas de película
 \end{itemize}
 Si ha sido sacada de alguno de los libros leídos se deberá indicar el libro y la página donde está esa frase o parte del libro.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AJENDA.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ajenda}
 \subsubsection{Contactos}
 En esta aplicación también se pueden almacenar contactos de los que se requiere:
@@ -159,13 +141,16 @@ De esta forma por cada entrada en el calendario se almacenará:
 \item E-mail o e-mails para enviar el recordatorio por e-mail.
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TARAJALI.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tarajali}
 \subsubsection{Trabajo}
 En el apartado de trabajo existen tres perfiles bien diferenciados que se pasan a describir en los siguientes apartados.
 
 \begin{itemize}
 \item \textbf{Administrador}.\\
-Puede crear/eliminar profesores/alumnado. Además será siempre un profesor. Es decir, el administrador será un profesor con permisos de administración y será configurado al inicio (al instalar la aplicación).
+Puede crear/eliminar profesores/alumnado. Es decir, el administrador será un profesor con permisos de administración y será configurado al inicio (al instalar la aplicación).
 
 \item \textbf{Profesor}.\\
 De los profesores se guardará:
@@ -174,14 +159,14 @@ De los profesores se guardará:
 \item E-mail.
 \item Usuario para el acceso al sistema.
 \item Contraseña para el acceso al sistema.
-\item Si es o no el administrador.
 \end{itemize}
 Cada profesor puede:
 \begin{itemize}
 \item Gestionar cursos y asignaturas. ¡OJO!, si se elimina un curso se eliminará también todo el alumnado de dicho curso, con todas sus notas, etc.
 \item Gestionar el alumnado.
 \item Gestionar notas (conceptos, procedimientos y actitudes).
-\item Gestionar exámenes, ejercicios, ejercicios online y prácticas.
+\item Gestionar material.
+\item Gestionar exámenes, ejercicios, ejercicios online, prácticas/trabajos, secuencias de aprendizaje, juegos online.
 \item Comunicarse con uno, varios o todo el alumnado de un curso.
 \item Compartir material con uno, varios o todo el alumnado de un curso.
 \item Corregir ejercicios/exámenes online dejando anotaciones por cada pregunta.
@@ -210,6 +195,54 @@ El estudiante puede realizar las siguientes acciones:
 \item Ver la nota de las prácticas corregidas por el profesor.
 \item Ver las entregas que ha realizado en cada práctica.
 \end{itemize}
+\end{itemize}
+
+\subsubsection{Notas}
+El profesor irá incluyendo notas a todos los ejercicios/trabajos/exámenes/comportamiento. Esas notas irán para el apartado de conceptos, procedimientos o actitudes. Al crear el curso, y en cualquier instante, el profesor dará pesos a estos tres apartados en porcentaje. El alumnado podrá ir viendo su progreso, sus notas, etc, por temas, ejercicios, etc.
+
+\subsubsection{Material}
+Este recurso permite crear una Wikipedia (libro). Existe la posibilidad de crear material libre o asociado a un tema concreto. De estos materiales se debe conocer el nombre, la descripción, el contenido en sí (con imágenes, vídeos, etc), se puede indicar si el alumnado puede modificar y participar en la creación del tema y la licencia.
+
+A este material puede acceder:
+\begin{itemize}
+\item \textbf{Profesorado}.\\
+El profesor puede gestionar materiales. Siempre se podrá ver la vista alumnado.
+\item \textbf{Alumnado}.\\
+El alumnado puede ver el material, descargárselo e incluso participar en la elaboración del tema si así se decidió.
+\end{itemize}
+
+\subsubsection{Ejercicios, exámenes, prácticas y trabajos}
+Se pueden enviar ejercicios/exámenes/prácticas/trabajos a través de la plataforma. Estos recursos consisten en la descripción del ejercicio/práctica/trabajo que hay que realizar con la posibilidad de subir un archivo con el resultado del mismo. La descripción sería tipo Wikipedia.
+
+A estos recursos pueden acceder tanto el profesorado como el alumnado:
+\begin{itemize}
+\item \textbf{Profesorado}.\\
+  El profesorado puede gestionar ejercicios, prácticas y/o trabajos y, además, puede ver el resultado tal como lo vería el alumnado. De estos hay que almacenar:
+  \begin{itemize}
+  \item El nombre.
+  \item La descripción de lo que hay que hacer. Esta descripción podrá tener imágenes, vídeos, etc. Es decir, será una descripción en formato Wikipedia.
+  \item La fecha de inicio y la fecha de finalización o de entrega.
+  \item Fecha de gracia, si la hay, que será posterior a la fecha de entrega, con la penalización.
+  \end{itemize}
+
+\item \textbf{Alumnado}.\\
+  El alumnado podrá hacer los ejercicios visibles y subir el archivo resultante.
+\end{itemize}
+
+\subsubsection{Ejercicios y exámenes online}
+Los ejercicios y exámenes online tienen una serie de preguntas asociadas, así existirá una batería de preguntas con la siguiente información:
+\begin{itemize}
+\item Nombre corto.
+\item Descripción del ejercicio (en formato Wikipedia) con posibilidad de fotos, vídeos, etc.
+\item Tipo de ejercicio:
+  \begin{itemize}
+  \item Respuesta corta: palabra o pocas palabras como resultado.
+  \item Respuesta larga: uno o varios párrafos.
+  \item Respuesta tipo test con una única respuesta válida: puede restar o no, con orientación o sin ella, con explicación o sin ella.
+  \item Respuesta tipo test con varias respuestas válidas: puede restar o no, con orientación o sin ella, con explicación o sin ella.
+  \item Completar huecos: como en la plataforma Claroline.
+  \end{itemize}
+\item Cada ejercicio debe acompañar respuesta para poder autocorregirse.
 \end{itemize}
 
 \end{document}

@@ -201,7 +201,8 @@ class ResourceController extends Controller
 
         // The guest users only can view public resources.
         if (Yii::app()->user->isGuest) {
-            $join='join UserResource ur on (t.id=ur.res and t.privacy=0)';
+            $join='join UserResource ur on (t.id=ur.res and t.privacy=0) '.
+                    'and t.id not in (select res from Queue)';
             $params=array();
             if ($id) {
                 $join.=' join TagResource tr on (t.id=tr.res and tr.tag=:tagId)';
@@ -217,7 +218,8 @@ class ResourceController extends Controller
         }
         // The registered users can view his/her resources and public resources.
         else {
-            $join='join UserResource ur on (t.id=ur.res and (t.privacy=0 or ur.user=:userId))';
+            $join='join UserResource ur on (t.id=ur.res and (t.privacy=0 or ur.user=:userId)) '.
+                    'and t.id not in (select res from Queue)';
             $params=array(':userId'=>Yii::app()->user->id);
             if ($id) {
                 $join.=' join TagResource tr on (t.id=tr.res and tr.tag=:tagId)';
@@ -295,6 +297,21 @@ class ResourceController extends Controller
             else
                 return false;
         }
+    }
+    
+    /**
+     * This function checks if the resource is queued.
+     *
+     * @param  string  $id the resource id.
+     * @return boolean this function returns true if this user is the resource $id owner.
+     */
+    protected function isQueued($id)
+    {    	
+        $model=Queue::model()->findByAttributes(array('res'=>$id));
+        if ($model)
+            return true;
+        else
+            return false;
     }
 
     /**

@@ -78,7 +78,7 @@ class WebController extends ResourceController
         }
 
         $this->render('view',array(
-            'model'=>$this->loadModel($id),'waModel'=>$waModel,
+            'model'=>$model,'waModel'=>$waModel,
         ));
     }
 
@@ -184,8 +184,9 @@ class WebController extends ResourceController
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
+     * @param boolean $queue specify if it is queue
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $queue=false)
     {
         $model=$this->loadModel($id);
         $resModel=$model->resource;
@@ -233,6 +234,12 @@ class WebController extends ResourceController
                 }
 
                 if ($continue) {
+                    // If it is queued, it deletes it.
+                    if ($queue) {
+                        $queueModel=Queue::model()->findByAttributes(array("res"=>$id));
+                        $queueModel->delete();
+                    }
+                    
                     if ($resModel->save()) {
                         // It saves Tag and TagResource.
                         $tags=preg_split ("/[\s]*[,][\s]*/", $resModel->tag);
@@ -375,7 +382,8 @@ class WebController extends ResourceController
 
         // The guest users only can view public resources.
         if (Yii::app()->user->isGuest) {
-            $join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res and r.privacy=0)';
+            $join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res and r.privacy=0) '.
+                'and t.id not in (select res from Queue)';
             $params=array();
             if ($id) {
                 $join.=' join TagResource tr on (t.id=tr.res and tr.tag=:tagId)';
@@ -391,7 +399,8 @@ class WebController extends ResourceController
         }
         // The registered users can view his/her resources and public resources.
         else {
-            $join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res and (r.privacy=0 or ur.user=:userId))';
+            $join='join Resource r on (t.id=r.id) join UserResource ur on (t.id=ur.res and (r.privacy=0 or ur.user=:userId)) '.
+                'and t.id not in (select res from Queue)';
             $params=array(':userId'=>Yii::app()->user->id);
             if ($id) {
                 $join.=' join TagResource tr on (t.id=tr.res and tr.tag=:tagId)';
