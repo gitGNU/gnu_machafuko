@@ -145,7 +145,7 @@ class WebController extends ResourceController
                         if ($usrModel->save()) {
                             // Tries to upload file.
                             $file=Yii::app()->file;
-                            if($file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id))
+                            if($file->saveAs($model,'logo',Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['logodir'].'/'.$resModel->id))
                                 $model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
                             else
                                 $model->logo='';
@@ -257,7 +257,7 @@ class WebController extends ResourceController
 
                         // Tries to upload file.
                         $file=Yii::app()->file;
-                        if ($file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').Yii::app()->params['logodir'].'/'.$resModel->id)) {
+                        if ($file->moveAs($model,'logo',Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['logodir'].'/'.$resModel->id)) {
                             $model->logo=Yii::app()->params['logodir'].'/'.$resModel->id.'/'.$file->basename;
                             $attr=array('id','logo','account');
                         } else
@@ -305,12 +305,36 @@ class WebController extends ResourceController
     {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
-            $model=parent::loadModel($id);
+            $model=$this->loadModel($id);
+            $modelParent=parent::loadModel($id);
             // Delete the logo (if exists).
             if (!empty($model->logo)) {
                 Yii::app()->file->deleteFile($model->logo);
             }
-            $model->delete();
+
+            // It deletes the web and the web account.
+            $trx=$model->getDbConnection()->beginTransaction();
+            try {
+            	if($modelParent->delete()) {
+            	    if ($model->webAccount instanceof WebAccount) {
+            			if (!$model->webAccount->delete()) {
+            				throw new CDbException(Yii::t('It has not been able to delete the web account from resource').": '".$id."'");
+            			}
+            	    }
+            	} else {
+            		throw new CDbException(Yii::t('It has not been able to delete the resource').": '".$id."'");
+            	}
+            
+            	// Commit.
+            	$trx->commit();
+            
+            	// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            	if(!isset($_GET['ajax']))
+            		$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+            } catch (CException $e) {
+            	$trx->rollback();
+            	throw $e;
+            }
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if(!isset($_GET['ajax']))
@@ -457,7 +481,7 @@ class WebController extends ResourceController
             if ($model->validate()) {
                 // It gets the file uploaded.
                 $file=Yii::app()->file;
-                $file->saveAs($model,'bmFile',Yii::getPathOfAlias('webroot').Yii::app()->params['tmpdir']);
+                $file->saveAs($model,'bmFile',Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['tmpdir']);
 
                 // It gets the array with bookmarks throught CNetscapeBookmarkFormatParser class.
                 $parser=Yii::app()->bmparser;

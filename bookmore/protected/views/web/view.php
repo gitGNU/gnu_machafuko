@@ -47,7 +47,7 @@ $this->widget('zii.widgets.CDetailView', array(
             'label'=>Yii::t('bm','Logo'),
             'type'=>'raw',
             'value'=>"<div class='normal-size'>".
-                        html_entity_decode(CHtml::image(Yii::app()->request->baseUrl.CHtml::encode($model->logo),CHtml::encode($model->resource->name))).
+                        html_entity_decode(CHtml::image(Yii::app()->request->baseUrl.'/'.CHtml::encode($model->logo),CHtml::encode($model->resource->name))).
                      "</div>",
         ),
     ),

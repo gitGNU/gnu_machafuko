@@ -20,6 +20,7 @@ if ($this->isOwner($model->id)) {
 
 <?php $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
+	'htmlOptions'=>array('class'=>'my-detail-view'),
     'attributes'=>array(
         array(
             'label'=>Yii::t('bm','Name'),

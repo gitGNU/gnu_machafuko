@@ -96,7 +96,7 @@ class DocumentController extends ResourceController
 
                 // Tries to upload file.
                 $file=Yii::app()->file;
-                $file->saveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created);
+                $file->saveAs($model,'mimeType',Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['docdir'].'/'.$resModel->created);
 
                 // Get document model attributes.
                 $model->attributes=$_POST['Document'];
@@ -184,7 +184,7 @@ class DocumentController extends ResourceController
 
                 // Tries to upload file.
                 $file=Yii::app()->file;
-                if ($file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').Yii::app()->params['docdir'].'/'.$resModel->created)) {
+                if ($file->moveAs($model,'mimeType',Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['docdir'].'/'.$resModel->created)) {
                     $resModel->uri=Yii::app()->params['docdir'].'/'.$resModel->created.'/'.$file->basename;
                     $attrRes=array('id','uri','name','description','created','privacy');
                     $attrDoc=array('id','mimeType','extension');
@@ -397,7 +397,7 @@ class DocumentController extends ResourceController
      */
     public function actionDownload($doc,$name)
     {
-        Yii::app()->request->sendFile($name,file_get_contents(Yii::getPathOfAlias('webroot').$doc));
+        Yii::app()->request->sendFile($name,file_get_contents(Yii::getPathOfAlias('webroot').'/'.$doc));
     }
 
     /**

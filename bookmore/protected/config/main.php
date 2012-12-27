@@ -72,11 +72,11 @@ return array(
                     'levels'=>'error, warning',
                 ),
                 // uncomment the following to show log messages on web pages
-                
+                /*
                 array(
                     'class'=>'CWebLogRoute',
                 ),
-                
+                */
             ),
         ),
         'file'=>array(
@@ -92,9 +92,9 @@ return array(
     'params'=>array(
         // this is used in contact page
         'adminEmail'=>'rgmf@riseup.net',
-        'docdir'=>'/protected/upload/documents',
-        'logodir'=>'/protected/upload/logos',
-        'tmpdir'=>'/protected/upload/tmp',
+        'docdir'=>'protected/upload/documents',
+        'logodir'=>'protected/upload/logos',
+        'tmpdir'=>'protected/upload/tmp',
         'mimeImg'=>array(
                         'application/zip'=>'/images/mime/background.jpg',
                     'text/plain'=>'/images/mime/background.jpg',
