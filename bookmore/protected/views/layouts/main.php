@@ -23,8 +23,8 @@
 
     <div class="header-container" id="header">
         <div class="container">
-            <div class="span-8" id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-            <div class="span-15" id="menu">
+            <div class="span-6" id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+            <div class="span-17" id="menu">
                 <div class="span-5" id="mainmenu">
                     <span id="menuheader"><?php echo Yii::t('bm','Information'); ?></span>
                     <?php $this->widget('zii.widgets.CMenu',array(
@@ -46,7 +46,7 @@
                     )); ?>
                 </div><!-- menu block -->
 
-                <div class="span-3 last" id="mainmenu">
+                <div class="span-5 last" id="mainmenu">
                     <span id="menuheader"><?php echo Yii::t('bm','Connect'); ?></span>
                     <?php $this->widget('zii.widgets.CMenu',array(
                     'items'=>array(
