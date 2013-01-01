@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 if ($this->isQueued($model->id)) {
     $this->menu=array(
     		array('label'=>Yii::t('bm','Update Web'),'url'=>array('update', 'id'=>$model->id, 'queue'=>true)),
-    		array('label'=>Yii::t('bm','Delete Web'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+    		array('label'=>Yii::t('bm','Delete Web'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('bm', 'Are you sure you want to delete this item?'))),
     );
 }
 else {
@@ -15,7 +15,7 @@ else {
         $this->menu=array(
             array('label'=>Yii::t('bm','Create Web'),'url'=>array('create')),
             array('label'=>Yii::t('bm','Update Web'),'url'=>array('update', 'id'=>$model->id)),
-            array('label'=>Yii::t('bm','Delete Web'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+            array('label'=>Yii::t('bm','Delete Web'),'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('bm', 'Are you sure you want to delete this item?'))),
         );
     }
     else {

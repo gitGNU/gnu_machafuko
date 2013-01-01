@@ -224,7 +224,7 @@ class WebController extends ResourceController
                 // the relations with web.
                 if (!empty($waModel->id) || !empty($waModel->username) || !empty($waModel->email) || !empty($waModel->password)) {
                     $waModel->scenario='update';
-                    $attr=empty($waModel->rawPassword)?array('id','username','email'):array('id','username','email','password');
+                    $attr=empty($waModel->rawPassword)?array('id','username','email'):array('id','username','email','password','passwordRepeat');
                     if($waModel->save($attr))
                         $model->webAccount=$waModel;
                     else {

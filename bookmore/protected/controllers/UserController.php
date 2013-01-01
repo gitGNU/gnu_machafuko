@@ -25,19 +25,21 @@ class UserController extends Controller
      */
     public function accessRules()
     {
+        $paramId=Yii::app()->request->getParam('id');
+        $userId=Yii::app()->user->id;
+
         return array(
-            /*array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view'),
-                'users'=>array('*'),
-            ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('create','update'),
+            // The users logged can view, update and delete his/her information.
+            array('allow',
+                'actions'=>array('view', 'update', 'delete'),
                 'users'=>array('@'),
+                'expression'=>'Yii::app()->user->id===Yii::app()->request->getParam("id")',
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete'),
-                'users'=>array('admin'),
-            ),*/
+            // The guests can register.
+            array('allow',
+                'actions'=>array('create'),
+                'expression'=>'$user->isGuest',
+            ),
             array('deny',  // deny all users
                 'users'=>array('*'),
             ),
@@ -91,7 +93,11 @@ class UserController extends Controller
 
         if (isset($_POST['User'])) {
             $model->attributes=$_POST['User'];
-            if($model->save())
+            if(empty($model->rawPassword))
+                $attr=array('username', 'email');
+            else
+                $attr=array('username', 'email', 'password', 'passwordRepeat');
+            if($model->save(true, $attr))
                 $this->redirect(array('view','id'=>$model->id));
         }
 
@@ -113,7 +119,7 @@ class UserController extends Controller
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if(!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(array('site/logout'));
         } else
             throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
     }

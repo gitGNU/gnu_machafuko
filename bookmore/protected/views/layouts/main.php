@@ -51,8 +51,10 @@
                     <?php $this->widget('zii.widgets.CMenu',array(
                     'items'=>array(
                         array('label'=>Yii::t('bm', 'Contact'), 'url'=>array('/site/contact')),
+                        array('label'=>Yii::t('bm', 'Register'), 'url'=>array('/user/create'), 'visible'=>Yii::app()->user->isGuest),
+                        array('label'=>Yii::t('bm', 'Your profile').' ('.Yii::app()->user->name.')', 'url'=>array('/user/'.Yii::app()->user->id), 'visible'=>!Yii::app()->user->isGuest),
                         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                        array('label'=>Yii::t('bm', 'Logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                        array('label'=>Yii::t('bm', 'Logout'), 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
                     ),
                     )); ?>
                 </div><!-- menu block -->

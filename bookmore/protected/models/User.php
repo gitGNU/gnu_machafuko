@@ -15,6 +15,10 @@
  */
 class User extends CActiveRecord
 {
+    public $emailRepeat;
+    public $passwordRepeat;
+    public $rawPassword;
+    
     /**
      * Returns the static model of the specified AR class.
      * @param  string $className active record class name.
@@ -41,8 +45,11 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, email, password', 'required'),
-            array('username, email, password', 'length', 'max'=>128),
+            array('username, email, emailRepeat, rawPassword, passwordRepeat', 'required'),
+            array('username, email, emailRepeat, rawPassword, passwordRepeat', 'length', 'max'=>128),
+            array('email', 'email'),
+            array('emailRepeat', 'compare', 'compareAttribute'=>'email'),
+            array('passwordRepeat', 'compare', 'compareAttribute'=>'rawPassword'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, username, email, password', 'safe', 'on'=>'search'),
@@ -69,12 +76,28 @@ class User extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'username' => 'Username',
-            'email' => 'E-mail',
-            'password' => 'Password',
+            'username' => Yii::t('bm', 'Username'),
+            'email' => Yii::t('bm', 'E-mail'),
+            'emailRepeat' => Yii::t('bm', 'Repeat e-mail'),
+            'passwordRepeat' => Yii::t('bm', 'Repeat password'),
+            'rawPassword' => Yii::t('bm', 'Password'),
         );
     }
 
+    /**
+     * Before save a user it needs to crypt password.
+     *
+     * @see CActiveRecord::beforeSave()
+     */
+    public function beforeSave()
+    {
+    	if (!empty($this->rawPassword)) {
+    		$this->password=md5($this->rawPassword);
+    	}
+    
+    	return parent::beforeSave();
+    }
+    
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
