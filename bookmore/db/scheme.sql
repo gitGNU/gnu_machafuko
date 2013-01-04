@@ -26,7 +26,7 @@ create table if not exists Queue (
        res int not null,
        priority int default null,
        constraint pk_queue primary key (id),
-       constraint fk_article_resource foreign key (res) references Resource (id) on delete cascade on update cascade,
+       constraint fk_queue_resource foreign key (res) references Resource (id) on delete cascade on update cascade,
        constraint fk_queue_priority foreign key (priority) references Priority (id) on delete set null on update cascade
 ) engine=innodb, charset=utf8;
 
