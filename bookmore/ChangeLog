@@ -1,3 +1,12 @@
+2013-01-20 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/WebController.php (actionExport): It has created this action to export bookmark webs.
+	* bookmore/protected/extensions/parser/bookmark/CNetscapeBookmarkFormatParser.php (createFile): It has created this method which create a Netscape Bookmark Format Parser file.
+	* bookmore/protected/extensions/parser/bookmark/CNetscapeBookmarkFormatParser.php (addBookmark): It has created this method which add a new bookmark information.
+	* bookmore/protected/extensions/parser/bookmark/CNetscapeBookmarkFormatParser.php (setBookmark): It has created this method which set bookmark property.
+	* bookmore/protected/views/web/index.php: It has added a new link (export link).
+	* bookmore/protected/messages/es/bm.php: It has added new entries.
+	* bookmore/protected/messages/es-es/bm.php: It has added new entries.
+
 2012-12-20 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionUpdate): It has added a extra parameter which specify if it is queued or not. If is queued it will delete when update.
 	* bookmore/protected/controllers/WebController.php (actionIndex): It has added the condition: and t.id not in (select res from Queue).
