@@ -98,6 +98,48 @@ class CNetscapeBookmarkFormatParser extends CApplicationComponent
             }
         }
     }
+    
+    /**
+     * It creates and writes a file with _bookmark information.
+     * 
+     * @return true if the file was create or false if there was error.
+     */
+    public function createFile($path, $name="bookmark", $ext="html")
+    {
+        // If path does not finished at '/' it adds this.
+        $lastCharacter=substr($path, -1);
+        if ($lastCharacter!='/')
+            $path.='/';
+        
+        // Create the file.
+        if ($handle=fopen($path.$name.'.'.$ext, 'w')) {
+            // Write the head.
+            fwrite($handle, '<!DOCTYPE NETSCAPE-Bookmark-file-1>'.PHP_EOL.
+                    '<!-- This is an automatically generated file by Bookmore.'.
+                    ' It will not be edit'.PHP_EOL.
+                    '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; '.
+                    'charset=UTF-8">'.PHP_EOL.
+                    '<TITLE>'.$name.'</TITLE>'.PHP_EOL.'<H1>'.$name.'</H1>'.
+                    PHP_EOL.'<DL><p>'.PHP_EOL
+            );
+            // Write all items.
+            foreach ($this->_bookmarks as $key=>$value) {
+                if (!is_array($value))
+                    throw new UnexpectedValueException(
+                            "The value of the bookmark has to be an array"
+                            );
+                fwrite($handle, '<DT><A HREF="'.$value['url'].'" TAGS="'.
+                    implode(",", $value['tags']).'">'.$value['name'].'</A><DD>'.
+                    $value['desc'].PHP_EOL);
+            }
+            // Close opened tags.
+            fwrite($handle, "</p></DL>");
+            fclose($handle);
+            return true;
+        }
+        
+        return false; 
+    }
 
     /**
      * It reads a tag and load its information into $_tag.
@@ -223,10 +265,36 @@ class CNetscapeBookmarkFormatParser extends CApplicationComponent
     }
 
     /**
-     *
+     * Return the _bookmark attribute.
      */
     public function getBookmarks()
     {
         return $this->_bookmarks;
+    }
+    
+    /**
+     * Set the bookmark attribute.
+     */
+    public function setBookmarks($bookmark)
+    {
+        $this->_bookmarks=$bookmark;
+    }
+    
+    /**
+     * Queue a new bookmark.
+     * 
+     * @param string $url the bookmark url.
+     * @param string $name the name of the bookmark.
+     * @param string $desc a description (optional).
+     * @param array $tags is an array of tags (optional).
+     */
+    public function addBookmark($url, $name, $desc='', array $tags=array())
+    {
+        $this->_bookmarks[]=array(
+                'url'=>$url,
+                'name'=>$name,
+                'desc'=>$desc,
+                'tags'=>$tags,
+                );
     }
 }

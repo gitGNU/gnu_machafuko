@@ -19,7 +19,7 @@
  * @version $Id: $
  */
 return array (
-  'Your profile' => 'Tu perfil',
+  'Export' => 'Exportar',
   'About' => 'Quienes somos',
   'Account' => 'Cuenta',
   'Account information' => 'Cuenta de usuario para esta web',
@@ -109,6 +109,7 @@ return array (
   'Welcome to' => 'Bienvenido a',
   'You can not access to that resource' => 'No puedes acceder al recurso',
   'You may optionally enter a comparison operator' => 'Usted puede, opcionalmente, introducir un operador de comparación',
+  'Your profile' => 'Tu perfil',
   'are required' => 'son obligatorios',
   'at the beginning of each of your search values to specify how the comparison should be done' => 'al principio de cada una de sus búsquedas para indicar cómo debería hacerse la comparación',
   'if it is an article you can queue it to read later. Would you like?' => 'si es un artículo puedes encolarlo y leer más tarde. ¿Te gustaría?',

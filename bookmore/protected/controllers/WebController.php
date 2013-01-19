@@ -38,15 +38,16 @@ class WebController extends ResourceController
     {
         return array(
             array('allow',  // all users can...
-                'actions'=>array('index','view','searchbytag'),
+                'actions'=>array('index', 'view', 'searchbytag'),
                 'users'=>array('*'),
             ),
             array('allow', // all users with accounts can...
-                'actions'=>array('admin', 'create','update','import','importsave','searchbytag'),
+                'actions'=>array('admin', 'create', 'update', 'import',
+                        'importsave', 'export', 'searchbytag'),
                 'users'=>array('@'),
             ),
             array('allow', // the own user can...
-                'actions'=>array('delete','update'),
+                'actions'=>array('delete', 'update'),
                 'expression'=>'ResourceController::isOwner()',
             ),
             array('deny',  // deny all users
@@ -588,6 +589,33 @@ class WebController extends ResourceController
                 throw $e;
             }
         }
+    }
+
+    /**
+     * Export all web resources to a netscape bookmark format file.
+     */
+    public function actionExport()
+    {
+        $criteria=new CDbCriteria();
+        $criteria->join='join UserResource ur on ur.user=:user and ur.res=t.id';
+        $criteria->params=array(':user'=>Yii::app()->user->id);
+        $webs=Web::model()->findAll($criteria);
+        if ($webs) {
+            $parser=Yii::app()->bmparser; // CNetscapeBookmarkFormatParser.
+            foreach ($webs as $web) {
+                $tags=array();
+                foreach($web->resource->tagResources as $tr)
+                    $tags[]=$tr->tagModel->name;
+                $parser->addBookmark($web->resource->uri, $web->resource->name,
+                        $web->resource->description, $tags);
+            }
+            $parser->createFile(Yii::getPathOfAlias('webroot').'/'.
+                    Yii::app()->params['tmpdir'], 'bookmark', 'html');
+            Yii::app()->request->sendFile('bookmark.html',
+                    file_get_contents(Yii::getPathOfAlias('webroot').'/'.
+                    Yii::app()->params['tmpdir'].'/bookmark.html'));
+        }
+        exit();
     }
 
     /**

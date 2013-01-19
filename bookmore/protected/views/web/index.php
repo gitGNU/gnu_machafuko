@@ -4,9 +4,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>Yii::t('bm','Create Web'),'url'=>array('create')),
-    array('label'=>Yii::t('bm','Manage Web'),'url'=>array('admin')),
-    array('label'=>Yii::t('bm','Import'),'url'=>array('import')),
+    array('label'=>Yii::t('bm', 'Create Web'), 'url'=>array('create')),
+    array('label'=>Yii::t('bm', 'Manage Web'), 'url'=>array('admin')),
+    array('label'=>Yii::t('bm', 'Import'), 'url'=>array('import')),
+    array('label'=>Yii::t('bm', 'Export'), 'url'=>array('export')),
 );
 ?>
 
