@@ -156,6 +156,7 @@ class WebController extends ResourceController
                                 if (isset($_POST['Article']) && isset($_POST['isarticle'])) {
                                     $articleModel->res=$resModel->id;
                                     $articleModel->priority=$_POST['Article']['priority'];
+                                    $articleModel->readed=$_POST['Article']['readed'];
                                     if ($articleModel->save()) {
                                         $trx->commit();
                                         $this->redirect(array('view','id'=>$model->id));
@@ -216,7 +217,10 @@ class WebController extends ResourceController
             $model->attributes=$_POST['Web'];
             $resModel->attributes=$_POST['Resource'];
             $resModel->tag=$_POST['Resource']['tag'];
-            $articleModel->priority=isset($_POST['Article'])?$_POST['Article']['priority']:'';
+            if (isset($_POST['Article'])) {
+                $articleModel->priority=$_POST['Article']['priority'];
+                $articleModel->readed=$_POST['Article']['readed'];
+            }
             $articleModel->isarticle=isset($_POST['isarticle'])?$_POST['isarticle']:'';
 
             $trx=$model->getDbConnection()->beginTransaction();

@@ -58,7 +58,7 @@
 
             <?php if (!empty($model->logo)) { ?>
             <div class="row">
-                 <?php echo CHtml::image(Yii::app()->request->baseUrl.$model->logo,'image',array('width'=>200)); ?>
+                 <?php echo CHtml::image(Yii::app()->request->baseUrl.'/'.$model->logo,'image',array('width'=>200)); ?>
             </div>
             <?php } ?>
 
@@ -100,14 +100,18 @@
                 <input type="checkbox" name="isarticle" id="isarticle" <?php if($articleModel->id || $articleModel->isarticle) echo "checked"; ?> />
                 <?php echo Yii::t('bm','if it is an article you can queue it to read later. Would you like?'); ?>
             </div>
+            
+            <div class="row">
+                <?php
+                    echo $form->checkBox($articleModel, 'readed');
+                    echo ' '.Yii::t('bm', 'check it if the article has been readed');
+                ?>
+            </div>
 
             <div class="row">
                 <?php echo $form->labelEx($articleModel,'priority'); ?>
                 <?php
-                    if(!$articleModel->isarticle)
-                        echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'),array('disabled'=>'true'));
-                    else
-                        echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'));
+                    echo $form->dropDownList($articleModel,'priority',CHtml::listData($articleModel->priorityobj,'id','name'));
                 ?>
                 <?php echo $form->error($articleModel,'priority'); ?>
             </div>

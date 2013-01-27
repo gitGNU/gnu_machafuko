@@ -9,15 +9,19 @@ Yii::app()->clientScript->registerScript('isarticle', "
 $('#isarticle').ready(function(){
     if ($('#isarticle:checked').val()) {
         $('#Article_priority').removeAttr('disabled');
+        $('#Article_readed').removeAttr('disabled');
     } else {
         $('#Article_priority').attr('disabled','disabled');
+        $('#Article_readed').attr('disabled','disabled');
     }
 });
 $('#isarticle').change(function(){
     if ($('#isarticle:checked').val()) {
         $('#Article_priority').removeAttr('disabled');
+        $('#Article_readed').removeAttr('disabled');
     } else {
         $('#Article_priority').attr('disabled','disabled');
+        $('#Article_readed').attr('disabled','disabled');
     }
 });
 ");

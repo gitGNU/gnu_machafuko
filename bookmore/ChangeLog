@@ -1,3 +1,9 @@
+2013-01-27 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/ArticleController.php (actionView, actionCreate, actionDelete, actionUpdate, actionAdmin): It has deleted these methods because are unused.
+	* bookmore/protected/views/web/_form.php: It has fixed a bug (before the logo did not see). Although, it has added readed field at form.
+	* bookmore/protected/views/web/update.php: It has modified the JQuery JavaScript code
+	* bookmore/protected/controllers/WebController.php (actionCreate, actionUpdate): It has added the readed option.
+
 2013-01-20 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/WebController.php (actionExport): It has created this action to export bookmark webs.
 	* bookmore/protected/extensions/parser/bookmark/CNetscapeBookmarkFormatParser.php (createFile): It has created this method which create a Netscape Bookmark Format Parser file.
