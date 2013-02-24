@@ -1,3 +1,22 @@
+2013-02-23 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/models/Tag.php (saveTags): Added this method to save tags and resource tags relation.
+	* bookmore/protected/models/MyHowTo.php: Changed the resource relation name.
+	* bookmore/protected/views/myHowTo/_form.php, bookmore/protected/views/myHowTo/_view.php, bookmore/protected/views/myHowTo/create.php, bookmore/protected/views/myHowTo/index.php, bookmore/protected/views/myHowTo/update.php, bookmore/protected/views/myHowTo/view.php: Changed this file to show correctly the index, view, create, delete and update actions of the how to.
+	* bookmore/protected/controllers/MyHowToController.php (accessRules, actionCreate, actionUpdate, actionDelete): Changed these methods to do these actions.
+
+2013-02-16 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/db/scheme.sql: Added a new table in wich to insert how to from scratch.
+	* bookmore/protected/controllers/MyHowToController.php: Added this new file.
+	* bookmore/protected/models/MyHowTo.php: Added this new file.
+	* bookmore/protected/views/myHowTo/_form.php: Added this new file.
+	* bookmore/protected/views/myHowTo/_search.php: Added this new file.
+	* bookmore/protected/views/myHowTo/_view.php: Added this new file.
+	* bookmore/protected/views/myHowTo/admin.php: Added this new file.
+	* bookmore/protected/views/myHowTo/create.php: Added this new file.
+	* bookmore/protected/views/myHowTo/index.php: Added this new file.
+	* bookmore/protected/views/myHowTo/update.php: Added this new file.
+	* bookmore/protected/views/myHowTo/view.php: Added this new file.
+
 2013-01-27 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/ArticleController.php (actionView, actionCreate, actionDelete, actionUpdate, actionAdmin): It has deleted these methods because are unused.
 	* bookmore/protected/views/web/_form.php: It has fixed a bug (before the logo did not see). Although, it has added readed field at form.

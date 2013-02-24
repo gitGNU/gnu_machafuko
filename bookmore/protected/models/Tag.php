@@ -85,6 +85,32 @@ class Tag extends CActiveRecord
             return parent::beforeSave();
         }
     }
+    
+    /**
+     * Split $tags by ',' character and save all tags.
+     * 
+     * @param string $tags a string with a list of tags split by ',' character.
+     * @param integer $resId the identifier of the resource.
+     * @param boolean $update this attribute specify if it is an update.
+     */
+    public function saveTags($tags, $resId, $update=false) {       
+		$tags=preg_split ("/[\s]*[,][\s]*/", $tags);
+		if ($update) {
+		    $trm=new TagResource();
+		    $trm->deleteAllByAttributes(array('res'=>$resId));
+		}
+		foreach ($tags as $t) {
+			$tm=new Tag();
+			$tm->name=strtolower($t);
+			$tm->save();
+			$trm=new TagResource();
+			$trm->res=$resId;
+			$trm->tag=$tm->id;
+			$trm->save();
+		}
+
+    	return true;
+    }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.

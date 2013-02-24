@@ -71,6 +71,14 @@ create table if not exists Document (
 ) engine=innodb, charset=utf8;
 
 
+create table if not exists MyHowTo (
+       id int auto_increment,
+       body longtext not null,
+       constraint pk_myhowto primary key (id),
+       constraint fk_myhowto_resource foreign key (id) references Resource (id) on delete cascade on update cascade
+) engine=innodb, charset=utf8;
+
+
 create table if not exists Tag (
        id int auto_increment,
        name varchar(50) not null,

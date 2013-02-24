@@ -42,6 +42,7 @@
                         array('label'=>Yii::t('bm', 'Bookmarks'), 'url'=>array('/resource/index')),
                         array('label'=>Yii::t('bm', 'Webs'), 'url'=>array('/web/index')),
                         array('label'=>Yii::t('bm', 'Documents'), 'url'=>array('/document/index')),
+                        array('label'=>Yii::t('bm', 'HowTo'), 'url'=>array('/myHowTo/index')),
                     ),
                     )); ?>
                 </div><!-- menu block -->
