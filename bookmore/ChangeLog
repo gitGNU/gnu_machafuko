@@ -1,3 +1,7 @@
+2013-03-02 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/extensions/krichtexteditor/*: Added this extensions that it uses to create rich textareas editors.
+	* bookmore/protected/views/MyHowTo/_form.php: Changed the body textarea. Now it uses the KRichTextEditor extension.
+
 2013-02-23 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/models/Tag.php (saveTags): Added this method to save tags and resource tags relation.
 	* bookmore/protected/models/MyHowTo.php: Changed the resource relation name.

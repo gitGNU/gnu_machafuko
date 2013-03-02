@@ -29,9 +29,21 @@
     </div>
 	
 	<div class="row">
-		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'body'); ?>
+	    <?php 
+	    Yii::import('ext.krichtexteditor.KRichTextEditor');
+	    
+	    echo $form->labelEx($model,'body');
+	    $this->widget('KRichTextEditor', array(
+	    		'model' => $model,
+	    		'value' => $model->isNewRecord ? '' : $model->body,
+	    		'attribute' => 'body',
+	    		'options' => array(
+	    				'theme_advanced_resizing' => 'true',
+	    				'theme_advanced_statusbar_location' => 'bottom',
+	    		),
+	    ));
+        echo $form->error($model,'body');
+	    ?>
 	</div>
 	
 	<div class="row">
