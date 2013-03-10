@@ -35,11 +35,10 @@ class SiteController extends Controller
     	// The guest users only can view public resources.
         if (!Yii::app()->user->isGuest) {
             // Articles.
-            $join='join Resource r on (t.id=r.id) '.
-                'join UserResource ur on (t.id=ur.res and ur.user=:userId)'.
+            $join='join UserResource ur on (t.id=ur.res and ur.user=:userId)'.
                 'join Article a on (t.id=a.res and a.readed=0)';
             $params=array(':userId'=>Yii::app()->user->id);
-            $dpArticle=new CActiveDataProvider('Web',
+            $dpArticle=new CActiveDataProvider('Resource',
                     array(
                             'pagination'=>array('pageSize'=>4),
                             'criteria'=>array(

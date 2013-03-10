@@ -42,7 +42,7 @@ return array (
   'Create' => 'Crear',
   'Create Document' => 'Nuevo documento',
   'Create Document Bookmark' => 'Nuevo documento favorito',
-  'Create MyHowTo' => 'Crear HowTo',
+  'Create MyHowTo' => 'Nuevo HowTo',
   'Create Web' => 'Nueva web favorita',
   'Create Web Bookmark' => 'Nueva web favorita',
   'Database exception: does this site?' => 'Excepción: ¿existe esta página web?',

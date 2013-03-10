@@ -1,3 +1,8 @@
+2013-03-10 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/controllers/SiteController.php (actionIndex): It has fixed a bug. Now it can view all article, documents and webs.
+	* bookmore/protected/view/site/index.php: It has fixed a bug. It has changed the itemView from //web/_view to //resource/_view.
+	* bookmore/protected/view/myHowTo/view.php: The body of the how to is showed in a different way.
+
 2013-03-02 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/extensions/krichtexteditor/*: Added this extensions that it uses to create rich textareas editors.
 	* bookmore/protected/views/MyHowTo/_form.php: Changed the body textarea. Now it uses the KRichTextEditor extension.

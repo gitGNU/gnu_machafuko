@@ -16,7 +16,7 @@ if (!Yii::app()->user->isGuest) {
             if ($dpArticle!=null) {
                 $this->widget('zii.widgets.CListView', array(
                     'dataProvider'=>$dpArticle,
-                    'itemView'=>'//web/_view',
+                    'itemView'=>'//resource/_view',
                     'itemsCssClass'=>'grid-container',
                     'emptyText'=>Yii::t('bm', 'There are not articles to read').'.',
                 ));

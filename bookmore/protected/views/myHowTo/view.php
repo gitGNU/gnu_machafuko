@@ -28,6 +28,10 @@ $this->menu=array(
         		'label'=>Yii::t('bm','Privacy'),
         		'value'=>($model->resource->privacy ? Yii::t('bm','Private') : Yii::t('bm','Public')),
         ),
-		'body',
+		//'body',
 	),
 )); ?>
+
+<p>
+<?php echo $model->body; ?>
+</p>
