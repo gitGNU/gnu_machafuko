@@ -59,6 +59,12 @@
                     ),
                     )); ?>
                 </div><!-- menu block -->
+
+                <div class="span-17" id="menusearch">
+                  <form id="search-form" action="<?php echo Yii::app()->urlManager->createUrl('resource/search'); ?>" method="post">
+                    <input class="searchtext" type="text" id="searchtext" name="searchtext" size="75" value="<?php echo Yii::t('bm', 'Search for a resource'); ?>" />
+                  </form>
+                </div><!-- search block -->
             </div><!-- menu -->
         </div><!-- container -->
         <div id="menu">&nbsp;</div>
@@ -84,5 +90,29 @@
         <?php echo Yii::powered(); ?>
     </div><!-- footer -->
 
+    <!-- This script manages the search input text -->
+    <?php Yii::app()->clientScript->registerCoreScript('jquery');  ?>
+    <script type="text/javascript">
+        var typed = 0;
+        var str;
+        $(document).ready(function(){
+            str = $("#searchtext").val();
+            $("#searchtext").focusout(function(){
+                text = $(this).val().replace(/^\s+|\s+$/g, '');
+                if (text) {
+                    $(this).val(text);
+                    typed = 1;
+                }
+                else {
+                    $(this).val(str);
+                    typed = 0;
+                }
+            });
+            $("#searchtext").focusin(function(){
+                if (!typed)
+                    $(this).val('');
+            });
+        })
+    </script>
 </body>
 </html>

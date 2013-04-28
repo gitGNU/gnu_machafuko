@@ -133,6 +133,26 @@ a:hover
 	font-family: Helvetica, sans-serif;
 }
 
+#menusearch
+{
+    text-align: center;
+}
+
+input.searchtext
+{
+    width:358px;
+    height:32px;
+    margin:20px 0 0 22px;
+    outline:none;
+    padding-left:20px;
+    border:0;
+    color:#a9a9bc;
+    font-size: 125%;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    border-radius: 3px;
+}
+
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;

@@ -33,7 +33,7 @@ class ResourceController extends Controller
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view','searchbytag'),
+                'actions'=>array('index','view','searchbytag', 'search'),
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create', 'update' and 'delete' actions
@@ -253,6 +253,24 @@ class ResourceController extends Controller
         $this->render('admin',array(
             'model'=>$model,
         ));
+    }
+
+    public function actionSearch()
+    {
+      $criteria = new CDbCriteria();
+      if ($search = Yii::app()->request->getParam('searchtext')) {
+        $criteria->compare('uri', $search, true, 'OR');
+        $criteria->compare('description', $search, true, 'OR');
+        $criteria->compare('name', $search, true, 'OR');
+        //        $dataProvider = new CActiveDataProvider('Resource', array('criteria'=>$criteria));
+      }
+      /*else {
+        $dataProvider = new CActiveDataProvider('Resource', array('data'=>array()));
+        }*/
+
+      $dataProvider = new CActiveDataProvider('Resource', array('criteria'=>$criteria));
+
+      $this->render('index', array('dataProvider'=>$dataProvider));
     }
 
     /**

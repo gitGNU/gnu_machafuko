@@ -24,7 +24,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($resModel,'tag'); ?>
-        <?php echo $form->textField($resModel,'tag',array('size'=>40,'maxlength'=>100)); ?>
+        <?php echo $form->textField($resModel,'tag',array('size'=>60,'maxlength'=>100)); ?>
         <?php echo $form->error($resModel,'tag'); ?>
     </div>
 	
