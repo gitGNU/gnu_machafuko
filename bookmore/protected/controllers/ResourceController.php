@@ -255,20 +255,31 @@ class ResourceController extends Controller
         ));
     }
 
+    /**
+     * Select all resources that matches with a search text.
+     */
     public function actionSearch()
     {
       $criteria = new CDbCriteria();
       if ($search = Yii::app()->request->getParam('searchtext')) {
+        if (Yii::app()->user->isGuest) {
+          $join = 'join UserResource ur on (t.id=ur.res and t.privacy=0)';
+          $params = array();
+        }
+        else {
+          $join = 'join UserResource ur on (t.id=ur.res and (t.privacy=0 or ' .
+            'ur.user=:userId))';
+          $params = array(':userId'=>Yii::app()->user->id);
+        }
+
+        $criteria->join = $join;
+        $criteria->params = $params;
         $criteria->compare('uri', $search, true, 'OR');
         $criteria->compare('description', $search, true, 'OR');
         $criteria->compare('name', $search, true, 'OR');
-        //        $dataProvider = new CActiveDataProvider('Resource', array('criteria'=>$criteria));
       }
-      /*else {
-        $dataProvider = new CActiveDataProvider('Resource', array('data'=>array()));
-        }*/
-
-      $dataProvider = new CActiveDataProvider('Resource', array('criteria'=>$criteria));
+      $dataProvider = new CActiveDataProvider('Resource', array('criteria'=>
+                                                                $criteria));
 
       $this->render('index', array('dataProvider'=>$dataProvider));
     }
