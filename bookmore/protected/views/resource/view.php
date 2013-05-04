@@ -14,16 +14,31 @@ $this->menu=array(
 
 <h1><?php echo Yii::t('bm','View Bookmark'); ?> #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+$dataView = array(
     'data'=>$model,
+    'htmlOptions'=>array('class'=>'my-detail-view'),
     'attributes'=>array(
-        'id',
-        'uri',
-        'name',
+        array(
+            'label'=>Yii::t('bm','Name'),
+            'type'=>'raw',
+            'value'=>CHtml::link(CHtml::encode($model->name),$model->uri,array('target'=>'_blank')),
+        ),
         'description',
         'created',
-        'privacy',
-        'web.logo',
-        'document.mimeType',
+        array(
+            'label'=>Yii::t('bm','Privacy'),
+            'value'=>($model->privacy ? Yii::t('bm','Private') : Yii::t('bm','Public')),
+        ),
     ),
-));
+);
+if (isset($model->web))
+  $dataView['attributes'][] = 
+        array(
+            'label'=>Yii::t('bm','Logo'),
+            'type'=>'raw',
+            'value'=>"<div class='normal-size'>".
+                        html_entity_decode(CHtml::image(Yii::app()->request->baseUrl.'/'.CHtml::encode($model->web->logo),CHtml::encode($model->name))).
+                     "</div>",
+        );
+$this->widget('zii.widgets.CDetailView', $dataView);

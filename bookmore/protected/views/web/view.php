@@ -30,7 +30,7 @@ else {
 <?php
 $this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
-	'htmlOptions'=>array('class'=>'my-detail-view'),
+    'htmlOptions'=>array('class'=>'my-detail-view'),
     'attributes'=>array(
         array(
             'label'=>Yii::t('bm','Name'),

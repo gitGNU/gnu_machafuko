@@ -1,6 +1,8 @@
 2013-05-04 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/ResourceController.php (actionSearch): It has created this method that doing a general search.
 	* bookmore/protected/views/layout/main.php: It has added a input to search resources from every site.
+	* bookmore/protected/controllers/WebController.php (actionUpdate): It has fixed an important bug.
+	* bookmore/protected/views/resource/view.php: It has changed the style of this section to adapt to web and document view pages.
 
 2013-03-10 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/controllers/SiteController.php (actionIndex): It has fixed a bug. Now it can view all article, documents and webs.

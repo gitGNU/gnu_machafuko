@@ -217,7 +217,9 @@ class WebController extends ResourceController
             $model->attributes=$_POST['Web'];
             $resModel->attributes=$_POST['Resource'];
             $resModel->tag=$_POST['Resource']['tag'];
-            if (isset($_POST['Article'])) {
+            if (isset($_POST['Article']) &&
+                isset($_POST['Article']['priority']) &&
+                isset($_POST['Article']['readed'])) {
                 $articleModel->priority=$_POST['Article']['priority'];
                 $articleModel->readed=$_POST['Article']['readed'];
             }
