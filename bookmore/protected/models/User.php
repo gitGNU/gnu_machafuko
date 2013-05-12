@@ -92,7 +92,8 @@ class User extends CActiveRecord
     public function beforeSave()
     {
     	if (!empty($this->rawPassword)) {
-    		$this->password=md5($this->rawPassword);
+          $bcrypt = new BCrypt();
+          $this->password=$bcrypt->hash($this->rawPassword);
     	}
     
     	return parent::beforeSave();

@@ -100,9 +100,9 @@ create table if not exists TagResource (
 
 create table if not exists User (
        id int auto_increment,
-       username varchar(128) not null,
+       username varchar(20) not null,
        email varchar(128) not null,
-       password varchar(128) not null,
+       password varchar(512) not null,
        constraint pk_webaccount primary key (id),
        constraint un_user1 unique (username),
        constraint un_user2 unique (email)

@@ -11,31 +11,31 @@
 
     <div class="row">
         <?php echo $form->labelEx($model,'username'); ?>
-        <?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>20)); ?>
         <?php echo $form->error($model,'username'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model,'email'); ?>
-        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>50)); ?>
         <?php echo $form->error($model,'email'); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model,'emailRepeat'); ?>
-        <?php echo $form->textField($model,'emailRepeat',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->textField($model,'emailRepeat',array('size'=>60,'maxlength'=>50)); ?>
         <?php echo $form->error($model,'emailRepeat'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model,'rawPassword'); ?>
-        <?php echo $form->passwordField($model,'rawPassword',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->passwordField($model,'rawPassword',array('size'=>60,'maxlength'=>20)); ?>
         <?php echo $form->error($model,'rawPassword'); ?>
     </div>
     
     <div class="row">
         <?php echo $form->labelEx($model,'passwordRepeat'); ?>
-        <?php echo $form->passwordField($model,'passwordRepeat',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->passwordField($model,'passwordRepeat',array('size'=>60,'maxlength'=>20)); ?>
         <?php echo $form->error($model,'passwordRepeat'); ?>
     </div>
 

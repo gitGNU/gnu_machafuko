@@ -17,6 +17,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'application.controllers.*', // add for me
+        'application.vendors.*', // add for me
     ),
     /*
     'modules'=>array(
