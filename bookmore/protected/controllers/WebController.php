@@ -127,7 +127,7 @@ class WebController extends ResourceController
 
                 // If it can continues...
                 if ($continue) {
-                    // It resource, web, tags and tag resources.
+                    // It saves resource, web, tags and tag resources.
                     if ($resModel->save()) {
                         // It saves Tag and TagResource.
                         $tags=preg_split ("/[\s]*[,][\s]*/", $resModel->tag);

@@ -60,7 +60,8 @@ class Resource extends CActiveRecord
             array('uri, description', 'length', 'max'=>200),
             array('name', 'length', 'max'=>100),
             array('created', 'date', 'format'=>array('d-M-yyyy', 'yyyy-M-d')),
-            array('uri', 'uniqueValidator'),
+            array('uri', 'checkMyUnique'),
+            //array('uri', 'uniqueValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, uri, name, description, created, privacy', 'safe', 'on'=>'search'),
@@ -99,6 +100,19 @@ class Resource extends CActiveRecord
             'mimeType' => Yii::t('bm', 'Mime type'),
             'tag' => Yii::t('bm', 'Tags'),
         );
+    }
+
+    /**
+     * It checks if the URI exist into Resource table to the user id.
+     */
+    public function checkMyUnique($attribute, $params)
+    {
+      $criteria = new CDbCriteria;
+      $criteria->join = 'join UserResource ur on (t.id = ur.res and ur.user = :userId and t.uri = :uri)';
+      $criteria->params = array(':userId'=>Yii::app()->user->id, ':uri'=>$this->uri);
+      if ($this->find($criteria))
+        $this->addError($attribute, $attribute . ' ' . 
+                        Yii::t('bm', 'must be unique to the user'));
     }
 
     /**
