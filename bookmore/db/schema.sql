@@ -45,7 +45,7 @@ create table if not exists WebAccount (
        id int auto_increment,
        username varchar(128) not null,
        email varchar(128) not null,
-       password varchar(128) not null,
+       password varchar(512) not null,
        constraint pk_webaccount primary key (id)
 ) engine=innodb, charset=utf8;
 

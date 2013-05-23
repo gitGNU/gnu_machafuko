@@ -1,3 +1,7 @@
+2013-05-23 Román Ginés Martínez Ferrández <rgmf@riseup.net>
+	* bookmore/protected/db/schema.sql: It has changed the size of the password field of he WebAccount table.
+	* bookmore/protected/models/WebAccount.php (beforeSave): It uses th bcrypt strategy to save password into database.
+
 2013-05-12 Román Ginés Martínez Ferrández <rgmf@riseup.net>
 	* bookmore/protected/db/schema.sql: It has changed the size of some fields of he User table.
 	* bookmore/protected/vendors/BCrypt.php: It has created this class that validate and authenticate through bcrypt (a blowfish hashing method).

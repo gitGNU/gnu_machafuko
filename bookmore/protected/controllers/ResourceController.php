@@ -313,7 +313,6 @@ class ResourceController extends Controller
         }
 
         if(Yii::app()->user->isGuest)
-
             return false;
         else {
             //$model=$this->loadModel($id);
@@ -321,7 +320,6 @@ class ResourceController extends Controller
                 array('res'=>$id,
                       'user'=>Yii::app()->user->id));
             if($model)
-
                 return true;
             else
                 return false;
